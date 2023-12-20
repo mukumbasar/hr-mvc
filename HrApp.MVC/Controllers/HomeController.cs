@@ -1,40 +1,45 @@
-﻿using HrApp.MVC.Models;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.Models;
+using Humanizer;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text;
+using System.Text.Json;
 
 namespace HrApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private static PersonelHomeViewModel _personelHomeViewModel = new()
-        {
-            Id = "1",
-            Name = "Name1",
-            SecondName = "SecondName1",
-            Surname = "Surname1",
-            SecondSurname = "SecondSurname1",
-            Email = "Email1",
-            MobileNumber = "MobileNumber1",
-            Occupation = "Ocuppation1",
-            Department = "Department1"
-        };
+        public INotyfService _notifyService { get; }
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(INotyfService notifyService)
         {
-            _logger = logger;
+            _notifyService = notifyService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            using HttpClient client = new HttpClient();
 
-            return View(_personelHomeViewModel);
-        }
+            var response = await client.GetAsync("https://localhost:7213/api/AppUserHome/{Id}");
 
-        public IActionResult Privacy()
-        {
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var responseData = response.Content.ReadAsStringAsync().Result;
+
+                var userHomeModel = JsonConvert.DeserializeObject<PersonelHomeViewModel>(responseData);
+
+                _notifyService.Success("This is a success notification.");
+
+                return View(userHomeModel);
+            }
+
+            _notifyService.Error("This is an error notification.");
+
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

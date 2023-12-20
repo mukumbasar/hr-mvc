@@ -27,22 +27,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>@Model.Name</td>
-                                    <td>@Model.SecondName</td>
-                                    <td>@Model.Surname</td>
-                                    <td>@Model.SecondSurname</td>
-                                    <td>@Model.Department</td>
-                                    <td>@Model.Occupation</td>
-                                    <td>@Model.Email</td>
-                                    <td>@Model.MobileNumber</td>
-                                    <td>
-                                        <a class="details btn btn-dark">Update</a>
-                                    </td>
-                                    <td>
-                                        <a class="details btn btn-dark">Details</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                @{
+                                    if (@Model != null)
+                                    {
+                                        
+                                        <td>@Model.Name</td>
+                                        <td>@Model.SecondName</td>
+                                        <td>@Model.Surname</td>
+                                        <td>@Model.SecondSurname</td>
+                                        <td>@Model.Department</td>
+                                        <td>@Model.Occupation</td>
+                                        <td>@Model.Email</td>
+                                        <td>@Model.MobileNumber</td>
+                                    
+                                <td>
+                                    <a class="details btn btn-dark">Update</a>
+                                </td>
+                                        <td>
+                                            <a class="details btn btn-dark">Details</a>
+                                        </td>
+                                    }
+                                }
+                            </tr>
                         </table>
                     </div>
                 </div>
