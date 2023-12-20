@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model PersonelHomeViewModel
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table id="example2" class="table table-bordered table-hover" id="Personels">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>SecondName</th>
+                                    <th>Surname</th>
+                                    <th>SecondSurname</th>
+                                    <th>Department</th>
+                                    <th>Ocuppation</th>
+                                    <th>Email</th>
+                                    <th>MobileNumber</th>
+                                    <th>Update</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>@Model.Name</td>
+                                    <td>@Model.SecondName</td>
+                                    <td>@Model.Surname</td>
+                                    <td>@Model.SecondSurname</td>
+                                    <td>@Model.Department</td>
+                                    <td>@Model.Occupation</td>
+                                    <td>@Model.Email</td>
+                                    <td>@Model.MobileNumber</td>
+                                    <td>
+                                        <a class="details btn btn-dark">Update</a>
+                                    </td>
+                                    <td>
+                                        <a class="details btn btn-dark">Details</a>
+                                    </td>
+                                </tr>
+                        </table>
+                    </div>
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /.container-fluid -->
+</section>
+<!-- /.content -->

@@ -1,0 +1,144 @@
+﻿@* @model PersonelViewModel
+
+
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">Quick Example</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <!-- form start -->
+                    <form asp-action="Update" enctype="multipart/form-data" method="post">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input type="hidden" asp-for="Id" class="form-control" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Name" class="text-dark">Name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecondName" class="text-dark">SecondName</label>
+                                <input asp-for="SecondName" class="form-control" />
+                                <span asp-validation-for="SecondName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Surname" class="text-dark">Surname</label>
+                                <input asp-for="Surname" class="form-control" />
+                                <span asp-validation-for="Surname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="SecondSurname" class="text-dark">SecondSurname</label>
+                                <input asp-for="SecondSurname" class="form-control" />
+                                <span asp-validation-for="SecondSurname" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BirthYear" class="text-dark">BirthYear</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <input asp-for="BirthYear" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="BirthYear" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="BirthPlace" class="text-dark">BirthPlace</label>
+                                <select asp-for="BirthPlace" class="form-control select2" disabled="disabled" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                                <span asp-validation-for="BirthPlace" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TurkishIdentificationNumber" class="text-dark">TurkishIdentificationNumber</label>
+                                <input asp-for="TurkishIdentificationNumber" class="form-control" />
+                                <span asp-validation-for="TurkishIdentificationNumber" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartDate" class="text-dark">StartDate</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <input asp-for="StartDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate" class="text-dark">EndDate</label>
+                                <div class="input-group date" id="reservationdate" data-target-input="nearest">
+                                    <input asp-for="EndDate" type="text" class="form-control datetimepicker-input" data-target="#reservationdate" />
+                                    <div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input asp-for="IsActive" class="form-check-input" />
+                                    <label asp-for="IsActive" class="text-dark form-check-label">IsActive</label>
+                                    <span asp-validation-for="IsActive" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Department" class="text-dark">Department</label>
+                                <select asp-for="Department" class="form-control select2" disabled="disabled" style="width: 100%;">
+                                    <option selected="selected">Alabama</option>
+                                    <option>Alaska</option>
+                                    <option>California</option>
+                                    <option>Delaware</option>
+                                    <option>Tennessee</option>
+                                    <option>Texas</option>
+                                    <option>Washington</option>
+                                </select>
+                                <span asp-validation-for="Department" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CompanyName" class="text-dark">CompanyName</label>
+                                <input asp-for="CompanyName" class="form-control" />
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Email" class="text-dark">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Address" class="text-dark">Address</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="MobileNumber" class="text-dark">MobileNumber</label>
+                                <input asp-for="MobileNumber" class="form-control" />
+                                <span asp-validation-for="MobileNumber" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Update</button>
+                            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.card -->
+            </div>
+        </div><!-- /.container-fluid -->
+</section>
+<!-- /.content -->
+ *@
