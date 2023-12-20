@@ -1,30 +1,13 @@
 ﻿@model AppUserUpdateViewModel
 
-<div class="container">
-    <form asp-controller="Personnel" asp-action="Update" enctype="multipart/form-data" method="post">
-        <div class="form-group">
-            <input type="hidden" asp-for="Id" class="form-control" value=""/>
-        </div>
-        <div class="form-group mb-2">
-            <label asp-for="Address" class="text-dark">Name</label>
-            <input asp-for="Address" class="form-control" />
-            <span asp-validation-for="Address" class="text-danger"></span>
-        </div>
+<form method="post"
+      asp-action="Update"
+      asp-controller="Personnel"
+      enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="form-group mb-2">
-            <label asp-for="UpdatedImage" class="text-dark">Price</label>
-            <input asp-for="UpdatedImage" class="form-control" />
-            <span asp-validation-for="UpdatedImage" class="text-danger"></span>
-        </div>
+    <input asp-for="UpdatedImage" />
+    <span asp-validation-for="UpdatedImage" class="text-danger"></span>
 
-        <div class="form-group mb-4">
-            <label asp-for="MobileNumber" class="text-dark">Photo</label>
-            <input asp-for="MobileNumber" class="form-control" type="file" />
-            <span asp-validation-for="MobileNumber" class="text-danger"></span>
-        </div>
-
-        <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Update</button>
-        </div>
-    </form>
-</div>
+    <input type="submit" value="Upload" />
+</form>

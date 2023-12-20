@@ -42,5 +42,16 @@ namespace HrApp.MVC.Controllers
             return View();
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Upload(AppUserUpdateViewModel userViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("Upload");
+            }
+
+            return RedirectToAction("Index","Home");
+        }
+
     }
 }
