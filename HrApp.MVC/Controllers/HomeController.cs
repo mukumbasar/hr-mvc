@@ -30,12 +30,12 @@ namespace HrApp.MVC.Controllers
 
             var userHomeModel = JsonConvert.DeserializeObject<PersonelHomeViewModel>(responseData);
 
-            _notifyService.Success("This is a success notification.");
+            _notifyService.Success($"Welcome {userHomeModel.Name + (!String.IsNullOrEmpty(userHomeModel.SecondName) ? userHomeModel.SecondName : "")}!");
 
             return View(userHomeModel);
          }
 
-         _notifyService.Error("This is an error notification.");
+         _notifyService.Error("User home information acquistion error!");
 
          return View();
       }
