@@ -22,7 +22,7 @@ namespace HrApp.MVC.Controllers
       {
          using HttpClient client = new HttpClient();
 
-         var response = await client.GetAsync("https://localhost:7213/api/User/AppUserHome/2e1b2611-f6cf-451d-9836-49f28b390f76");
+         var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/User/AppUserHome/2e1b2611-f6cf-451d-9836-49f28b390f76");
 
          if (response.StatusCode == System.Net.HttpStatusCode.OK)
          {
