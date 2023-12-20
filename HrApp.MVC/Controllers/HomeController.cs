@@ -28,10 +28,10 @@ namespace HrApp.MVC.Controllers
          {
             var responseData = response.Content.ReadAsStringAsync().Result;
 
-            var userHomeModel = JsonConvert.DeserializeObject<PersonelHomeViewModel>(responseData);
+            var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
 
             _notifyService.Success($"Welcome {userHomeModel.Name + (!String.IsNullOrEmpty(userHomeModel.SecondName) ? userHomeModel.SecondName : "")}!");
-
+      
             return View(userHomeModel);
          }
 

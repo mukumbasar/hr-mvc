@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HrApp.MVC.Validator;
 using System.Reflection;
 
 namespace HrApp.MVC.Extensions
@@ -9,8 +10,8 @@ namespace HrApp.MVC.Extensions
     {
         public static void AddMVCDependencies(this IServiceCollection services)
         {
-            //services.AddValidatorsFromAssemblyContaining<PersonValidator>();
-            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
+            services.AddValidatorsFromAssemblyContaining<AppUserUpdateViewModelValidator>();
+            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
         }
     }
 }

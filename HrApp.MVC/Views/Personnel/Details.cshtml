@@ -1,4 +1,4 @@
-﻿@model PersonelDetailViewModel
+﻿@model AppUserDetailViewModel
 
 @* <ul>
     <li>Name: @Model.Name @(!string.IsNullOrEmpty(Model.SecondName) ? Model.SecondName : "")</li>
@@ -17,6 +17,10 @@
 
 <table class="border border-1">
     <tr>
+        <td>Photo:</td>
+        <td><img src="@Model.Image" width="30" height="30" alt="" /></td>
+    </tr>
+    <tr>
         <td>Name</td>
         <td>@Model.Name @(!string.IsNullOrEmpty(Model.SecondName) ? Model.SecondName : "")</td>
     </tr>
@@ -34,7 +38,7 @@
     </tr>
     <tr>
         <td>Birth Year</td>
-        <td>@Model.BirthYear</td>
+        <td>@Model.BirthYear.ToString("yyyy-MM-dd")</td>
     </tr>
     <tr>
         <td>Company Name</td>
@@ -50,11 +54,12 @@
     </tr>
     <tr>
         <td>StartDate</td>
-        <td>@Model.StartDate</td>
+        <td>@Model.StartDate.ToString("yyyy-MM-dd")</td>
     </tr>
     <tr>
         <td>EndDate</td>
-        <td>@Model.EndDate</td>
+        <td>@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "[N/A]")</td>
+        
     </tr>
     <tr>
         <td>Department</td>
@@ -64,7 +69,7 @@
         <td>Mobile Number</td>
         <td>@Model.MobileNumber</td>
     </tr>
+    <tr>
+        <a asp-controller="Personnel" asp-action="Update" asp-route-id="@Model.Id" > Update </a>
+    </tr>
 </table>
-
-
-<button>Güncelle</button>

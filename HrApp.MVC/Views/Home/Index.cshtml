@@ -1,19 +1,20 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-@model PersonelHomeViewModel
+@model AppUserHomeViewModel
 
 <!-- Main content -->
-<section class="content">
+<section class="content mb-1 mt-5">
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="card">
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example2" class="table table-bordered table-hover" id="Personels">
+                        <table id="example2" class="table table-bordered" id="Personels">
                             <thead>
                                 <tr>
+                                    <th>Photo</th>
                                     <th>Name</th>
                                     <th>SecondName</th>
                                     <th>Surname</th>
@@ -22,7 +23,6 @@
                                     <th>Ocuppation</th>
                                     <th>Email</th>
                                     <th>MobileNumber</th>
-                                    <th>Update</th>
                                     <th>Details</th>
                                 </tr>
                             </thead>
@@ -31,7 +31,7 @@
                                 @{
                                     if (@Model != null)
                                     {
-                                        
+                                        <td><img src="@Model.Image" width="150" height="150" /></td>
                                         <td>@Model.Name</td>
                                         <td>@Model.SecondName</td>
                                         <td>@Model.Surname</td>
@@ -40,12 +40,8 @@
                                         <td>@Model.Occupation</td>
                                         <td>@Model.Email</td>
                                         <td>@Model.MobileNumber</td>
-                                    
-                                <td>
-                                    <a class="details btn btn-dark">Update</a>
-                                </td>
                                         <td>
-                                            <a class="details btn btn-dark">Details</a>
+                                        <a asp-controller="Personnel" asp-action="Details" class="details btn btn-dark">Details</a>
                                         </td>
                                     }
                                 }
