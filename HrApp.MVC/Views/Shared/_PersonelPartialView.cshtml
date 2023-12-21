@@ -147,58 +147,58 @@
 
 
 <div class="container mt-5">
-  <div class="row">
-    <div class="col-md-6 col-sm-10">
-      <div class="card card-primary card-outline">
-        <div class="card-header">
-          <h3 class="card-title">Personel Info</h3>
-        </div>
-        <div class="card-body">
-          <div class="text-center">
-            <img class="img-thumbnail rounded-circle" src="@Model.Image" alt="User profile picture" style="width: 100px; height: 100px;">
-          </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-10">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                    <h3 class="card-title">Personel Info</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center">
+                        <img class="img-thumbnail rounded-circle" src="@Model.Image" alt="User profile picture" style="width: 100px; height: 100px;">
+                    </div>
 
-          <h3 class="text-center">@Model.Name @(@Model.SecondName ??="")</h3>
-          <p class="text-muted text-center">@Model.Occupation</p>
+                    <h3 class="text-center">@Model.Name @(@Model.SecondName ??= "")</h3>
+                    <p class="text-muted text-center">@Model.Occupation</p>
 
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <td><strong>Name:</strong></td>
-                <td>@Model.Name @(@Model.SecondName ??="")</td>
-              </tr>
-                <tr>
-                <td><strong>Surname:</strong></td>
-                <td>@Model.Surname @(@Model.SecondSurname ??="")</td>
-              </tr>
-              <tr>
-                <td><strong>Department:</strong></td>
-                <td>@Model.Department</td>
-              </tr>
-              <tr>
-                <td><strong>Email:</strong></td>
-                <td>@Model.Email</td>
-              </tr>
-              <tr>
-                <td><strong>Mobile Number:</strong></td>
-                <td>@Model.MobileNumber</td>
-              </tr>
-              <!-- More details here -->
-            </tbody>
-          </table>
+                    <table class="table table-borderless" style="text-align:start!important">
+                        <tbody>
+                            <tr>
+                                <td><strong>Name:</strong></td>
+                                <td>@Model.Name @(@Model.SecondName ??= "")</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Surname:</strong></td>
+                                <td>@Model.Surname @(@Model.SecondSurname ??= "")</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Department:</strong></td>
+                                <td>@Model.Department</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Email:</strong></td>
+                                <td>@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mobile Number:</strong></td>
+                                <td>@Model.MobileNumber</td>
+                            </tr>
+                            <!-- More details here -->
+                        </tbody>
+                    </table>
 
-          <div class="row">
-            <div class="col-6">
-              <a href="@Url.Action("Update", "Personnel", new { id = Model.Id })" class="btn btn-primary btn-block"><b>Update</b></a>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="@Url.Action("Update", "Personnel", new { id = Model.Id })" class="btn btn-primary btn-block"><b>Update</b></a>
+                        </div>
+                        <div class="col-6">
+                            <a href="@Url.Action("Details", "Personnel")" class="btn btn-secondary btn-block"><b>Details</b></a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-6">
-              <a href="@Url.Action("Details", "Personnel")" class="btn btn-secondary btn-block"><b>Details</b></a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
- </div>
 </div>
 
 
