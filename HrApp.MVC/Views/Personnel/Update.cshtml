@@ -27,7 +27,7 @@
 
         <div class="form-group mb-4">
             <label asp-for="MobileNumber"></label>
-            <input type="number" asp-for="MobileNumber" class="form-control"/>
+            <input type="number" asp-for="MobileNumber" class="form-control" data-maxlength="11" oninput="this.value=this.value.slice(0,this.dataset.maxlength)" />
             <span asp-validation-for="MobileNumber" class="text-danger"></span>
         </div>
 
