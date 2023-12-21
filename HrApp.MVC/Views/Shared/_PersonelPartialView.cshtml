@@ -146,55 +146,59 @@
 @model AppUserHomeViewModel
 
 
-<!-- Profile Image -->
-<div class="card card-primary card-outline container" >
-    <div class="card-body box-profile">
-        <div class="text-center">
-            <img class="profile-user-img img-fluid img-circle"
-                 src="@Model.Image"
-                 alt="User profile picture">
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">Personel Info</h3>
         </div>
+        <div class="card-body box-profile">
+          <div class="text-center">
+            <img class="profile-user-img img-fluid img-circle" src="@Model.Image" alt="User profile picture" style="width: 100px; height: 100px;">
+          </div>
 
-        <h3 class="profile-username text-center">Name1</h3>
+          <h3 class="profile-username text-center">@Model.Name @(@Model.SecondName ??="")</h3>
+          <p class="text-muted text-center">@Model.Occupation</p>
 
-        <p class="text-muted text-center">Software Engineer</p>
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <td><strong>Name:</strong></td>
+                <td>@Model.Name @(@Model.SecondName ??="")</td>
+              </tr>
+                <tr>
+                <td><strong>Surname:</strong></td>
+                <td>@Model.Surname @(@Model.SecondSurname ??="")</td>
+              </tr>
+              <tr>
+                <td><strong>Department:</strong></td>
+                <td>@Model.Department</td>
+              </tr>
+              <tr>
+                <td><strong>Email:</strong></td>
+                <td>@Model.Email</td>
+              </tr>
+              <tr>
+                <td><strong>Mobile Number:</strong></td>
+                <td>@Model.MobileNumber</td>
+              </tr>
+              <!-- More details here -->
+            </tbody>
+          </table>
 
-        <ul class="list-group list-group-unbordered mb-3">
-            <li class="list-group-item">
-                <b>Name</b> <a>@Model.Name</a>
-            </li>
-            <li class="list-group-item">
-                <b>SecondName</b> <a>@Model.SecondName</a>
-            </li>
-            <li class="list-group-item">
-                <b class="float-left">Surname</b> <a class="float-right">@Model.Surname</a>
-            </li>
-            <li class="list-group-item">
-                <b>SecondSurname</b> <a class="float-right">@Model.SecondSurname</a>
-            </li>
-            <li class="list-group-item">
-                <b>Department</b> <a class="float-right">@Model.Department</a>
-            </li>
-            <li class="list-group-item">
-                <b>Occupation</b> <a class="float-right">@Model.Occupation</a>
-            </li>
-            <li class="list-group-item">
-                <b>Email</b> <a class="float-right">@Model.Email</a>
-            </li>
-            <li class="list-group-item">
-                <b>MobileNumber</b> <a class="float-right">@Model.MobileNumber</a>
-            </li>
-        </ul>
-        <div class="row">
+          <div class="row">
             <div class="col-6">
-                <a asp-controller="Personnel" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning btn-block"><b>Update</b></a>
+              <a href="@Url.Action("Update", "Personnel", new { id = Model.Id })" class="btn btn-primary btn-block"><b>Update</b></a>
             </div>
             <div class="col-6">
-                <a asp-controller="Personnel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark btn-block"><b>Details</b></a>
+              <a href="@Url.Action("Details", "Personnel")" class="btn btn-secondary btn-block"><b>Details</b></a>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-    <!-- /.card-body -->
+  </div>
 </div>
-<!-- /.card -->
+
 
