@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Data;
+using FluentValidation;
 using HrApp.MVC.Models;
 
 namespace HrApp.MVC.Validator
@@ -9,6 +10,7 @@ namespace HrApp.MVC.Validator
         {
             RuleFor(y => y.Address).NotEmpty().WithMessage("Please enter your address.");
             RuleFor(y => y.MobileNumber).NotEmpty().WithMessage("Please enter your mobile phone number.");
+            RuleFor(y => y.MobileNumber).Length(11, 13).WithMessage("Please enter a valid phone number.");
             RuleFor(y => y.UpdatedImage).NotEmpty().WithMessage("Please choose a photo.");
         }
     }
