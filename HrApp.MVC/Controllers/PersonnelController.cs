@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -52,8 +53,15 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
         {
             using HttpClient client = new HttpClient();
+
+            var bytes = await ImageConversions.ConvertToByteArrayAsync(userViewModel.NewImage);
+
+            userViewModel.UpdatedImage = await ImageConversions.ConvertToIFormFileAsync(bytes);
+
             var response = client.PutAsJsonAsync("https://localhost:7213/api/User/UpdateAppUser", userViewModel).Result;
+
             System.Console.WriteLine(response.ToString());
+
             if (!ModelState.IsValid)
             {
                 return View(userViewModel);

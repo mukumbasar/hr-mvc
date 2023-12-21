@@ -7,8 +7,8 @@ namespace HrApp.MVC.Models
         public string Id { get; set; }
         public string Address { get; set; }
         public string MobileNumber { get; set; }
-
+        public IFormFile NewImage { get; set; }
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg" })]
-        public IFormFile UpdatedImage { get; set; }
+        public string? UpdatedImage { get; set; }
     }
 }
