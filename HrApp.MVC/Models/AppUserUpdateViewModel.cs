@@ -9,6 +9,6 @@ namespace HrApp.MVC.Models
         public string MobileNumber { get; set; }
         public IFormFile NewImage { get; set; }
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg" })]
-        public string? UpdatedImage { get; set; }
+        public byte[] UpdatedImage { get; set; }
     }
 }

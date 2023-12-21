@@ -56,7 +56,7 @@ namespace HrApp.MVC.Controllers
 
             var bytes = await ImageConversions.ConvertToByteArrayAsync(userViewModel.NewImage);
 
-            userViewModel.UpdatedImage = await ImageConversions.ConvertToIFormFileAsync(bytes);
+            userViewModel.UpdatedImage = bytes;
 
             var response = client.PutAsJsonAsync("https://localhost:7213/api/User/UpdateAppUser", userViewModel).Result;
 
