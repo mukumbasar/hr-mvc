@@ -63,7 +63,7 @@
         </nav>
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
-        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <aside class="main-sidebar sidebar-dark-primary elevation-4 fixed">
             <!-- Brand Logo -->
             <a href="/" class="brand-link">
                 <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -355,8 +355,8 @@
         </aside>
         <!-- /.control-sidebar -->
     </header>
-    <div class="row">
-        <div class="col-8">
+    <div class="content-wrapper">
+        <div class="container d-none d-sm-inline" style="position-relative">
             @RenderBody()
         </div>
         @* <div class="col-4">
