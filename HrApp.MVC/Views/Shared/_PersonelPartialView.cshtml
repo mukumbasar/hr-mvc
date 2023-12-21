@@ -142,3 +142,59 @@
 </section>
 <!-- /.content -->
  *@
+
+@model PersonelHomeViewModel
+
+
+<!-- Profile Image -->
+<div class="card card-primary card-outline" style="width:80%">
+    <div class="card-body box-profile">
+        <div class="text-center">
+            <img class="profile-user-img img-fluid img-circle"
+                 src="~/AdminLTE-3.1.0/dist/img/user1-128x128.jpg"
+                 alt="User profile picture">
+        </div>
+
+        <h3 class="profile-username text-center">Name1</h3>
+
+        <p class="text-muted text-center">Software Engineer</p>
+
+        <ul class="list-group list-group-unbordered mb-3">
+            <li class="list-group-item">
+                <b>Name</b> <a class="float-right">@Model.Name</a>
+            </li>
+            <li class="list-group-item">
+                <b>SecondName</b> <a class="float-right">@Model.SecondName</a>
+            </li>
+            <li class="list-group-item">
+                <b>Surname</b> <a class="float-right">@Model.Surname</a>
+            </li>
+            <li class="list-group-item">
+                <b>SecondSurname</b> <a class="float-right">@Model.SecondSurname</a>
+            </li>
+            <li class="list-group-item">
+                <b>Department</b> <a class="float-right">@Model.Department</a>
+            </li>
+            <li class="list-group-item">
+                <b>Occupation</b> <a class="float-right">@Model.Occupation</a>
+            </li>
+            <li class="list-group-item">
+                <b>Email</b> <a class="float-right">@Model.Email</a>
+            </li>
+            <li class="list-group-item">
+                <b>MobileNumber</b> <a class="float-right">@Model.MobileNumber</a>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-6">
+                <a href="#" class="btn btn-warning btn-block"><b>Update</b></a>
+            </div>
+            <div class="col-6">
+                <a href="#" class="btn btn-dark btn-block"><b>Details</b></a>
+            </div>
+        </div>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
