@@ -1,4 +1,5 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using System.Text;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace HrApp.MVC.Controllers
 {
-   
+
     public class PersonnelController : Controller
     {
         public INotyfService _notifyService { get; }
@@ -37,20 +38,28 @@ namespace HrApp.MVC.Controllers
             return View();
         }
 
-        public IActionResult Update () 
+        public async Task<IActionResult> UpdateAsync()
         {
-            return View();
+
+            using HttpClient client = new HttpClient();
+
+            var response = await client.GetFromJsonAsync<AppUserUpdateViewModel>("https://ank14hr.azurewebsites.net/api/User/AppUserDetail/2e1b2611-f6cf-451d-9836-49f28b390f76");
+
+            return View(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload(AppUserUpdateViewModel userViewModel)
+        public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
         {
+            using HttpClient client = new HttpClient();
+            var response = client.PutAsJsonAsync("https://localhost:7213/api/User/UpdateAppUser", userViewModel).Result;
+            System.Console.WriteLine(response.ToString());
             if (!ModelState.IsValid)
             {
-                return View("Upload");
+                return View(userViewModel);
             }
 
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
     }

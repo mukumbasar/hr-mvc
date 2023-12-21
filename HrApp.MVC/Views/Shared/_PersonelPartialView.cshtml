@@ -147,11 +147,11 @@
 
 
 <!-- Profile Image -->
-<div class="card card-primary card-outline" style="width:80%">
+<div class="card card-primary card-outline" >
     <div class="card-body box-profile">
         <div class="text-center">
             <img class="profile-user-img img-fluid img-circle"
-                 src="~/AdminLTE-3.1.0/dist/img/user1-128x128.jpg"
+                 src="@Model.Image"
                  alt="User profile picture">
         </div>
 
@@ -187,7 +187,7 @@
         </ul>
         <div class="row">
             <div class="col-6">
-                <a href="#" class="btn btn-warning btn-block"><b>Update</b></a>
+                <a asp-controller="Personnel" asp-action="Update" asp-route-id="@Model.Id" class="btn btn-warning btn-block"><b>Update</b></a>
             </div>
             <div class="col-6">
                 <a asp-controller="Personnel" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-dark btn-block"><b>Details</b></a>
