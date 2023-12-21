@@ -52,22 +52,25 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
         {
-            using HttpClient client = new HttpClient();
 
-            var bytes = await ImageConversions.ConvertToByteArrayAsync(userViewModel.NewImage);
-
-            userViewModel.UpdatedImage = bytes;
-
-            var response = client.PutAsJsonAsync("https://localhost:7213/api/User/UpdateAppUser", userViewModel).Result;
-
-            System.Console.WriteLine(response.ToString());
-
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(userViewModel);
-            }
+                using HttpClient client = new HttpClient();
 
-            return RedirectToAction("Index", "Home");
+                var bytes = await ImageConversions.ConvertToByteArrayAsync(userViewModel.NewImage);
+
+                userViewModel.UpdatedImage = bytes;
+
+                var response = client.PutAsJsonAsync("https://ank14hr.azurewebsites.net/api/User/UpdateAppUser", userViewModel).Result;
+
+                System.Console.WriteLine(response.ToString());
+                return RedirectToAction("Index", "Home");
+
+            }
+            return View(userViewModel);
+
+
+
         }
 
     }

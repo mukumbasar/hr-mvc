@@ -1,7 +1,7 @@
 ﻿@model AppUserUpdateViewModel
 
 <div class="container">
-    <form asp-action="Update" method="post">
+    <form asp-action="Update" enctype="multipart/form-data" method="post">
         <div class="form-group">
             <input type="hidden" asp-for="Id" class="form-control" />
         </div>

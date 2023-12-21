@@ -10,7 +10,7 @@ namespace HrApp.MVC.Models
 
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg" })]
         public IFormFile NewImage { get; set; }
-        
-        public byte[] UpdatedImage { get; set; }
+
+        public byte[]? UpdatedImage { get; set; }
     }
 }
