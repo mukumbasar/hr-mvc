@@ -2,6 +2,7 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
+using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.TagHelpers;
@@ -12,10 +13,13 @@ namespace HrApp.MVC.Controllers
 
     public class PersonnelController : Controller
     {
+        private readonly AppUserUpdateViewModelValidator updateValidator;
+
         public INotyfService _notifyService { get; }
-        public PersonnelController(INotyfService notifyService)
+        public PersonnelController(INotyfService notifyService, AppUserUpdateViewModelValidator updateValidator)
         {
             _notifyService = notifyService;
+            this.updateValidator = updateValidator;
         }
         public async Task<IActionResult> Details(string id)
         {
@@ -53,7 +57,7 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
         {
 
-            if (ModelState.IsValid)
+            if (updateValidator.ValidateAsync(userViewModel).Result.IsValid)
             {
                 using HttpClient client = new HttpClient();
 
@@ -62,11 +66,10 @@ namespace HrApp.MVC.Controllers
                 userViewModel.UpdatedImage = bytes;
 
                 var response = client.PutAsJsonAsync("https://ank14hr.azurewebsites.net/api/User/UpdateAppUser", userViewModel).Result;
-
-                System.Console.WriteLine(response.ToString());
                 return RedirectToAction("Index", "Home");
 
             }
+            PostValidationErrors.AddToModelState(updateValidator.ValidateAsync(userViewModel).Result, ModelState);
             return View(userViewModel);
 
 
