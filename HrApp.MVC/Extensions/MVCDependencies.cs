@@ -12,6 +12,10 @@ namespace HrApp.MVC.Extensions
         {
             services.AddValidatorsFromAssemblyContaining<AppUserUpdateViewModelValidator>();
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
+            services.AddHttpClient("api", c => // "HrAppAPI" is the name of the HttpClient
+            {
+                c.BaseAddress = new Uri("https://ank14hr.azurewebsites.net/api/");
+            });
         }
     }
 }
