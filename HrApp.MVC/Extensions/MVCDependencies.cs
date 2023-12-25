@@ -18,6 +18,7 @@ namespace HrApp.MVC.Extensions
             });
 
             services.AddScoped<LoginClientService>();
+            services.AddScoped<PersonelClientService>();
         }
     }
 }

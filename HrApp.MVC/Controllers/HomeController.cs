@@ -15,11 +15,13 @@ namespace HrApp.MVC.Controllers
 
         public INotyfService _notifyService { get; }
         private readonly LoginClientService loginClientService;
+        private readonly PersonelClientService personelClientService;
 
-        public HomeController(INotyfService notifyService,LoginClientService loginClientService)
+        public HomeController(INotyfService notifyService,LoginClientService loginClientService,PersonelClientService personelClientService)
         {
             _notifyService = notifyService;
             this.loginClientService = loginClientService;
+            this.personelClientService = personelClientService;
         }
 
         public async Task<IActionResult> Index()
