@@ -1,4 +1,7 @@
-﻿namespace HrApp.MVC;
+﻿using System.Net;
+using System.Text;
+
+namespace HrApp.MVC;
 
 public class ExceptionHandlingMiddleware
 {
@@ -15,6 +18,9 @@ public class ExceptionHandlingMiddleware
         }
         catch (Exception ex)
         {
+            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+            context.Response.ContentType = "application/json";
+            context.Response.Body = new MemoryStream(Encoding.UTF8.GetBytes("Not Found"));
         }
     }
 }
