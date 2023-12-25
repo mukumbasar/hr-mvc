@@ -11,11 +11,15 @@ namespace HrApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
-        public INotyfService _notifyService { get; }
 
-        public HomeController(INotyfService notifyService)
+
+        public INotyfService _notifyService { get; }
+        private readonly LoginClientService loginClientService;
+
+        public HomeController(INotyfService notifyService,LoginClientService loginClientService)
         {
             _notifyService = notifyService;
+            this.loginClientService = loginClientService;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +42,26 @@ namespace HrApp.MVC.Controllers
             _notifyService.Error("User home information acquistion error!");
 
             return View();
+        }
+
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+
+            var success = await loginClientService.LoginAsync(loginViewModel);
+
+            if (success == false)
+            {
+                _notifyService.Error("User login error!");
+                return View();
+            }
+
+            return RedirectToAction("Index");
         }
 
 
