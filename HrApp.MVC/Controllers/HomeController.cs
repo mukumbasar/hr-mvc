@@ -11,28 +11,25 @@ namespace HrApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly PersonelClientService personelClientService;
+
         public INotyfService _notifyService { get; }
 
-        public HomeController(INotyfService notifyService)
+        public HomeController(INotyfService notifyService, PersonelClientService personelClientService)
         {
             _notifyService = notifyService;
+            this.personelClientService = personelClientService;
         }
 
         public async Task<IActionResult> Index()
         {
-            using HttpClient client = new HttpClient();
+            var items = await personelClientService.GetAppUserHomeViewModelAsync("2e1b2611-f6cf-451d-9836-49f28b390f76");
 
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/User/AppUserHome/2e1b2611-f6cf-451d-9836-49f28b390f76");
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (items != null)
             {
-                var responseData = response.Content.ReadAsStringAsync().Result;
+                _notifyService.Success($"Welcome {items.Name + (!String.IsNullOrEmpty(items.SecondName) ? items.SecondName : "")}!");
 
-                var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
-
-                _notifyService.Success($"Welcome {userHomeModel.Name + (!String.IsNullOrEmpty(userHomeModel.SecondName) ? userHomeModel.SecondName : "")}!");
-
-                return View(userHomeModel);
+                return View(items);
             }
 
             _notifyService.Error("User home information acquistion error!");

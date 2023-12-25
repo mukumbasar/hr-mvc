@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Security.Claims;
+using System.Text;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
@@ -14,43 +15,40 @@ namespace HrApp.MVC.Controllers
     public class PersonnelController : Controller
     {
         private readonly AppUserUpdateViewModelValidator updateValidator;
+        private readonly PersonelClientService personelClientService;
 
         public INotyfService _notifyService { get; }
-        public PersonnelController(INotyfService notifyService, AppUserUpdateViewModelValidator updateValidator)
+        public PersonnelController(INotyfService notifyService, AppUserUpdateViewModelValidator updateValidator, PersonelClientService personelClientService)
         {
             _notifyService = notifyService;
             this.updateValidator = updateValidator;
+            this.personelClientService = personelClientService;
         }
         public async Task<IActionResult> Details(string id)
         {
-            using HttpClient client = new HttpClient();
+            id = "2e1b2611-f6cf-451d-9836-49f28b390f76";
+            var items = await personelClientService.GetAppUserDetailViewModelAsync(id);
 
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/User/AppUserDetail/2e1b2611-f6cf-451d-9836-49f28b390f76");
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if (items != null)
             {
-                var responseData = response.Content.ReadAsStringAsync().Result;
+                _notifyService.Success($"Welcome {items.Name + (!String.IsNullOrEmpty(items.SecondName) ? items.SecondName : "")}!");
 
-                var userDetailModel = JsonConvert.DeserializeObject<AppUserDetailViewModel>(responseData);
-
-                _notifyService.Success($"Welcome {userDetailModel.Name + (!String.IsNullOrEmpty(userDetailModel.SecondName) ? userDetailModel.SecondName : "")}!");
-
-                return View(userDetailModel);
+                return View(items);
             }
-
             _notifyService.Error("User home information acquistion error!");
 
             return View();
         }
-
+        [HttpGet]
         public async Task<IActionResult> UpdateAsync()
         {
 
-            using HttpClient client = new HttpClient();
-
-            var response = await client.GetFromJsonAsync<AppUserUpdateViewModel>("https://ank14hr.azurewebsites.net/api/User/AppUserDetail/2e1b2611-f6cf-451d-9836-49f28b390f76");
-
-            return View(response);
+            var response = await personelClientService.GetAppUserUpdateAsync("2e1b2611-f6cf-451d-9836-49f28b390f76");
+            if (response != null)
+            {
+                return View(response);
+            }
+            return View();
         }
 
         [HttpPost]
@@ -59,21 +57,20 @@ namespace HrApp.MVC.Controllers
 
             if (updateValidator.ValidateAsync(userViewModel).Result.IsValid)
             {
-                using HttpClient client = new HttpClient();
+                var result = await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel);
+                if (!result)
+                {
 
-                var bytes = await ImageConversions.ConvertToByteArrayAsync(userViewModel.NewImage);
-
-                userViewModel.UpdatedImage = bytes;
-
-                var response = client.PutAsJsonAsync("https://ank14hr.azurewebsites.net/api/User/UpdateAppUser", userViewModel).Result;
+                    _notifyService.Error("User update error!");
+                    return View(userViewModel);
+                }
                 return RedirectToAction("Index", "Home");
 
             }
             PostValidationErrors.AddToModelState(updateValidator.ValidateAsync(userViewModel).Result, ModelState);
+            _notifyService.Error("User update error!");
+
             return View(userViewModel);
-
-
-
         }
 
     }
