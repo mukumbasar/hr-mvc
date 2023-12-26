@@ -1,5 +1,8 @@
 ﻿@model AppUserDetailViewModel
-
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @* <ul>
     <li>Name: @Model.Name @(!string.IsNullOrEmpty(Model.SecondName) ? Model.SecondName : "")</li>
     <li>Surname: @Model.Surname @(!string.IsNullOrEmpty(Model.SecondSurname) ? Model.SecondSurname : "")</li>

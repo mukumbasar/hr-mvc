@@ -14,64 +14,28 @@ namespace HrApp.MVC.Controllers
 
     public class PersonnelController : Controller
     {
-        private readonly AppUserUpdateViewModelValidator updateValidator;
         private readonly PersonelClientService personelClientService;
+        private readonly ResponseHandler responseHandler;
 
         public INotyfService _notifyService { get; }
-        public PersonnelController(INotyfService notifyService, AppUserUpdateViewModelValidator updateValidator, PersonelClientService personelClientService)
+        public PersonnelController(INotyfService notifyService, AppUserUpdateViewModelValidator updateValidator, PersonelClientService personelClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
-            this.updateValidator = updateValidator;
             this.personelClientService = personelClientService;
+            this.responseHandler = responseHandler;
         }
-        public async Task<IActionResult> Details(string id)
-        {
-            id = "2e1b2611-f6cf-451d-9836-49f28b390f76";
-            var items = await personelClientService.GetAppUserDetailViewModelAsync(id);
+        public async Task<IActionResult> Details(string id) =>
+            responseHandler.HandleResponse(await personelClientService.GetAppUserDetailViewModelAsync("2e1b2611-f6cf-451d-9836-49f28b390f76"), "details", "index", this);
 
-            if (items != null)
-            {
-                _notifyService.Success($"Welcome {items.Name + (!String.IsNullOrEmpty(items.SecondName) ? items.SecondName : "")}!");
-
-                return View(items);
-            }
-            _notifyService.Error("User home information acquistion error!");
-
-            return View();
-        }
         [HttpGet]
-        public async Task<IActionResult> UpdateAsync()
-        {
+        public async Task<IActionResult> UpdateAsync() =>
+            responseHandler.HandleResponse(await personelClientService.GetAppUserUpdateAsync("2e1b2611-f6cf-451d-9836-49f28b390f76"), "update", "Index", this);
 
-            var response = await personelClientService.GetAppUserUpdateAsync("2e1b2611-f6cf-451d-9836-49f28b390f76");
-            if (response != null)
-            {
-                return View(response);
-            }
-            return View();
-        }
 
         [HttpPost]
-        public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
-        {
+        public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
+            responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "details", "update", this);
 
-            if (updateValidator.ValidateAsync(userViewModel).Result.IsValid)
-            {
-                var result = await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel);
-                if (!result)
-                {
-
-                    _notifyService.Error("User update error!");
-                    return View(userViewModel);
-                }
-                return RedirectToAction("Index", "Home");
-
-            }
-            PostValidationErrors.AddToModelState(updateValidator.ValidateAsync(userViewModel).Result, ModelState);
-            _notifyService.Error("User update error!");
-
-            return View(userViewModel);
-        }
 
     }
 }
