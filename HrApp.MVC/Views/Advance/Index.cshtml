@@ -16,7 +16,7 @@
                         <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="CurrencyId">Advance Types</label>
+                        <label asp-for="CurrencyId">Currencies</label>
                         <select class="form-control" asp-for="CurrencyId" asp-items="@ViewBag.Currencies"></select>
                         <span asp-validation-for="CurrencyId" class="text-danger"></span>
                     </div>
@@ -27,11 +27,11 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="RequestDate">Request Date</label>
-                        <input asp-for="RequestDate" class="form-control"/> 
+                        <input asp-for="RequestDate" asp-format="{dd/MM/yyyy}" class="form-control"/> 
                         <span asp-validation-for="RequestDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Description">Request Date</label>
+                        <label asp-for="Description">Description</label>
                         <input asp-for="Description" class="form-control" />
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </div>
