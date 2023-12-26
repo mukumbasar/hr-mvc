@@ -17,12 +17,12 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="StartDate">Start Date</label>
-                        <input asp-for="StartDate" class="form-control" />
+                        <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
                         <span asp-validation-for="StartDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="EndDate">End Date</label>
-                        <input asp-for="EndDate" class="form-control" />
+                        <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
                         <span asp-validation-for="EndDate" class="text-danger"></span>
                     </div>
                     <input type="submit" value="Add">

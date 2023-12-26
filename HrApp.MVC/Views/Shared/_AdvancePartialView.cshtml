@@ -29,7 +29,7 @@
 
         <div class="form-group mb-2">
             <label asp-for="RequestDate" class="text-dark">Request Date</label>
-            <input asp-for="RequestDate" class="form-control" />
+            <input asp-for="RequestDate" asp-format="{dd/MM/yyyy}" class="form-control" />
             <span asp-validation-for="RequestDate" class="text-danger"></span>
         </div>
 

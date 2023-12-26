@@ -6,7 +6,7 @@ namespace HrApp.MVC.Models
     public class AppUserUpdateViewModel
     {
         public string Id { get; set; }
-        [MaxLength(50, ErrorMessage = "Address must be maximum of 50 characters.")]
+        [MaxLength(200, ErrorMessage = "Address must be maximum of 200 characters.")]
         [MinLength(15, ErrorMessage = "Address must be minimum of 15 characters.")]
         public string Address { get; set; }
         [MaxLength(11, ErrorMessage = "Mobile number must be 11 digits")]
