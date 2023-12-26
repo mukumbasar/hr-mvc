@@ -2,18 +2,22 @@
 using System.Text;
 using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
+using HrApp.MVC.Validator;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 
 namespace HrApp.MVC;
 
 public class PersonelClientService
 {
+    private readonly AppUserUpdateViewModelValidator updateValidator;
     private readonly HttpClient _httpClient;
-    public PersonelClientService(IHttpClientFactory httpClientFactory)
+    public PersonelClientService(IHttpClientFactory httpClientFactory, AppUserUpdateViewModelValidator updateValidator)
     {
         _httpClient = httpClientFactory.CreateClient("api");
+        this.updateValidator = updateValidator;
     }
-    public async Task<AppUserHomeViewModel> GetAppUserHomeViewModelAsync(string userId)
+    public async Task<Response<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/{userId}");
 
@@ -23,12 +27,12 @@ public class PersonelClientService
 
             var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
 
-            return userHomeModel;
+            return Response<AppUserHomeViewModel>.Success(userHomeModel);
         }
 
-        return null;
+        return Response<AppUserHomeViewModel>.Failure("User not found");
     }
-    public async Task<AppUserDetailViewModel> GetAppUserDetailViewModelAsync(string userId)
+    public async Task<Response<AppUserDetailViewModel>> GetAppUserDetailViewModelAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/details/{userId}");
 
@@ -38,12 +42,12 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserDetailViewModel>(responseData);
 
-            return userDetailModel;
+            return Response<AppUserDetailViewModel>.Success(userDetailModel);
         }
 
-        return null;
+        return Response<AppUserDetailViewModel>.Failure("User not found");
     }
-    public async Task<AppUserUpdateViewModel> GetAppUserUpdateAsync(string userId)
+    public async Task<Response<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/details/{userId}");
 
@@ -53,13 +57,18 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserUpdateViewModel>(responseData);
 
-            return userDetailModel;
+            return Response<AppUserUpdateViewModel>.Success(userDetailModel);
         }
 
-        return null;
+        return Response<AppUserUpdateViewModel>.Failure("User not found");
     }
-    public async Task<bool> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel)
+    public async Task<Response<bool>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
+        if (updateValidator.Validate(appUserUpdateViewModel).IsValid == false)
+        {
+            PostValidationErrors.AddToModelState(updateValidator.Validate(appUserUpdateViewModel), ModelState);
+            return Response<bool>.Failure("Validation error");
+        }
         var bytes = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
 
         appUserUpdateViewModel.UpdatedImage = bytes;
@@ -68,10 +77,9 @@ public class PersonelClientService
 
         if (response.IsSuccessStatusCode)
         {
-
-            return true;
+            return Response<bool>.Success(true);
         }
 
-        return false;
+        return Response<bool>.Failure();
     }
 }

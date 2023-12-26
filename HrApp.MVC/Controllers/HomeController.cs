@@ -11,39 +11,25 @@ namespace HrApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
-
-
         public INotyfService _notifyService { get; }
         private readonly LoginClientService loginClientService;
         private readonly PersonelClientService personelClientService;
+        private readonly ResponseHandler responseHandler;
 
-        public HomeController(INotyfService notifyService,LoginClientService loginClientService,PersonelClientService personelClientService)
+        public HomeController(INotyfService notifyService, LoginClientService loginClientService, PersonelClientService personelClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
             this.loginClientService = loginClientService;
             this.personelClientService = personelClientService;
+            this.responseHandler = responseHandler;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var items = await personelClientService.GetAppUserHomeViewModelAsync("2e1b2611-f6cf-451d-9836-49f28b390f76");
+        public async Task<IActionResult> Index() =>
+            responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync("2e1b2611-f6cf-451d-9836-49f28b390f76"), "Index", "Index", this);
 
-            if (items != null)
-            {
-                _notifyService.Success($"Welcome {items.Name + (!String.IsNullOrEmpty(items.SecondName) ? items.SecondName : "")}!");
+        public IActionResult Login() =>
+            View();
 
-                return View(items);
-            }
-
-            _notifyService.Error("User home information acquistion error!");
-
-            return View();
-        }
-
-        public IActionResult Login()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
