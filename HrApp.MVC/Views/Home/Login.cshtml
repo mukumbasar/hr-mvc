@@ -1,0 +1,25 @@
+﻿@model LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 class="ms-4">Login</h2>
+
+<form asp-action="Login" class="ms-4" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email"/>
+        @* You can include validation messages here if needed *@
+    </div>
+
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"/>
+        @* You can include validation messages here if needed *@
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>

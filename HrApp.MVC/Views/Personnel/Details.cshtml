@@ -1,5 +1,8 @@
 ﻿@model AppUserDetailViewModel
-
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 @* <ul>
     <li>Name: @Model.Name @(!string.IsNullOrEmpty(Model.SecondName) ? Model.SecondName : "")</li>
     <li>Surname: @Model.Surname @(!string.IsNullOrEmpty(Model.SecondSurname) ? Model.SecondSurname : "")</li>
@@ -16,78 +19,78 @@
 </ul> *@
 
 <div class="container mt-5 mb-5">
-  <div class="row">
-    <div class="col-lg-10 offset-lg-1">
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Personnel Details</h3>
-        </div>
-        <div class="card-body">
-          <div class="row">
-            <div class="col-md-4">
-              <img src="@Model.Image" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
+    <div class="row">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Personnel Details</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <img src="@Model.Image" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
+                        </div>
+                        <div class="col-md-8">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Name:</strong></td>
+                                        <td>@Model.Name @Model.SecondName</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Surname:</strong></td>
+                                        <td>@Model.Surname @Model.SecondSurname</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Birth Place:</strong></td>
+                                        <td>@Model.BirthPlace</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Birth Year:</strong></td>
+                                        <td>@Model.BirthYear.ToString("yyyy-MM-dd")</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Company Name:</strong></td>
+                                        <td>@Model.CompanyName</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Occupation:</strong></td>
+                                        <td>@Model.Occupation</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Email:</strong></td>
+                                        <td>@Model.Email</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Start Date:</strong></td>
+                                        <td>@Model.StartDate.ToString("yyyy-MM-dd")</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>End Date:</strong></td>
+                                        <td>@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Department:</strong></td>
+                                        <td>@Model.Department</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mobile Number:</strong></td>
+                                        <td>@Model.MobileNumber</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Address:</strong></td>
+                                        <td style="word-break:break-word;">@Model.Address</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="float-right mb-4">
+                                <a href="@Url.Action("Update", "Personnel", new { id = Model.Id })" class="btn btn-primary">Update</a>
+                                <a href="@Url.Action("Index", "Home", new { id = Model.Id })" class="btn btn-secondary">Home</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-8">
-              <table class="table table-hover">
-                <tbody>
-                  <tr>
-                    <td><strong>Name:</strong></td>
-                    <td>@Model.Name @Model.SecondName</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Surname:</strong></td>
-                    <td>@Model.Surname @Model.SecondSurname</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Address:</strong></td>
-                    <td>@Model.Address</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Birth Place:</strong></td>
-                    <td>@Model.BirthPlace</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Birth Year:</strong></td>
-                    <td>@Model.BirthYear.ToString("yyyy-MM-dd")</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Company Name:</strong></td>
-                    <td>@Model.CompanyName</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Occupation:</strong></td>
-                    <td>@Model.Occupation</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Email:</strong></td>
-                    <td>@Model.Email</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Start Date:</strong></td>
-                    <td>@Model.StartDate.ToString("yyyy-MM-dd")</td>
-                  </tr>
-                  <tr>
-                    <td><strong>End Date:</strong></td>
-                    <td>@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Department:</strong></td>
-                    <td>@Model.Department</td>
-                  </tr>
-                  <tr>
-                    <td><strong>Mobile Number:</strong></td>
-                    <td>@Model.MobileNumber</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div class="float-right">
-                <a href="@Url.Action("Update", "Personnel", new { id = Model.Id })" class="btn btn-primary">Update</a>
-                <a href="@Url.Action("Index", "Home", new { id = Model.Id })" class="btn btn-secondary">Home</a>
-              </div>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

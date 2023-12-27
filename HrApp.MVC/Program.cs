@@ -1,3 +1,4 @@
+using AspNetCoreHero.ToastNotification.Extensions;
 using HrApp.MVC;
 using HrApp.MVC.Extensions;
 
@@ -6,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMVCDependencies();
 builder.Services.AddControllersWithViews();
+GlobalOptions.Initialize(builder.Configuration);
 var app = builder.Build();
+
+app.UseNotyf();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -20,7 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

@@ -1,0 +1,115 @@
+﻿@using HrApp.MVC.Models.Leave
+
+@model CreateLeaveViewModel
+
+<div class="container">
+    <div class="login-form login-form-left">
+        <div class="agile-row">
+            <h2>Add Menu</h2>
+            <div class="login-agileits-top">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                    <div class="form-group">
+                        <label asp-for="LeaveTypeId">Advance Types</label>
+                        <select class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
+                        <span asp-validation-for="LeaveTypeId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StartDate">Start Date</label>
+                        <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="EndDate">End Date</label>
+                        <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                        <span asp-validation-for="EndDate" class="text-danger"></span>
+                    </div>
+                    <input type="submit" value="Add">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="text-center">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Leaves</h5>
+        </div>
+    </div>
+
+    <table class="grid table text-light" id="Leaves">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>Amount</th>
+                <th>End Date</th>
+                <th>Request Date</th>
+                <th>Approval Status</th>
+                <th>Approval Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var advance in ViewBag.Advances)
+            {
+                <tr>
+                    <td>@advance.Id</td>
+                    <td>@advance.LeaveTypeName</td>
+                    <td>@advance.StartDate</td>
+                    <td>@advance.Amount</td>
+                    <td>@advance.EndDate</td>
+                    <td>@advance.RequestDate</td>
+                    <td>@advance.ApprovalStatus</td>
+                    <td>@advance.ApprovalDate</td>
+                    <td>
+                        <a class="details btn btn-dark">Get Leave</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Leave</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $(function () {
+            $("#Leaves .details").click(function () {
+                var id = $(this).closest("tr").find("td").eq(0).html();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Leave/Read",
+                    data: { "id": id },
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

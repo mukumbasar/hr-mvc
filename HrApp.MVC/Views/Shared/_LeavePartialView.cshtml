@@ -1,0 +1,35 @@
+﻿@using HrApp.MVC.Models.Leave
+
+@model UpdateLeaveViewModel
+
+<div class="container">
+    <form asp-action="Update" method="post">
+        <div asp-validation-summary="ModelOnly"></div>
+
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+
+        <div class="form-group mb-2">
+            <label asp-for="LeaveTypeId" class="text-dark">Advance Types</label>
+            <select class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
+            <span asp-validation-for="LeaveTypeId" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="StartDate" class="text-dark">Start Date</label>
+            <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+            <span asp-validation-for="StartDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-2">
+            <label asp-for="EndDate" class="text-dark">End Date</label>
+            <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+            <span asp-validation-for="EndDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center">
+            <button type="submit" class="btn btn-primary">Update</button>
+            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
+        </div>
+    </form>
+</div>

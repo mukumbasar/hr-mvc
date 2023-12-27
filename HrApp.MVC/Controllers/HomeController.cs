@@ -1,45 +1,44 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Models;
-using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Controllers
 {
     public class HomeController : Controller
     {
         public INotyfService _notifyService { get; }
+        private readonly LoginClientService loginClientService;
+        private readonly PersonelClientService personelClientService;
+        private readonly ResponseHandler responseHandler;
 
-        public HomeController(INotyfService notifyService)
+        public HomeController(INotyfService notifyService, LoginClientService loginClientService, PersonelClientService personelClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
+            this.loginClientService = loginClientService;
+            this.personelClientService = personelClientService;
+            this.responseHandler = responseHandler;
         }
+        [Authorize]
+        public async Task<IActionResult> Index() =>
+                responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync(User.FindFirstValue("nameid")), "Index", "Index", this);
 
-        public async Task<IActionResult> Index()
+        public IActionResult Login() =>
+            View();
+
+
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel) =>
+                responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Login", this);
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
         {
-            using HttpClient client = new HttpClient();
-
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/User/AppUserHome/2e1b2611-f6cf-451d-9836-49f28b390f76");
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
-
-                _notifyService.Success($"Welcome {userHomeModel.Name + (!String.IsNullOrEmpty(userHomeModel.SecondName) ? userHomeModel.SecondName : "")}!");
-
-                return View(userHomeModel);
-            }
-
-            _notifyService.Error("User home information acquistion error!");
-
-            return View();
+            await LoginHelper.LogoutAsync(HttpContext);
+            return RedirectToAction("Login");
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
