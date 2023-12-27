@@ -14,36 +14,39 @@ namespace HrApp.MVC.ClientServices
             _httpClient = httpClientFactory.CreateClient("api");
         }
 
-        public async Task<IEnumerable<ReadLeaveViewModel>> GetLeaves()
+        public async Task<Response<List<ReadLeaveViewModel>>> GetLeaves()
         {
             var response = await _httpClient.GetAsync("leave");
-            var result = await response.Content.ReadFromJsonAsync<IEnumerable<ReadLeaveViewModel>>();
+            var result = await response.Content.ReadFromJsonAsync<Response<List<ReadLeaveViewModel>>>();
             return result;
         }
 
-        public async Task<ReadLeaveViewModel> GetLeave(int id)
+        public async Task<Response<ReadLeaveViewModel>> GetLeave(int id)
         {
             var response = await _httpClient.GetAsync($"leave/{id}");
-            var result = await response.Content.ReadFromJsonAsync<ReadLeaveViewModel>();
+            var result = await response.Content.ReadFromJsonAsync<Response<ReadLeaveViewModel>>();
             return result;
         }
 
-        public async Task<bool> CreateLeave(CreateLeaveViewModel model)
+        public async Task<Response<int>> CreateLeave(CreateLeaveViewModel model)
         {
             var response = await _httpClient.PostAsync("leave", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
 
-        public async Task<bool> UpdateLeave(UpdateLeaveViewModel model)
+        public async Task<Response<int>> UpdateLeave(UpdateLeaveViewModel model)
         {
             var response = await _httpClient.PutAsync("leave", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
 
-        public async Task<bool> DeleteLeave(int id)
+        public async Task<Response<int>> DeleteLeave(int id)
         {
             var response = await _httpClient.DeleteAsync($"leave/{id}");
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
     }
 }
