@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddMVCDependencies();
 builder.Services.AddControllersWithViews();
+GlobalOptions.Initialize(builder.Configuration);
 var app = builder.Build();
 
 app.UseNotyf();
@@ -23,7 +24,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

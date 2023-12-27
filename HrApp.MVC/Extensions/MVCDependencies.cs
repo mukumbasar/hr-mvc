@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HrApp.MVC.Validator;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection;
 
 namespace HrApp.MVC.Extensions
@@ -19,6 +20,14 @@ namespace HrApp.MVC.Extensions
 
             services.AddScoped<LoginClientService>();
             services.AddScoped<PersonelClientService>();
+            services.AddScoped<ResponseHandler>();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(opt =>
+            {
+                opt.LoginPath = "/Home/Login"; // Giriş sayfasının yolu
+                opt.Cookie.Name = "HrAppCookie"; // Cookie adı
+                opt.Cookie.HttpOnly = false;
+            });
         }
     }
 }

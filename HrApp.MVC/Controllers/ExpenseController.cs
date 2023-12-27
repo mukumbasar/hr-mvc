@@ -1,12 +1,14 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Models.Advance;
 using HrApp.MVC.Models.Expense;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace HrApp.MVC.Controllers
 {
+    [Authorize]
     public class ExpenseController : Controller
     {
         public INotyfService _notifyService { get; }
