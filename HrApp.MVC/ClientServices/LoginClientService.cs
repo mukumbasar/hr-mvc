@@ -12,18 +12,18 @@ public class LoginClientService
         _httpClient = httpClientFactory.CreateClient("api");
     }
 
-    public async Task<bool> LoginAsync(LoginViewModel loginViewModel, HttpContext httpContext)
+    public async Task<Response<bool>> LoginAsync(LoginViewModel loginViewModel, HttpContext httpContext)
     {
         var response = await _httpClient.PostAsJsonAsync("User/login", loginViewModel);
         if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
             await LoginHelper.LoginAsync(jsonResponse, httpContext);
-            return true;
+            return Response<bool>.Success(true, "Login successfull");
         }
         else
         {
-            return false;
+            return Response<bool>.Failure("Login failed");
         }
     }
 }

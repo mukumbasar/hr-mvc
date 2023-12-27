@@ -30,19 +30,9 @@ namespace HrApp.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
-        {
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel) =>
+                responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Login", this);
 
-            var success = await loginClientService.LoginAsync(loginViewModel, HttpContext);
-
-            if (success == false)
-            {
-                _notifyService.Error("User login error!");
-                return View();
-            }
-
-            return RedirectToAction("Index");
-        }
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
