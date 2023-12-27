@@ -12,36 +12,39 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<List<ReadExpenseViewModel>> GetExpenses()
+        public async Task<Response<List<ReadExpenseViewModel>>> GetExpenses()
         {
             var response = await _httpClient.GetAsync("Expense");
-            var result = await response.Content.ReadFromJsonAsync<List<ReadExpenseViewModel>>();
+            var result = await response.Content.ReadFromJsonAsync<Response<List<ReadExpenseViewModel>>>();
             return result;
         }
 
-        public async Task<ReadExpenseViewModel> GetExpense(int id)
+        public async Task<Response<ReadExpenseViewModel>> GetExpense(int id)
         {
             var response = await _httpClient.GetAsync($"Expense/{id}");
-            var result = await response.Content.ReadFromJsonAsync<ReadExpenseViewModel>();
+            var result = await response.Content.ReadFromJsonAsync<Response<ReadExpenseViewModel>>();
             return result;
         }
 
-        public async Task<bool> CreateExpense(CreateExpenseViewModel model)
+        public async Task<Response<int>> CreateExpense(CreateExpenseViewModel model)
         {
             var response = await _httpClient.PostAsJsonAsync("Expense", model);
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
 
-        public async Task<bool> UpdateExpense(UpdateExpenseViewModel model)
+        public async Task<Response<int>> UpdateExpense(UpdateExpenseViewModel model)
         {
             var response = await _httpClient.PutAsJsonAsync("Expense", model);
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
 
-        public async Task<bool> DeleteExpense(int id)
+        public async Task<Response<int>> DeleteExpense(int id)
         {
             var response = await _httpClient.DeleteAsync($"Expense/{id}");
-            return response.IsSuccessStatusCode;
+            var result = await response.Content.ReadFromJsonAsync<Response<int>>();
+            return result;
         }
 
     }
