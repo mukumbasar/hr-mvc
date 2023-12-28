@@ -43,8 +43,7 @@ namespace HrApp.MVC.Controllers
 
             ViewBag.AdvanceTypes = advanceTypesList.Items;
             ViewBag.Currencies = currencyList.Items;
-            var list = await _advanceClientService.GetAdvances();
-            ViewBag.Advances = list;
+            ViewBag.Advances = await _advanceClientService.GetAdvances();
 
             return View();
         }

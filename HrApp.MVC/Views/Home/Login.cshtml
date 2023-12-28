@@ -3,106 +3,94 @@
     ViewData["Title"] = "Login";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <title>@ViewData["Title"] - Human Resources</title>
-    <style>
-        .login-page, .register-page {
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            min-height: 100vh;
-        }
+<style>
+    .login-page, .register-page {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 100vh;
+    }
 
-        .login-box, .register-box {
-            width: 100%;
-            max-width: 360px;
-            margin: 0 auto;
-        }
+    .login-box, .register-box {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+    }
 
-        .field-icon {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body class="login-page">
-<div class="login-box">
-    <div class="login-logo">
-        <a href="/"><b>Human</b>Resources</a>
-    </div>
-    <!-- /.login-logo -->
-    <div class="card">
-        <div class="card-body login-card-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            
-            <form asp-action="Login" method="post">
-                @Html.AntiForgeryToken()
-                <div class="input-group mb-3">
-                   <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required/>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group mb-3">
-                    <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"/>
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span id="togglePassword" class="fas fa-eye field-icon"></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="icheck-primary">
-                            <input type="checkbox" id="remember" asp-for="RememberMe"/>
-                            <label for="remember">
-                                Remember Me
-                            </label>
-                        </div>
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
-                    </div>
-                    <!-- /.col -->
-                </div>
-            </form>
+    .field-icon {
+        cursor: pointer;
+    }
+</style>
+<div class="login-page">
+    <div class="row">
+        <div class="col-12">
+            <image src="~/AdminLTE-3.1.0/dist/img/humanresources.jpg" class="w-100 position-absolute"></image>
 
-            <p class="mb-1">
-                <a href="#">I forgot my password</a>
-            </p>
         </div>
-        <!-- /.login-card-body -->
+    </div>
+    <div class="login-box position-sticky mt-3">
+        <div class="login-logo">
+            <a href="/"><b>Human</b>Resources</a>
+        </div>
+        <div class="card">
+            <div class="card-body login-card-body" style="min-height:400px">
+                <p class="login-box-msg">Sign in to start your session</p>
+
+                <form asp-action="Login" method="post" class="mt-4">
+                    @Html.AntiForgeryToken()
+                    <div class="input-group mb-4">
+                        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-4">
+                        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password" />
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span id="togglePassword" class="fas fa-eye field-icon"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-7">
+                            <div class="icheck-primary mt-2">
+                                <input type="checkbox" id="remember" asp-for="RememberMe" />
+                                <label for="remember">
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        </div>
+                    </div>
+                </form>
+
+                <p>
+                    <a href="#">I forgot my password</a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>
-<!-- /.login-box -->
-
-<!-- REQUIRED SCRIPTS -->
-
-
-<script>
-    $(document).ready(function () {
-        $('#togglePassword').click(function () {
-            let passwordInput = $('#Password');
-            let passwordIcon = $('#togglePassword');
-            if (passwordInput.attr('type') === 'password') {
-                passwordInput.attr('type', 'text');
-                passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
-            } else {
-                passwordInput.attr('type', 'password');
-                passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
-            }
+    <script>
+        $(document).ready(function () {
+            $('#togglePassword').click(function () {
+                let passwordInput = $('#Password');
+                let passwordIcon = $('#togglePassword');
+                if (passwordInput.attr('type') === 'password') {
+                    passwordInput.attr('type', 'text');
+                    passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+                } else {
+                    passwordInput.attr('type', 'password');
+                    passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+                }
+            });
         });
-    });
-</script>
-</body>
-</html>
+    </script>
+
