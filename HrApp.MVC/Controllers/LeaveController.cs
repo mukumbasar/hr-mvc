@@ -53,10 +53,10 @@ namespace HrApp.MVC.Controllers
             if (result.IsSuccess)
             {
                 _notifyService.Success(result.Message);
+                return RedirectToAction("Index");
             }
 
             _notifyService.Error(result.Message);
-
             return RedirectToAction("Index");
         }
 
@@ -68,10 +68,10 @@ namespace HrApp.MVC.Controllers
             if (result.IsSuccess)
             {
                 _notifyService.Success(result.Message);
+                return RedirectToAction("Index");
             }
 
             _notifyService.Error(result.Message);
-
             return RedirectToAction("Index");
         }
 
@@ -83,10 +83,10 @@ namespace HrApp.MVC.Controllers
             if (result.IsSuccess)
             {
                 _notifyService.Success(result.Message);
+                return RedirectToAction("Index");
             }
 
             _notifyService.Error(result.Message);
-
             return RedirectToAction("Index");
         }
 
@@ -102,12 +102,10 @@ namespace HrApp.MVC.Controllers
                 var responseData = response.Content.ReadAsStringAsync().Result;
 
                 var vm = JsonConvert.DeserializeObject<UpdateLeaveViewModel>(responseData);
-
                 return PartialView("_LeavePartialView", vm);
             }
 
             _notifyService.Error("Error!");
-
             return RedirectToAction("Index");
         }
     }
