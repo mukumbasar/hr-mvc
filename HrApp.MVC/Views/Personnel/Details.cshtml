@@ -47,7 +47,7 @@
                                     </tr>
                                     <tr>
                                         <td><strong>Birth Year:</strong></td>
-                                        <td>@Model.BirthYear.ToString("yyyy-MM-dd")</td>
+                                        <td>@Model.BirthYear.ToString("dd/MM/yyyy")</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Company Name:</strong></td>
@@ -63,11 +63,11 @@
                                     </tr>
                                     <tr>
                                         <td><strong>Start Date:</strong></td>
-                                        <td>@Model.StartDate.ToString("yyyy-MM-dd")</td>
+                                        <td>@Model.StartDate.ToString("dd/MM/yyyy")</td>
                                     </tr>
                                     <tr>
                                         <td><strong>End Date:</strong></td>
-                                        <td>@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("yyyy-MM-dd") : "N/A")</td>
+                                        <td>@(Model.EndDate.HasValue ? Model.EndDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
                                     </tr>
                                     <tr>
                                         <td><strong>Department:</strong></td>
