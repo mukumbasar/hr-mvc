@@ -11,7 +11,7 @@
                     <div asp-validation-summary="ModelOnly"></div>
                     <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
                     <div class="form-group">
-                        <label asp-for="ExpenseTypeId">Expense Types</label>
+                        <label class="mt-4" asp-for="ExpenseTypeId">Expense Types</label>
                         <select class="form-control" asp-for="ExpenseTypeId" asp-items="@ViewBag.ExpenseTypes"></select>
                         <span asp-validation-for="ExpenseTypeId" class="text-danger"></span>
                     </div>
@@ -21,7 +21,7 @@
                         <span asp-validation-for="CurrencyId" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Amount">Advance Amount</label>
+                        <label asp-for="Amount">Expense Amount</label>
                         <input asp-for="Amount" class="form-control" min="1" max="10000" step="1" /> @* max değer belirlenecek *@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
@@ -36,13 +36,13 @@
         </div>
     </div>
 
-    <div class="container">
+    <div class="container  mt-4">
         <div class="text-center">
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Expenses</h5>
         </div>
     </div>
 
-    <table class="grid table text-dark" id="Expenses">
+    <table class="grid table text-dark mb-0" id="Expenses">
         <thead>
             <tr>
                 <th>Id</th>
