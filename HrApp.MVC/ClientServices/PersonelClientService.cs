@@ -49,7 +49,7 @@ public class PersonelClientService
     }
     public async Task<Response<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
     {
-        var response = await _httpClient.GetAsync($"User/detailsx/{userId}");
+        var response = await _httpClient.GetAsync($"User/details/{userId}");
 
         if (response.StatusCode == System.Net.HttpStatusCode.OK)
         {
