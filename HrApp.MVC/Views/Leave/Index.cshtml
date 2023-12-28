@@ -33,6 +33,7 @@
                                 <input asp-for="EndDate" class="form-control" />
                                 <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
+                            <input type="hidden" asp-for="RequestDate" value="@DateTime.Now" />
                             <input type="submit" value="Add">
                         </form>
                     </div>
