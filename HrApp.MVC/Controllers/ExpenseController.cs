@@ -127,8 +127,28 @@ namespace HrApp.MVC.Controllers
             ViewBag.Currencies = currencyList.Items;
 
             var result = await _expenseClientService.GetExpense(id);
+            var expenseTypes = await _expenseClientService.GetExpenseTypes();
+            var currencies = await _commonClientService.GetCurrencies();
 
-            if(result.IsSuccess)
+            List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
+            List<SelectListItem> currencyItems = new List<SelectListItem>();
+
+            foreach (var item in expenseTypes)
+            {
+                expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
+
+            foreach (var item in currencies)
+            {
+                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
+
+            var expenseTypesList = new SelectList(expenseTypeItems);
+            var currencyList = new SelectList(currencyItems);
+
+            ViewBag.ExpenseTypes = expenseTypesList.Items;
+            ViewBag.Currencies = currencyList.Items;
+            if (result.IsSuccess)
             {
                 return PartialView("_ExpensePartialView", result.Data);
             }

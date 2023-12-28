@@ -1,4 +1,4 @@
-﻿@await Component.InvokeAsync("Notyf")
+﻿
 
 <!DOCTYPE html>
 <html lang="en">
@@ -358,5 +358,6 @@
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/AdminLTE-3.1.0/dist/js/pages/dashboard3.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
+    @await Component.InvokeAsync("Notyf")
 </body>
 </html>
