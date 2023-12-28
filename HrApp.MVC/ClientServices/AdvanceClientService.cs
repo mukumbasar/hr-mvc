@@ -1,4 +1,5 @@
-﻿using HrApp.MVC.Models.Advance;
+﻿using HrApp.MVC.Helpers;
+using HrApp.MVC.Models.Advance;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -15,39 +16,39 @@ namespace HrApp.MVC.ClientServices
         public async Task<List<ReadAdvanceViewModel>> GetAdvances()
         {
             var response = await _httpClient.GetAsync("advance");
-            var result = await response.Content.ReadFromJsonAsync<Response<List<ReadAdvanceViewModel>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadAdvanceViewModel>>>();
             return result.Data;
         }
-        public async Task<Response<List<ReadAdvanceViewModel>>> GetAdvance(int id)
+        public async Task<JsonResponse<List<ReadAdvanceViewModel>>> GetAdvance(int id)
         {
             var response = await _httpClient.GetAsync($"advance/{id}");
-            var result = await response.Content.ReadFromJsonAsync<Response<List<ReadAdvanceViewModel>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadAdvanceViewModel>>>();
             return result;
         }
 
         public async Task<List<AdvanceTypeViewModel>> GetAdvanceTypes()
         {
             var response = await _httpClient.GetAsync($"Advance/Types");
-            var result = await response.Content.ReadFromJsonAsync<Response<List<AdvanceTypeViewModel>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<AdvanceTypeViewModel>>>();
             return result.Data;
         }
 
-        public async Task<Response<List<int>>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel)
+        public async Task<JsonResponse<List<int>>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel)
         {
             var response = await _httpClient.PostAsync("advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel),Encoding.UTF8,"application/json"));
-            var result = await response.Content.ReadFromJsonAsync<Response<List<int>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<int>>>();
             return result;
         }
-        public async Task<Response<List<int>>> UpdateAdvance(UpdateAdvanceViewModel updateAdvanceViewModel)
+        public async Task<JsonResponse<List<int>>> UpdateAdvance(UpdateAdvanceViewModel updateAdvanceViewModel)
         {
             var response = await _httpClient.PutAsync("advance", new StringContent(JsonConvert.SerializeObject(updateAdvanceViewModel),Encoding.UTF8,"application/json"));
-            var result = await response.Content.ReadFromJsonAsync<Response<List<int>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<int>>>();
             return result;
         }
-        public async Task<Response<List<int>>> DeleteAdvance(int id)
+        public async Task<JsonResponse<List<int>>> DeleteAdvance(int id)
         {
             var response = await _httpClient.DeleteAsync($"advance/{id}");
-            var result = await response.Content.ReadFromJsonAsync<Response<List<int>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<int>>>();
             return result;
         }
     }

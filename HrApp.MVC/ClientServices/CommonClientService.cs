@@ -1,4 +1,5 @@
-﻿using HrApp.MVC.Models.Common;
+﻿using HrApp.MVC.Helpers;
+using HrApp.MVC.Models.Common;
 using HrApp.MVC.Models.Expense;
 
 namespace HrApp.MVC.ClientServices
@@ -15,7 +16,7 @@ namespace HrApp.MVC.ClientServices
         public async Task<List<CurrencyViewModel>> GetCurrencies()
         {
             var response = await _httpClient.GetAsync("Common/Currency");
-            var result = await response.Content.ReadFromJsonAsync<Response<List<CurrencyViewModel>>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<CurrencyViewModel>>>();
             return result.Data;
         }
     }
