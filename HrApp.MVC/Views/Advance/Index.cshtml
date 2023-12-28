@@ -101,7 +101,9 @@
 </div>
 
 @section Scripts {
-
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
     <script type="text/javascript">
         $(function () {
             $("#Advances .details").click(function () {
