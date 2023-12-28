@@ -103,17 +103,11 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
-            using HttpClient client = new HttpClient();
+            var result = await _expenseClientService.GetExpense(id);
 
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/Expense/{id}");
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            if(result.IsSuccess)
             {
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                var vm = JsonConvert.DeserializeObject<UpdateExpenseViewModel>(responseData);
-
-                return PartialView("_ExpensePartialView", vm);
+                return PartialView("_ExpensePartialView", result.Data);
             }
 
             _notifyService.Error("Error!");
