@@ -24,13 +24,13 @@
 
         <div class="form-group mb-2">
             <label asp-for="Amount" class="text-dark">Amount</label>
-            <input asp-for="Amount" class="form-control" min="1" max="10" /> @* max değeri kullancıya göre belirlenecek *@
+            <input asp-for="Amount" class="form-control" min="1" max="10" data-val-range-min="1" required/> @* max değeri kullancıya göre belirlenecek *@
             <span asp-validation-for="Amount" class="text-danger"></span>
         </div>
 
         <div class="form-group">
             <label asp-for="File" class="control-label">File</label>
-            <input asp-for="File" type="file" class="form-control-file" accept=".jpg , .jpeg , .png, .pdf" />
+            <input asp-for="File" type="file" class="form-control-file" accept=".jpg , .jpeg , .png, .pdf" required/>
             <span asp-validation-for="File" class="text-danger"></span>
         </div>
 
@@ -43,4 +43,5 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
 }
