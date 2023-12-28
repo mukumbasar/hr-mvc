@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HrApp.MVC.ClientServices;
 using HrApp.MVC.Validator;
 using System.Reflection;
 
@@ -19,6 +20,8 @@ namespace HrApp.MVC.Extensions
 
             services.AddScoped<LoginClientService>();
             services.AddScoped<PersonelClientService>();
+            services.AddScoped<ExpenseClientService>();
+            services.AddScoped<LeaveClientService>();
         }
     }
 }

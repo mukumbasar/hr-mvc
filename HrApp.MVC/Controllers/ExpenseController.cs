@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Advance;
 using HrApp.MVC.Models.Expense;
 using Microsoft.AspNetCore.Mvc;
@@ -10,15 +11,16 @@ namespace HrApp.MVC.Controllers
     public class ExpenseController : Controller
     {
         public INotyfService _notifyService { get; }
+        public 
 
-        public ExpenseController(INotyfService notifyService)
+        public ExpenseController(INotyfService notifyService, ExpenseClientService expenseClientService)
         {
             _notifyService = notifyService;
         }
 
         public async Task<IActionResult> Index()
         {
-            //var expenseTypes = ExpenseTypeViewModel'a uygun bir şekilde api'dan çekilecek.
+            var expenseTypes = 
             //var currencies = CurrencyViewModel'a uygun bir şekilde api'dan çekilecek.
 
             List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
