@@ -1,6 +1,6 @@
 ﻿namespace HrApp.MVC.Helpers
 {
-    public class JsonResponse<T>
+    public class JsonResponse<T> : IResponse<T>
     {
         public bool IsSuccess { get; set; }
         public T Data { get; set; }

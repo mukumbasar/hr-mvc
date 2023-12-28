@@ -16,12 +16,14 @@ namespace HrApp.MVC.Controllers
         public INotyfService _notifyService { get; }
         public ExpenseClientService _expenseClientService { get; }
         private CommonClientService _commonClientService;
+        private readonly ResponseHandler responseHandler;
 
-        public ExpenseController(INotyfService notifyService, ExpenseClientService expenseClientService, CommonClientService commonClientService)
+        public ExpenseController(INotyfService notifyService, ExpenseClientService expenseClientService, CommonClientService commonClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
             _expenseClientService = expenseClientService;
             _commonClientService = commonClientService;
+            this.responseHandler = responseHandler;
         }
 
         public async Task<IActionResult> Index()
@@ -57,49 +59,20 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel)
         {
             createExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(createExpenseViewModel.File);
-
-            var result = await _expenseClientService.CreateExpense(createExpenseViewModel);
-
-            if(result.IsSuccess) 
-            {
-                _notifyService.Success(result.Message);
-            }
-            
-            _notifyService.Error("Error");
-
-            return RedirectToAction("Index");
+            return responseHandler.HandleResponse(await _expenseClientService.CreateExpense(createExpenseViewModel), "Index", "Index", this);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
         {
             updateExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(updateExpenseViewModel.File);
-
-            var result = await _expenseClientService.UpdateExpense(updateExpenseViewModel);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-            }
-
-            _notifyService.Error("Error");
-
-            return RedirectToAction("Index");
+            return responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel), "Index", "Index", this);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _expenseClientService.DeleteExpense(id);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-            }
-
-            _notifyService.Error("Error");
-
-            return RedirectToAction("Index");
+            return responseHandler.HandleResponse(await _expenseClientService.DeleteExpense(id), "Index", "Index", this);
         }
 
         [HttpGet]
@@ -129,7 +102,7 @@ namespace HrApp.MVC.Controllers
             ViewBag.Currencies = currencyList.Items;
 
             var result = await _expenseClientService.GetExpense(id);
-            
+
             if (result.IsSuccess)
             {
                 return PartialView("_ExpensePartialView", result.Data);

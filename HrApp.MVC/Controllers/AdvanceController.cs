@@ -12,12 +12,14 @@ namespace HrApp.MVC.Controllers
         public INotyfService _notifyService { get; }
         private AdvanceClientService _advanceClientService;
         private CommonClientService _commonClientService;
+        private readonly ResponseHandler _responseHandler;
 
-        public AdvanceController(INotyfService notifyService, AdvanceClientService advanceClientService, CommonClientService commonClientService)
+        public AdvanceController(INotyfService notifyService, AdvanceClientService advanceClientService, CommonClientService commonClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
             _advanceClientService = advanceClientService;
             _commonClientService = commonClientService;
+            _responseHandler = responseHandler;
         }
 
         public async Task<IActionResult> Index()
@@ -51,46 +53,19 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateAdvanceViewModel createAdvanceViewModel)
         {
-            var result = await _advanceClientService.CreateAdvance(createAdvanceViewModel);
-
-            if(result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-            }
-            
-            _notifyService.Error("Error!");
-
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _advanceClientService.CreateAdvance(createAdvanceViewModel), "Index", "Index", this);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateAdvanceViewModel updateAdvanceViewModel)
         {
-            var result = await _advanceClientService.UpdateAdvance(updateAdvanceViewModel);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-            }
-
-            _notifyService.Error("Error");
-
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _advanceClientService.UpdateAdvance(updateAdvanceViewModel), "Index", "Index", this);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _advanceClientService.DeleteAdvance(id);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-            }
-
-            _notifyService.Error("Error");
-
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _advanceClientService.DeleteAdvance(id), "Index", "Index", this);
         }
 
         [HttpGet]
@@ -124,7 +99,7 @@ namespace HrApp.MVC.Controllers
 
             _notifyService.Error("Error");
 
-            return View("Index"); 
+            return View("Index");
         }
     }
 }

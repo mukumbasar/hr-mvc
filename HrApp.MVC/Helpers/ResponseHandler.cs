@@ -25,13 +25,15 @@ public class ResponseHandler
     /// <param name="errorView">Response başarısız olduğunda yönlendirilecek view adı.</param>
     /// <param name="controller">Mevcut controller nesnesi, yönlendirme ve view dönüşleri için kullanılır.</param>
     /// <returns>View veya RedirectToAction sonucu döndürür. Bu sonucu girilen successView ve errorView'e göre kendisi belirler.</returns>
-    public IActionResult HandleResponse<TModel>(Response<TModel> response, string successView, string errorView, Controller controller)
+    public IActionResult HandleResponse<TModel>(IResponse<TModel> response, string successView, string errorView, Controller controller)
     {
         string actionName = controller.ControllerContext.ActionDescriptor.ActionName;
+        string controllerName = controller.ControllerContext.ActionDescriptor.ControllerName;
         // Response başarılı ise, successView dön
         if (response.IsSuccess)
         {
-            _notyfService.Success(response.Message);
+            if (actionName != "Index" || controllerName != "Home")
+                _notyfService.Success(response.Message);
             return successView.ToLower() == actionName.ToLower() ? controller.View(response.Data) : controller.RedirectToAction(successView);
         }
 
@@ -44,28 +46,9 @@ public class ResponseHandler
     }
 
 }
-
-
-public class Response<T>
+public interface IResponse<T>
 {
-    public T Data { get; private set; }
-    public bool IsSuccess { get; private set; }
-    public string Message { get; private set; }
-
-    private Response(T data, bool isSuccess, string message)
-    {
-        Data = data;
-        IsSuccess = isSuccess;
-        Message = message;
-    }
-
-    public static Response<T> Success(T data, string message = "Process completed successfully")
-    {
-        return new Response<T>(data, true, message);
-    }
-
-    public static Response<T> Failure(string message = "Process failed")
-    {
-        return new Response<T>(default(T), false, message);
-    }
+    T Data { get; }
+    bool IsSuccess { get; }
+    string Message { get; }
 }

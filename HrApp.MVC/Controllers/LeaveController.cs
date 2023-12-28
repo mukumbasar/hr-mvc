@@ -15,11 +15,13 @@ namespace HrApp.MVC.Controllers
     {
         public INotyfService _notifyService { get; }
         private LeaveClientService _leaveClientService;
+        private ResponseHandler _responseHandler;
 
-        public LeaveController(INotyfService notifyService, LeaveClientService leaveClientService)
+        public LeaveController(INotyfService notifyService, LeaveClientService leaveClientService, ResponseHandler responseHandler)
         {
             _notifyService = notifyService;
             _leaveClientService = leaveClientService;
+            _responseHandler = responseHandler;
         }
 
         public async Task<IActionResult> Index()
@@ -30,11 +32,11 @@ namespace HrApp.MVC.Controllers
 
             foreach (var item in leaveTypes)
             {
-                if(item.Id != 1)
+                if (item.Id != 1)
                 {
                     leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.NumDays, item.Id.ToString()));
                 }
-                
+
             };
 
             var leaveTypesList = new SelectList(leaveTypeItems);
@@ -48,46 +50,19 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateLeaveViewModel createLeaveViewModel)
         {
-            var result = await _leaveClientService.CreateLeave(createLeaveViewModel);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-                return RedirectToAction("Index");
-            }
-
-            _notifyService.Error(result.Message);
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _leaveClientService.CreateLeave(createLeaveViewModel), "Index", "Index", this);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateLeaveViewModel updateLeaveViewModel)
         {
-            var result = await _leaveClientService.UpdateLeave(updateLeaveViewModel);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-                return RedirectToAction("Index");
-            }
-
-            _notifyService.Error(result.Message);
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _leaveClientService.UpdateLeave(updateLeaveViewModel), "Index", "Index", this);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _leaveClientService.DeleteLeave(id);
-
-            if (result.IsSuccess)
-            {
-                _notifyService.Success(result.Message);
-                return RedirectToAction("Index");
-            }
-
-            _notifyService.Error(result.Message);
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _leaveClientService.DeleteLeave(id), "Index", "Index", this);
         }
 
         [HttpGet]
