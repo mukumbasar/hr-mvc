@@ -1,25 +1,97 @@
-﻿@model LoginViewModel
-
+﻿@using Microsoft.AspNetCore.Mvc.ViewFeatures
+@model LoginViewModel
 @{
-    ViewBag.Title = "Login";
+    ViewData["Title"] = "Login";
 }
 
-<h2 class="ms-4">Login</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - Human Resources</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
+    <!-- Custom CSS -->
+    <style>
+        .login-page, .register-page {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-height: 100vh;
+        }
 
-<form asp-action="Login" class="ms-4" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="form-group">
-        <label for="Email">Email</label>
-        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email"/>
-        @* You can include validation messages here if needed *@
+        .login-box, .register-box {
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body class="login-page">
+<div class="login-box">
+    <div class="login-logo">
+        <a href="/"><b>Human</b>Resources</a>
     </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            
+            <form asp-action="Login" method="post">
+                @Html.AntiForgeryToken()
+                <div class="input-group mb-3">
+                   <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"/>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            <input type="checkbox" id="remember" asp-for="RememberMe"/>
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
 
-    <div class="form-group">
-        <label for="Password">Password</label>
-        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"/>
-        @* You can include validation messages here if needed *@
+            <p class="mb-1">
+                <a href="#">I forgot my password</a>
+            </p>
+        </div>
+        <!-- /.login-card-body -->
     </div>
+</div>
+<!-- /.login-box -->
 
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="~/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/dist/js/adminlte.min.js"></script>
+</body>
+</html>
