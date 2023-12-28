@@ -1,4 +1,5 @@
 ﻿@using HrApp.MVC.Models.Expense
+@using System.Security.Claims
 
 @model CreateExpenseViewModel
 
@@ -9,7 +10,7 @@
             <div class="login-agileits-top">
                 <form asp-action="Create" enctype="multipart/form-data" method="post">
                     <div asp-validation-summary="ModelOnly"></div>
-                    <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
                     <div class="form-group">
                         <label asp-for="ExpenseTypeId">Expense Types</label>
                         <select class="form-control" asp-for="ExpenseTypeId" asp-items="@ViewBag.ExpenseTypes"></select>
