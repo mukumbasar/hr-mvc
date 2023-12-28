@@ -1,4 +1,5 @@
 ﻿@using HrApp.MVC.Models.Advance
+@using System.Security.Claims
 
 @model CreateAdvanceViewModel
 
@@ -9,7 +10,7 @@
                 <div class="login-agileits-top">
                     <form asp-action="Create" enctype="multipart/form-data" method="post">
                         <div asp-validation-summary="ModelOnly" ></div>
-                        <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> 
                     <div class="form-group">
                         <label asp-for="AdvanceTypeId">Advance Types</label>
                         <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
@@ -22,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Amount">Advance Amount</label>
-                        <input asp-for="Amount" class="form-control" min="1" max="10" step="1" /> @* max değeri kullanıcıya göre belirlenecek *@
+                        <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max değeri kullanıcıya göre belirlenecek *@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                     <div class="form-group">
