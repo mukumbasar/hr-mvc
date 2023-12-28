@@ -96,22 +96,35 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
-            using HttpClient client = new HttpClient();
+            var result = await _advanceClientService.GetAdvance(id);
 
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/Advance/{id}");
+            var advanceTypes = await _advanceClientService.GetAdvanceTypes();
+            var currencies = await _commonClientService.GetCurrencies();
 
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            List<SelectListItem> advanceTypeItems = new List<SelectListItem>();
+            List<SelectListItem> currencyItems = new List<SelectListItem>();
+
+            foreach (var item in advanceTypes)
             {
-                var responseData = response.Content.ReadAsStringAsync().Result;
+                advanceTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
 
-                var vm = JsonConvert.DeserializeObject<UpdateAdvanceViewModel>(responseData);
+            foreach (var item in currencies)
+            {
+                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
 
-                return PartialView("_AdvancePartialView", vm);
-            }
+            var advanceTypesList = new SelectList(advanceTypeItems);
+            var currencyList = new SelectList(currencyItems);
 
-            _notifyService.Error("Error!");
+            ViewBag.AdvanceTypes = advanceTypesList.Items;
+            ViewBag.Currencies = currencyList.Items;
 
-            return View(); 
+            if (result.IsSuccess) return PartialView("_AdvancePartialView", result.Data);
+
+            _notifyService.Error(result.Message);
+
+            return View("Index"); 
         }
     }
 }

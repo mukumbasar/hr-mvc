@@ -19,11 +19,11 @@ namespace HrApp.MVC.ClientServices
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadAdvanceViewModel>>>();
             return result.Data;
         }
-        public async Task<List<ReadAdvanceViewModel>> GetAdvance(int id)
+        public async Task<JsonResponse<UpdateAdvanceViewModel>> GetAdvance(int id)
         {
-            var response = await _httpClient.GetAsync($"advance/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadAdvanceViewModel>>>();
-            return result.Data;
+            var response = await _httpClient.GetAsync($"Advance/{id}");
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<UpdateAdvanceViewModel>>();
+            return result;
         }
 
         public async Task<List<AdvanceTypeViewModel>> GetAdvanceTypes()
