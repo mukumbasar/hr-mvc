@@ -58,7 +58,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
             
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error!");
 
             return RedirectToAction("Index");
         }
@@ -73,7 +73,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return RedirectToAction("Index");
         }
@@ -88,7 +88,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return RedirectToAction("Index");
         }
@@ -122,7 +122,7 @@ namespace HrApp.MVC.Controllers
 
             if (result.IsSuccess) return PartialView("_AdvancePartialView", result.Data);
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return View("Index"); 
         }

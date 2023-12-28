@@ -32,7 +32,7 @@ namespace HrApp.MVC.Controllers
             {
                 if(item.Id != 1)
                 {
-                    leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.NumDays, item.Id.ToString()));
+                    leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.Amount, item.Id.ToString()));
                 }
                 
             };
@@ -55,7 +55,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return RedirectToAction("Index");
         }
@@ -70,7 +70,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return RedirectToAction("Index");
         }
@@ -85,7 +85,7 @@ namespace HrApp.MVC.Controllers
                 _notifyService.Success(result.Message);
             }
 
-            _notifyService.Error(result.Message);
+            _notifyService.Error("Error");
 
             return RedirectToAction("Index");
         }
