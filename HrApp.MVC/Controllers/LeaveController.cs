@@ -30,7 +30,11 @@ namespace HrApp.MVC.Controllers
 
             foreach (var item in leaveTypes)
             {
-                leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.Amount, item.Id.ToString()));
+                if(item.Id != 1)
+                {
+                    leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.NumDays, item.Id.ToString()));
+                }
+                
             };
 
             var leaveTypesList = new SelectList(leaveTypeItems);
