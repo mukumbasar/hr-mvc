@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="RequestDate">Request Date</label>
-                        <input asp-for="RequestDate" class="form-control"/> 
+                        <input asp-for="RequestDate" class="form-control" />
                         <span asp-validation-for="RequestDate" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -71,9 +71,9 @@
                             <td>@advance.AdvanceTypeName</td>
                             <td>@advance.Amount</td>
                             <td>@advance.Currency</td>
-                            <td>@advance.RequestDate</td>
+                            <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
                             <td>@advance.ApprovalStatus</td>
-                            <td>@advance.ApprovalDate</td>
+                            <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <a class="details btn btn-dark">Get Advance</a>
                             </td>
