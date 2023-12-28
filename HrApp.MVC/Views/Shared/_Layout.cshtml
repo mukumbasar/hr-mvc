@@ -1,5 +1,7 @@
-﻿
-
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"].ToString();
+    var currentAction = ViewContext.RouteData.Values["action"].ToString();
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -58,7 +60,7 @@
                     if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item d-none d-sm-inline-block">
-                            <a asp-action="Login" asp-controller="Home" class="nav-link">Login <i class="nav-icon fa fa-sign-in"></i></a>
+                            <a asp-action="Login" asp-controller="Home" class="nav-link @(currentController == "Home" && currentAction == "Login" ? "active" : "")">Login <i class="nav-icon fa fa-sign-in"></i></a>
                         </li>
                     }
                     else
@@ -108,8 +110,8 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <li class="nav-item menu-open">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link active">
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
                                 <i class="nav-icon fas fa-home"></i>
                                 <p>Home</p>
                             </a>
@@ -118,19 +120,19 @@
                             if (User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
-                                    <a asp-controller="Advance" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Advance" asp-action="Index" class="nav-link @(currentController == "Advance" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-money"></i>
                                         <p>Advances</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Expense" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Expense" asp-action="Index" class="nav-link @(currentController == "Expense" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-credit-card"></i>
                                         <p>Expenses</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Leave" asp-action="Index" class="nav-link">
+                                    <a asp-controller="Leave" asp-action="Index" class="nav-link @(currentController == "Leave" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-calendar"></i>
                                         <p>Leaves</p>
                                     </a>
@@ -357,6 +359,8 @@
     <script src="~/AdminLTE-3.1.0/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/AdminLTE-3.1.0/dist/js/pages/dashboard3.js"></script>
+
+
     @await RenderSectionAsync("Scripts", required: false)
     @await Component.InvokeAsync("Notyf")
 </body>
