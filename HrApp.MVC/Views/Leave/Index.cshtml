@@ -1,4 +1,6 @@
 ﻿@using HrApp.MVC.Models.Leave
+@using System.Security.Claims
+
 
 @model CreateLeaveViewModel
 
@@ -17,7 +19,7 @@
                     <div class="login-agileits-top">
                         <form asp-action="Create" enctype="multipart/form-data" method="post">
                             <div asp-validation-summary="ModelOnly"></div>
-                            <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                            <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" />
                             <div class="form-group">
                                 <input type="hidden" class="form-control" asp-for="LeaveTypeId" value="1">
                             </div>
@@ -45,10 +47,12 @@
                         <div class="login-agileits-top">
                             <form asp-action="Create" enctype="multipart/form-data" method="post">
                                 <div asp-validation-summary="ModelOnly"></div>
-                                <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                                <input type="hidden" asp-for="AppUserId" value="@{
+                                    User.FindFirst(ClaimTypes.NameIdentifier);
+}" />
                                 <div class="form-group">
-                                    <label asp-for="LeaveTypeId">Advance Types</label>
-                                    <select class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
+                                    <label for="adtypes">Advance Types</label>
+                                    <select id="adtypes" class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
                                     <span asp-validation-for="LeaveTypeId" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
