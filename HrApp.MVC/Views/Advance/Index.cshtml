@@ -11,7 +11,7 @@
                         <div asp-validation-summary="ModelOnly" ></div>
                     <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> 
                     <div class="form-group">
-                        <label asp-for="AdvanceTypeId">Advance Types</label>
+                        <label class="mt-4" asp-for="AdvanceTypeId">Advance Types</label>
                         <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
                         <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
                     </div>
@@ -41,13 +41,13 @@
         </div>
     </div>
     
-    <div class="container">
+    <div class="container mt-4">
         <div class="text-center">
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Advances</h5>
         </div>
     </div>
             
-    <table class="grid table text-dark" id="Advances">
+    <table class="grid table text-dark mb-0" id="Advances">
         <thead>
             <tr>
                 <th>Id</th>
