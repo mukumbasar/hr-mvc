@@ -1,4 +1,5 @@
 ﻿using HrApp.MVC.CustomAttributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace HrApp.MVC.Models.Expense
 {
@@ -10,8 +11,8 @@ namespace HrApp.MVC.Models.Expense
         public int CurrencyId { get; set; }
         public decimal Amount { get; set; }
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg", ".pdf" })]
+        [Required]
         public IFormFile File { get; set; }
-
         public byte[]? Document { get; set; }
     }
 }
