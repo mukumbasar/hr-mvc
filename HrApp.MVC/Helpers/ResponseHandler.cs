@@ -27,21 +27,21 @@ public class ResponseHandler
     /// <returns>View veya RedirectToAction sonucu döndürür. Bu sonucu girilen successView ve errorView'e göre kendisi belirler.</returns>
     public IActionResult HandleResponse<TModel>(IResponse<TModel> response, string successView, string errorView, Controller controller)
     {
-        string actionName = controller.ControllerContext.ActionDescriptor.ActionName;
-        string controllerName = controller.ControllerContext.ActionDescriptor.ControllerName;
+        string actionName = controller.ControllerContext.ActionDescriptor.ActionName.ToLower();
+        string controllerName = controller.ControllerContext.ActionDescriptor.ControllerName.ToLower();
         // Response başarılı ise, successView dön
         if (response.IsSuccess)
         {
-            if (actionName != "Index" || controllerName != "Home")
+            if (response.Message != "")
                 _notyfService.Success(response.Message);
-            return successView.ToLower() == actionName.ToLower() ? controller.View(response.Data) : controller.RedirectToAction(successView);
+            return successView.ToLower() == actionName ? controller.View(response.Data) : controller.RedirectToAction(successView);
         }
 
         // Response başarısız ise, errorView dön
         else
         {
             _notyfService.Error(response.Message);
-            return errorView.ToLower() == actionName.ToLower() ? controller.View(response.Data) : controller.RedirectToAction(errorView);
+            return errorView.ToLower() == actionName ? controller.View(response.Data) : controller.RedirectToAction(errorView, controllerName);
         }
     }
 

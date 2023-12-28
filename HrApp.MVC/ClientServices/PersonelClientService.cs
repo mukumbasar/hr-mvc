@@ -27,7 +27,7 @@ public class PersonelClientService
 
             var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
 
-            return Response<AppUserHomeViewModel>.Success(userHomeModel);
+            return Response<AppUserHomeViewModel>.Success(userHomeModel, "");
         }
 
         return Response<AppUserHomeViewModel>.Failure("User not found");
@@ -42,14 +42,14 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserDetailViewModel>(responseData);
 
-            return Response<AppUserDetailViewModel>.Success(userDetailModel);
+            return Response<AppUserDetailViewModel>.Success(userDetailModel, "");
         }
 
         return Response<AppUserDetailViewModel>.Failure("User not found");
     }
     public async Task<Response<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
     {
-        var response = await _httpClient.GetAsync($"User/details/{userId}");
+        var response = await _httpClient.GetAsync($"User/detailsx/{userId}");
 
         if (response.StatusCode == System.Net.HttpStatusCode.OK)
         {
@@ -57,7 +57,7 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserUpdateViewModel>(responseData);
 
-            return Response<AppUserUpdateViewModel>.Success(userDetailModel);
+            return Response<AppUserUpdateViewModel>.Success(userDetailModel, "");
         }
 
         return Response<AppUserUpdateViewModel>.Failure("User not found");
