@@ -23,7 +23,7 @@ public class ExceptionHandlingMiddleware
             context.Response.StatusCode = (int)HttpStatusCode.NotFound;
             context.Response.ContentType = "application/json";
             context.Response.Body = new MemoryStream(Encoding.UTF8.GetBytes("Not Found"));
-            context.Response.Headers["Location"] = "/Home/Index";
+            context.Response.Redirect("/", permanent: false);
         }
     }
 }
