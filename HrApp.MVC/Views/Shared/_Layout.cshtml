@@ -58,14 +58,14 @@
                     if (!User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item d-none d-sm-inline-block">
-                            <a asp-action="Login" asp-controller="Home" class="nav-link">Login</a>
+                            <a asp-action="Login" asp-controller="Home" class="nav-link">Login <i class="nav-icon fa fa-sign-in"></i></a>
                         </li>
                     }
                     else
                     {
 
                         <li class="nav-item d-none d-sm-inline-block">
-                            <a asp-action="Logout" asp-controller="Home" class="nav-link">Logout</a>
+                            <a asp-action="Logout" asp-controller="Home" class="nav-link">Logout <i class="nav-icon fa fa-sign-out"></i></a>
                         </li>
                     }
                 }
@@ -125,13 +125,13 @@
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Expense" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-money"></i>
+                                        <i class="nav-icon fas fa-credit-card"></i>
                                         <p>Expenses</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Leave" asp-action="Index" class="nav-link">
-                                        <i class="nav-icon fas fa-money"></i>
+                                        <i class="nav-icon fas fa-calendar"></i>
                                         <p>Leaves</p>
                                     </a>
                                 </li>
