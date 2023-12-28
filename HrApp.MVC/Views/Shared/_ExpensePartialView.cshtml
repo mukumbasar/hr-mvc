@@ -36,7 +36,11 @@
 
         <div class="form-group text-center">
             <button type="submit" class="btn btn-primary">Update</button>
-            <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
         </div>
     </form>
 </div>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
