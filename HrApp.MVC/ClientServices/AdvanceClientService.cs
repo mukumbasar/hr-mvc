@@ -12,11 +12,11 @@ namespace HrApp.MVC.ClientServices
         {
             _httpClient = httpClientFactory.CreateClient("api");
         }
-        public async Task<Response<List<ReadAdvanceViewModel>>> GetAdvance()
+        public async Task<List<ReadAdvanceViewModel>> GetAdvances()
         {
             var response = await _httpClient.GetAsync("advance");
             var result = await response.Content.ReadFromJsonAsync<Response<List<ReadAdvanceViewModel>>>();
-            return result;
+            return result.Data;
         }
         public async Task<Response<List<ReadAdvanceViewModel>>> GetAdvance(int id)
         {
@@ -24,6 +24,14 @@ namespace HrApp.MVC.ClientServices
             var result = await response.Content.ReadFromJsonAsync<Response<List<ReadAdvanceViewModel>>>();
             return result;
         }
+
+        public async Task<List<AdvanceTypeViewModel>> GetAdvanceTypes()
+        {
+            var response = await _httpClient.GetAsync($"Advance/Types");
+            var result = await response.Content.ReadFromJsonAsync<Response<List<AdvanceTypeViewModel>>>();
+            return result.Data;
+        }
+
         public async Task<Response<List<int>>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel)
         {
             var response = await _httpClient.PostAsync("advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel),Encoding.UTF8,"application/json"));

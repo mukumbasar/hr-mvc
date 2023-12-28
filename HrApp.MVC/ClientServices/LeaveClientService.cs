@@ -14,11 +14,18 @@ namespace HrApp.MVC.ClientServices
             _httpClient = httpClientFactory.CreateClient("api");
         }
 
-        public async Task<Response<List<ReadLeaveViewModel>>> GetLeaves()
+        public async Task<List<ReadLeaveViewModel>> GetLeaves()
         {
             var response = await _httpClient.GetAsync("leave");
             var result = await response.Content.ReadFromJsonAsync<Response<List<ReadLeaveViewModel>>>();
-            return result;
+            return result.Data;
+        }
+
+        public async Task<List<LeaveTypeViewModel>> GetLeaveTypes()
+        {
+            var response = await _httpClient.GetAsync("Leave/Types");
+            var result = await response.Content.ReadFromJsonAsync<Response<List<LeaveTypeViewModel>>>();
+            return result.Data;
         }
 
         public async Task<Response<ReadLeaveViewModel>> GetLeave(int id)
