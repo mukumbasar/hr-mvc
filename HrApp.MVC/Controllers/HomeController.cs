@@ -34,11 +34,9 @@ namespace HrApp.MVC.Controllers
                 responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Login", this);
 
         [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await LoginHelper.LogoutAsync(HttpContext);
-            return RedirectToAction("Login");
-        }
+        public async Task<IActionResult> Logout() =>
+         responseHandler.HandleResponse(await loginClientService.LogoutAsync(HttpContext), "Index", "Logout", this);
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

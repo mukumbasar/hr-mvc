@@ -17,6 +17,7 @@ namespace HrApp.MVC.Extensions
             services.AddHttpClient("api", c => // "api" is the name of the HttpClient
             {
                 c.BaseAddress = new Uri("https://ank14hr.azurewebsites.net/api/");
+                //https://localhost:7213/api/
             });
 
             services.AddScoped<LoginClientService>();

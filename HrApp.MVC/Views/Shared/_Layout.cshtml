@@ -30,7 +30,7 @@
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <!-- Navbar Search -->
+                @* <!-- Navbar Search -->
                 <li class="nav-item">
                     <a class="nav-link" data-widget="navbar-search" href="#" role="button">
                         <i class="fas fa-search"></i>
@@ -50,11 +50,21 @@
                             </div>
                         </form>
                     </div>
-                </li>
+                </li> *@
                 <!-- Left navbar links -->
+                @{
+                if(!User.Identity.IsAuthenticated){
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="../../index3.html" class="nav-link">Login</a>
+                    <a asp-action="Login" asp-controller="Home" class="nav-link">Login</a>
                 </li>
+                }
+                else{
+                    
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a asp-action="Logout" asp-controller="Home" class="nav-link">Logout</a>
+                </li>
+                }
+                }
             </ul>
         </nav>
         <!-- /.navbar -->

@@ -26,4 +26,9 @@ public class LoginClientService
             return Response<bool>.Failure("Login failed");
         }
     }
+    public async Task<Response<bool>> LogoutAsync(HttpContext httpContext)
+    {
+        await LoginHelper.LogoutAsync(httpContext);
+        return Response<bool>.Success(true, "Logout successfull");
+    }
 }
