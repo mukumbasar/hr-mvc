@@ -87,22 +87,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var advance in ViewBag.Leaves)
-            {
-                <tr>
-                    <td>@advance.Id</td>
-                    <td>@advance.LeaveTypeName</td>
-                    <td>@advance.StartDate</td>
-                    <td>@advance.Amount</td>
-                    <td>@advance.EndDate</td>
-                    <td>@advance.RequestDate</td>
-                    <td>@advance.ApprovalStatus</td>
-                    <td>@advance.ApprovalDate</td>
-                    <td>
-                        <a class="details btn btn-dark">Get Leave</a>
-                    </td>
-                </tr>
-            }
+                @{
+                    if(ViewBag.Leaves != null){
+                        @foreach (var advance in ViewBag.Leaves)
+                        {
+                            <tr>
+                                <td>@advance.Id</td>
+                                <td>@advance.LeaveTypeName</td>
+                                <td>@advance.StartDate</td>
+                                <td>@advance.Amount</td>
+                                <td>@advance.EndDate</td>
+                                <td>@advance.RequestDate</td>
+                                <td>@advance.ApprovalStatus</td>
+                                <td>@advance.ApprovalDate</td>
+                                <td>
+                                    <a class="details btn btn-dark">Get Leave</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
         </tbody>
     </table>
 </div>
