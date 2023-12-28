@@ -108,7 +108,7 @@ namespace HrApp.MVC.Controllers
 
             _notifyService.Error("Error!");
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
