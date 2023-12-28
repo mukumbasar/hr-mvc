@@ -13,37 +13,41 @@ namespace HrApp.MVC.Controllers
     public class ExpenseController : Controller
     {
         public INotyfService _notifyService { get; }
-        public 
+        public ExpenseClientService _expenseClientService { get; }
+        private CommonClientService _commonClientService;
 
-        public ExpenseController(INotyfService notifyService, ExpenseClientService expenseClientService)
+        public ExpenseController(INotyfService notifyService, ExpenseClientService expenseClientService, CommonClientService commonClientService)
         {
             _notifyService = notifyService;
+            _expenseClientService = expenseClientService;
+            _commonClientService = commonClientService;
         }
 
         public async Task<IActionResult> Index()
         {
-            var expenseTypes = 
-            //var currencies = CurrencyViewModel'a uygun bir şekilde api'dan çekilecek.
+            var expenseTypes = await _expenseClientService.GetExpenseTypes();
+
+            var currencies = await _commonClientService.GetCurrencies();
 
             List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
             List<SelectListItem> currencyItems = new List<SelectListItem>();
 
-            //foreach (var item in expenseTypes)
-            //{
-            //    expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            //};
+            foreach (var item in expenseTypes)
+            {
+                expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
 
-            //foreach (var item in currencies)
-            //{
-            //    currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            //};
+            foreach (var item in currencies)
+            {
+                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
+            };
 
             var expenseTypesList = new SelectList(expenseTypeItems);
             var currencyList = new SelectList(currencyItems);
 
             ViewBag.ExpenseTypes = expenseTypesList.Items;
             ViewBag.Currencies = currencyList.Items;
-            //ViewBag.Expenses = apidan expenseler istenecek. dönütün çıktısı, ReadExpenseViewModel'a uygun olacak yani değişkenler uyuşacak.
+            ViewBag.Expenses = await _expenseClientService.GetExpenses();
 
             return View();
         }
@@ -51,27 +55,45 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel)
         {
-            //vm'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _expenseClientService.CreateExpense(createExpenseViewModel);
+
+            if(result.IsSuccess) 
+            {
+                _notifyService.Success(result.Message);
+            }
+            
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
         {
-            //vm'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _expenseClientService.UpdateExpense(updateExpenseViewModel);
+
+            if (result.IsSuccess)
+            {
+                _notifyService.Success(result.Message);
+            }
+
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            //id'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _expenseClientService.DeleteExpense(id);
+
+            if (result.IsSuccess)
+            {
+                _notifyService.Success(result.Message);
+            }
+
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 

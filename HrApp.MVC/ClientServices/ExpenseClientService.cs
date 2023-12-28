@@ -12,18 +12,18 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<Response<List<ReadExpenseViewModel>>> GetExpenses()
+        public async Task<List<ReadExpenseViewModel>> GetExpenses()
         {
             var response = await _httpClient.GetAsync("Expense");
             var result = await response.Content.ReadFromJsonAsync<Response<List<ReadExpenseViewModel>>>();
-            return result;
+            return result.Data;
         }
 
-        public async Task<Response<List<ExpenseTypeViewModel>>> GetExpenseTypes()
+        public async Task<List<ExpenseTypeViewModel>> GetExpenseTypes()
         {
             var response = await _httpClient.GetAsync("Expense/Types");
             var result = await response.Content.ReadFromJsonAsync<Response<List<ExpenseTypeViewModel>>>();
-            return result;
+            return result.Data;
         }
 
         public async Task<Response<ReadExpenseViewModel>> GetExpense(int id)
