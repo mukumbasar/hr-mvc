@@ -11,5 +11,7 @@ namespace HrApp.MVC.Models.Expense
         public decimal Amount { get; set; }
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg", ".pdf" })]
         public IFormFile File { get; set; }
+
+        public byte[]? Document { get; set; }
     }
 }

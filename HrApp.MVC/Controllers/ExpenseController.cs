@@ -73,6 +73,8 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
         {
+            updateExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(updateExpenseViewModel.File);
+
             var result = await _expenseClientService.UpdateExpense(updateExpenseViewModel);
 
             if (result.IsSuccess)
