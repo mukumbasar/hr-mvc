@@ -27,10 +27,10 @@ namespace HrApp.MVC.ClientServices
             return result.Data;
         }
 
-        public async Task<JsonResponse<ReadExpenseViewModel>> GetExpense(int id)
+        public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id)
         {
             var response = await _httpClient.GetAsync($"Expense/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<ReadExpenseViewModel>>();
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<UpdateExpenseViewModel>>();
             return result;
         }
 
