@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
+using HrApp.MVC;
 using HrApp.MVC.Models;
 using Newtonsoft.Json;
 
@@ -11,18 +12,18 @@ public class LoginClientService
         _httpClient = httpClientFactory.CreateClient("api");
     }
 
-    public async Task<bool> LoginAsync(LoginViewModel loginViewModel)
+    public async Task<Response<bool>> LoginAsync(LoginViewModel loginViewModel, HttpContext httpContext)
     {
         var response = await _httpClient.PostAsJsonAsync("User/login", loginViewModel);
         if (response.IsSuccessStatusCode)
         {
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            var data = JsonConvert.DeserializeObject<LoginViewModel>(jsonResponse);
-            return true;
+            await LoginHelper.LoginAsync(jsonResponse, httpContext);
+            return Response<bool>.Success(true, "Login successfull");
         }
         else
         {
-            return false;
+            return Response<bool>.Failure("Login failed");
         }
     }
 }

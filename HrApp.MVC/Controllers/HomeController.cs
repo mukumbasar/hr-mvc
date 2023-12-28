@@ -1,11 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Models;
-using Humanizer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text;
-using System.Text.Json;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Controllers
 {
@@ -23,29 +21,24 @@ namespace HrApp.MVC.Controllers
             this.personelClientService = personelClientService;
             this.responseHandler = responseHandler;
         }
-
+        [Authorize]
         public async Task<IActionResult> Index() =>
-            responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync("2e1b2611-f6cf-451d-9836-49f28b390f76"), "Index", "Index", this);
+                responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync(User.FindFirstValue("nameid")), "Index", "Index", this);
 
         public IActionResult Login() =>
             View();
 
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel) =>
+                responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Login", this);
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
         {
-
-            var success = await loginClientService.LoginAsync(loginViewModel);
-
-            if (success == false)
-            {
-                _notifyService.Error("User login error!");
-                return View();
-            }
-
-            return RedirectToAction("Index");
+            await LoginHelper.LogoutAsync(HttpContext);
+            return RedirectToAction("Login");
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
