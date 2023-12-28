@@ -9,12 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"] - Human Resources</title>
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
-    <!-- Custom CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>@ViewData["Title"] - Human Resources</title>
     <style>
         .login-page, .register-page {
             align-items: center;
@@ -28,6 +26,10 @@
             width: 100%;
             max-width: 360px;
             margin: 0 auto;
+        }
+
+        .field-icon {
+            cursor: pointer;
         }
     </style>
 </head>
@@ -55,7 +57,7 @@
                     <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"/>
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
+                            <span id="togglePassword" class="fas fa-eye field-icon"></span>
                         </div>
                     </div>
                 </div>
@@ -87,11 +89,21 @@
 
 <!-- REQUIRED SCRIPTS -->
 
-<!-- jQuery -->
-<script src="~/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="~/dist/js/adminlte.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#togglePassword').click(function () {
+            let passwordInput = $('#Password');
+            let passwordIcon = $('#togglePassword');
+            if (passwordInput.attr('type') === 'password') {
+                passwordInput.attr('type', 'text');
+                passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+            } else {
+                passwordInput.attr('type', 'password');
+                passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+            }
+        });
+    });
+</script>
 </body>
 </html>
