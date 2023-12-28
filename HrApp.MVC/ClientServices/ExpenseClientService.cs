@@ -1,5 +1,7 @@
 ﻿using HrApp.MVC.Helpers;
 using HrApp.MVC.Models.Expense;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace HrApp.MVC.ClientServices
 {
@@ -13,44 +15,42 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<List<ReadExpenseViewModel>> GetExpenses()
-        {
-            var response = await _httpClient.GetAsync("Expense");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadExpenseViewModel>>>();
-            return result.Data;
-        }
-
         public async Task<List<ExpenseTypeViewModel>> GetExpenseTypes()
         {
-            var response = await _httpClient.GetAsync("Expense/Types");
+            var response = await _httpClient.GetAsync("expense/Types");
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ExpenseTypeViewModel>>>();
             return result.Data;
         }
-
-        public async Task<JsonResponse<ReadExpenseViewModel>> GetExpense(int id)
+        public async Task<List<ReadExpenseViewModel>> GetExpenses()
         {
-            var response = await _httpClient.GetAsync($"Expense/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<ReadExpenseViewModel>>();
+            var response = await _httpClient.GetAsync("expense");
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadExpenseViewModel>>>();
+            return result.Data;
+        }
+        public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id)
+        {
+            var response = await _httpClient.GetAsync($"expense/{id}");
+            var result = await response.Content.ReadFromJsonAsync<JsonResponse<UpdateExpenseViewModel>>();
             return result;
         }
 
         public async Task<JsonResponse<int>> CreateExpense(CreateExpenseViewModel model)
         {
-            var response = await _httpClient.PostAsJsonAsync("Expense", model);
+            var response = await _httpClient.PostAsync("expense", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
             return result;
         }
 
         public async Task<JsonResponse<int>> UpdateExpense(UpdateExpenseViewModel model)
         {
-            var response = await _httpClient.PutAsJsonAsync("Expense", model);
+            var response = await _httpClient.PutAsync("expense", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
             return result;
         }
 
         public async Task<JsonResponse<int>> DeleteExpense(int id)
         {
-            var response = await _httpClient.DeleteAsync($"Expense/{id}");
+            var response = await _httpClient.DeleteAsync($"expense/{id}");
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
             return result;
         }
