@@ -2,34 +2,69 @@
 
 @model CreateLeaveViewModel
 
-<div class="container">
-    <div class="login-form login-form-left">
-        <div class="agile-row">
-            <h2>Add Menu</h2>
-            <div class="login-agileits-top">
-                <form asp-action="Create" enctype="multipart/form-data" method="post">
-                    <div asp-validation-summary="ModelOnly"></div>
-                    <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
-                    <div class="form-group">
-                        <label asp-for="LeaveTypeId">Advance Types</label>
-                        <select class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
-                        <span asp-validation-for="LeaveTypeId" class="text-danger"></span>
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Yearly Leave Form</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Other Leave Form</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="container">
+            <div class="login-form login-form-left">
+                <div class="agile-row">
+                    <h2></h2>
+                    <div class="login-agileits-top">
+                        <form asp-action="Create" enctype="multipart/form-data" method="post">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" asp-for="LeaveTypeId" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="StartDate">Start Date</label>
+                                <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="EndDate">End Date</label>
+                                <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                            <input type="submit" value="Add">
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="StartDate">Start Date</label>
-                        <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
-                        <span asp-validation-for="StartDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="EndDate">End Date</label>
-                        <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
-                        <span asp-validation-for="EndDate" class="text-danger"></span>
-                    </div>
-                    <input type="submit" value="Add">
-                </form>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <div class="container">
+                <div class="login-form login-form-left">
+                    <div class="agile-row">
+                        <h2></h2>
+                        <div class="login-agileits-top">
+                            <form asp-action="Create" enctype="multipart/form-data" method="post">
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <input type="hidden" asp-for="AppUserId" value="" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                                <div class="form-group">
+                                    <label asp-for="LeaveTypeId">Advance Types</label>
+                                    <select class="form-control" asp-for="LeaveTypeId" asp-items="@ViewBag.LeaveTypes"></select>
+                                    <span asp-validation-for="LeaveTypeId" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="StartDate">Start Date</label>
+                                    <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                </div>
+                                <input type="submit" value="Add">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+
 
     <div class="container">
         <div class="text-center">
@@ -52,22 +87,26 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var advance in ViewBag.Advances)
-            {
-                <tr>
-                    <td>@advance.Id</td>
-                    <td>@advance.LeaveTypeName</td>
-                    <td>@advance.StartDate</td>
-                    <td>@advance.Amount</td>
-                    <td>@advance.EndDate</td>
-                    <td>@advance.RequestDate</td>
-                    <td>@advance.ApprovalStatus</td>
-                    <td>@advance.ApprovalDate</td>
-                    <td>
-                        <a class="details btn btn-dark">Get Leave</a>
-                    </td>
-                </tr>
-            }
+                @{
+                    if(ViewBag.Leaves != null){
+                        @foreach (var advance in ViewBag.Leaves)
+                        {
+                            <tr>
+                                <td>@advance.Id</td>
+                                <td>@advance.LeaveTypeName</td>
+                                <td>@advance.StartDate</td>
+                                <td>@advance.Amount</td>
+                                <td>@advance.EndDate</td>
+                                <td>@advance.RequestDate</td>
+                                <td>@advance.ApprovalStatus</td>
+                                <td>@advance.ApprovalDate</td>
+                                <td>
+                                    <a class="details btn btn-dark">Get Leave</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
         </tbody>
     </table>
 </div>

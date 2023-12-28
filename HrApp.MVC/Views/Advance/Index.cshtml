@@ -61,21 +61,27 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var advance in ViewBag.Advances)
-            {
-                <tr>
-                    <td>@advance.Id</td>
-                    <td>@advance.AdvanceTypeName</td>
-                    <td>@advance.Amount</td>
-                    <td>@advance.Currency</td>
-                    <td>@advance.RequestDate</td>
-                    <td>@advance.ApprovalStatus</td>
-                    <td>@advance.ApprovalDate</td>
-                    <td>
-                        <a class="details btn btn-dark">Get Advance</a>
-                    </td>
-                </tr>
-            }
+            @{
+                if (ViewBag.Advances != null)
+                {
+                    @foreach (var advance in ViewBag.Advances)
+                    {
+                        <tr>
+                            <td>@advance.Id</td>
+                            <td>@advance.AdvanceTypeName</td>
+                            <td>@advance.Amount</td>
+                            <td>@advance.Currency</td>
+                            <td>@advance.RequestDate</td>
+                            <td>@advance.ApprovalStatus</td>
+                            <td>@advance.ApprovalDate</td>
+                            <td>
+                                <a class="details btn btn-dark">Get Advance</a>
+                            </td>
+                        </tr>
+                    }
+                    
+                }
+              }  
         </tbody>
     </table>
 </div>

@@ -1,5 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Advance;
+using HrApp.MVC.Models.Expense;
 using HrApp.MVC.Models.Leave;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -12,27 +14,29 @@ namespace HrApp.MVC.Controllers
     public class LeaveController : Controller
     {
         public INotyfService _notifyService { get; }
+        private LeaveClientService _leaveClientService;
 
-        public LeaveController(INotyfService notifyService)
+        public LeaveController(INotyfService notifyService, LeaveClientService leaveClientService)
         {
             _notifyService = notifyService;
+            _leaveClientService = leaveClientService;
         }
 
         public async Task<IActionResult> Index()
         {
-            //var leaveTypes = leaveTypeViewModel'a uygun bir şekilde api'dan çekilecek.
+            var leaveTypes = await _leaveClientService.GetLeaveTypes();
 
             List<SelectListItem> leaveTypeItems = new List<SelectListItem>();
 
-            //foreach (var item in leaveTypes)
-            //{
-            //    leaevTypeItems.Add(new SelectListItem(item.Name+"-"+item.Amount, item.Id.ToString()));
-            //};
+            foreach (var item in leaveTypes)
+            {
+                leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.Amount, item.Id.ToString()));
+            };
 
             var leaveTypesList = new SelectList(leaveTypeItems);
 
             ViewBag.leaveTypes = leaveTypesList.Items;
-            //ViewBag.Leaves = apidan expenseler istenecek. dönütün çıktısı, ReadLeaveViewModel'a uygun olacak yani değişkenler uyuşacak.
+            ViewBag.Leaves = await _leaveClientService.GetLeaves();
 
             return View();
         }
@@ -40,27 +44,45 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateLeaveViewModel createLeaveViewModel)
         {
-            //vm'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _leaveClientService.CreateLeave(createLeaveViewModel);
+
+            if (result.IsSuccess)
+            {
+                _notifyService.Success(result.Message);
+            }
+
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateLeaveViewModel updateLeaveViewModel)
         {
-            //vm'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _leaveClientService.UpdateLeave(updateLeaveViewModel);
+
+            if (result.IsSuccess)
+            {
+                _notifyService.Success(result.Message);
+            }
+
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            //id'yi gönder ve result'tan bağımsız olarak aşağıdaki gibi yönlendir.
-            _notifyService.Success("Success!");
-            _notifyService.Error("Error!");
+            var result = await _leaveClientService.DeleteLeave(id);
+
+            if (result.IsSuccess)
+            {
+                _notifyService.Success(result.Message);
+            }
+
+            _notifyService.Error(result.Message);
+
             return RedirectToAction("Index");
         }
 

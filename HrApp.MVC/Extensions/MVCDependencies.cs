@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using HrApp.MVC.ClientServices;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection;
@@ -21,7 +22,13 @@ namespace HrApp.MVC.Extensions
 
             services.AddScoped<LoginClientService>();
             services.AddScoped<PersonelClientService>();
+            services.AddScoped<CommonClientService>();
+            services.AddScoped<AdvanceClientService>();
+            services.AddScoped<ExpenseClientService>();
+            services.AddScoped<LeaveClientService>();
+
             services.AddScoped<ResponseHandler>();
+
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(opt =>
             {
