@@ -35,7 +35,7 @@ namespace HrApp.MVC.ClientServices
 
         public async Task<JsonResponse<List<int>>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel)
         {
-            var response = await _httpClient.PostAsync("advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel),Encoding.UTF8,"application/json"));
+            var response = await _httpClient.PostAsync("Advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel),Encoding.UTF8,"application/json"));
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<int>>>();
             return result;
         }
