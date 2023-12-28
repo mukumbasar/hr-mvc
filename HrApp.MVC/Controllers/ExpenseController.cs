@@ -1,5 +1,6 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.ClientServices;
+using HrApp.MVC.Helpers;
 using HrApp.MVC.Models.Advance;
 using HrApp.MVC.Models.Expense;
 using Microsoft.AspNetCore.Authorization;
@@ -55,6 +56,8 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel)
         {
+            createExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(createExpenseViewModel.File);
+
             var result = await _expenseClientService.CreateExpense(createExpenseViewModel);
 
             if(result.IsSuccess) 
