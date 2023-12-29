@@ -23,7 +23,7 @@ namespace HrApp.MVC.Controllers
         }
         [Authorize]
         public async Task<IActionResult> Index() =>
-                responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync(User.FindFirstValue("nameid")), "Index", "Index", this);
+            responseHandler.HandleResponse(await personelClientService.GetAppUserHomeViewModelAsync(User.FindFirstValue("nameid")), "Index", "Index", this);
 
         public IActionResult Login() =>
             View();
@@ -31,11 +31,11 @@ namespace HrApp.MVC.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel) =>
-                responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Index", this);
+            responseHandler.HandleResponse(await loginClientService.LoginAsync(loginViewModel, HttpContext), "Index", "Index", this);
 
         [HttpGet]
         public async Task<IActionResult> Logout() =>
-         responseHandler.HandleResponse(await loginClientService.LogoutAsync(HttpContext), "Index", "Logout", this);
+            responseHandler.HandleResponse(await loginClientService.LogoutAsync(HttpContext), "Index", "Logout", this);
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

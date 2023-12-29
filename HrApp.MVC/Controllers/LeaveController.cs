@@ -34,27 +34,23 @@ namespace HrApp.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateLeaveViewModel createLeaveViewModel)
-        {
-            return _responseHandler.HandleResponse(await _leaveClientService.CreateLeave(createLeaveViewModel, ModelState), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Create(CreateLeaveViewModel createLeaveViewModel) =>
+            _responseHandler.HandleResponse(await _leaveClientService.CreateLeave(createLeaveViewModel, ModelState), "Index", "Index", this);
+
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateLeaveViewModel updateLeaveViewModel)
-        {
-            return _responseHandler.HandleResponse(await _leaveClientService.UpdateLeave(updateLeaveViewModel), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Update(UpdateLeaveViewModel updateLeaveViewModel) =>
+            _responseHandler.HandleResponse(await _leaveClientService.UpdateLeave(updateLeaveViewModel), "Index", "Index", this);
+
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return _responseHandler.HandleResponse(await _leaveClientService.DeleteLeave(id), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Delete(int id) =>
+            _responseHandler.HandleResponse(await _leaveClientService.DeleteLeave(id), "Index", "Index", this);
+
 
         [HttpGet]
-        public async Task<IActionResult> Read(int id)
-        {
-            return _responseHandler.HandleResponse(await _leaveClientService.GetLeave(id), "_LeavePartialView", "Index", this);
-        }
+        public async Task<IActionResult> Read(int id) =>
+            _responseHandler.HandleResponse(await _leaveClientService.GetLeave(id), "_LeavePartialView", "Index", this);
+
     }
 }

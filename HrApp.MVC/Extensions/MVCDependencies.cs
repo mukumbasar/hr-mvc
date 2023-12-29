@@ -16,10 +16,11 @@ namespace HrApp.MVC.Extensions
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.BottomRight; });
             services.AddHttpClient("api", c => // "api" is the name of the HttpClient
             {
-                c.BaseAddress = new Uri("https://ank14hr.azurewebsites.net/api/");
-                //https://localhost:7213/api/
+                if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                    c.BaseAddress = new Uri("https://localhost:7213/api/");
+                else
+                    c.BaseAddress = new Uri("https://ank14hr.azurewebsites.net/api/");
             });
-
             services.AddScoped<LoginClientService>();
             services.AddScoped<PersonelClientService>();
             services.AddScoped<CommonClientService>();

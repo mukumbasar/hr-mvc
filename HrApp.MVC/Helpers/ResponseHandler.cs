@@ -25,7 +25,7 @@ public class ResponseHandler
     /// <param name="errorView">Response başarısız olduğunda yönlendirilecek view adı.</param>
     /// <param name="controller">Mevcut controller nesnesi, yönlendirme ve view dönüşleri için kullanılır.</param>
     /// <returns>View veya RedirectToAction sonucu döndürür. Bu sonucu girilen successView ve errorView'e göre kendisi belirler.</returns>
-    public IActionResult HandleResponse<TModel>(IResponseT<TModel> response, string successView, string errorView, Controller controller)
+    public IActionResult HandleResponse<TModel>(IResponseT<TModel>? response, string successView, string errorView, Controller controller)
     {
         string actionName = controller.ControllerContext.ActionDescriptor.ActionName.ToLower();
         string controllerName = controller.ControllerContext.ActionDescriptor.ControllerName.ToLower();
@@ -35,8 +35,8 @@ public class ResponseHandler
             if (response.Message != "")
                 _notyfService.Success(response.Message);
             if (successView.ToLower().Contains("partial"))
-                return controller.PartialView(response.Data);
-            return successView.ToLower() == actionName ? controller.View(response.Data) : controller.RedirectToAction(successView);
+                return controller.PartialView(successView, response.Data);
+            return successView.ToLower() == actionName ? controller.View(response.Data ?? default) : controller.RedirectToAction(successView);
         }
 
         // Response başarısız ise, errorView dön

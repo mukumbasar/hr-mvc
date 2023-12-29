@@ -23,19 +23,19 @@ namespace HrApp.MVC.ClientServices
         }
 
         public async Task<List<ReadLeaveViewModel>> GetLeaves() =>
-             validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(await _httpClient.GetAsync("leave")).Result.Data;
+            validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(await _httpClient.GetAsync("leave")).Result.Data;
 
 
         public async Task<List<SelectListItem>> GetLeaveTypes() =>
-             validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(await _httpClient.GetAsync("leave/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
+            validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(await _httpClient.GetAsync("leave/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
 
 
         public async Task<JsonResponse<ReadLeaveViewModel>> GetLeave(int id) =>
-             await validationService.ProcessResponse<JsonResponse<ReadLeaveViewModel>>(await _httpClient.GetAsync($"leave/{id}"));
+            await validationService.ProcessResponse<JsonResponse<ReadLeaveViewModel>>(await _httpClient.GetAsync($"leave/{id}"));
 
 
         public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model, ModelStateDictionary modelState) =>
-             await validationService.ExecuteValidatedRequestAsync<CreateLeaveViewModel, int>(
+            await validationService.ExecuteValidatedRequestAsync<CreateLeaveViewModel, int>(
                 model,
                 createValidator,
                 modelState,
@@ -46,11 +46,11 @@ namespace HrApp.MVC.ClientServices
 
 
         public async Task<JsonResponse<int>> UpdateLeave(UpdateLeaveViewModel model) =>
-             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.PutAsJsonAsync("leave", model));
+            await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.PutAsJsonAsync("leave", model));
 
 
         public async Task<JsonResponse<int>> DeleteLeave(int id) =>
-             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"leave/{id}"));
+            await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"leave/{id}"));
 
     }
 }

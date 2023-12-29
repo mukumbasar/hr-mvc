@@ -29,13 +29,8 @@ namespace HrApp.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var expenseTypes = await _expenseClientService.GetExpenseTypes();
-
-            var currencies = await _commonClientService.GetCurrencies();
-            ViewBag.ExpenseTypes = currencies;
-            ViewBag.Currencies = expenseTypes;
+            await ViewBagFiller();
             ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
-
             return View();
         }
 
@@ -49,28 +44,29 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
         {
-
+            updateExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(updateExpenseViewModel.File);
             return responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel, ModelState), "Index", "Index", this);
         }
 
+
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return responseHandler.HandleResponse(await _expenseClientService.DeleteExpense(id), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Delete(int id) =>
+        responseHandler.HandleResponse(await _expenseClientService.DeleteExpense(id), "Index", "Index", this);
+
 
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
+            await ViewBagFiller();
+            return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpensePartialView", "Index", this);
+        }
+
+        private async Task ViewBagFiller()
+        {
             var expenseTypes = await _expenseClientService.GetExpenseTypes();
-
             var currencies = await _commonClientService.GetCurrencies();
-
             ViewBag.ExpenseTypes = expenseTypes;
             ViewBag.Currencies = currencies;
-
-            var result = await _expenseClientService.GetExpense(id);
-            return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpensePartialView", "Index", this);
         }
     }
 }

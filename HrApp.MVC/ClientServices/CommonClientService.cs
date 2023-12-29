@@ -18,7 +18,7 @@ namespace HrApp.MVC.ClientServices
         }
 
         public async Task<List<SelectListItem>> GetCurrencies() =>
-             validationService.ProcessResponse<JsonResponse<List<CurrencyViewModel>>>(await _httpClient.GetAsync("Common/Currency")).Result.Data.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+            validationService.ProcessResponse<JsonResponse<List<CurrencyViewModel>>>(await _httpClient.GetAsync("Common/Currency")).Result.Data.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
     }
 }

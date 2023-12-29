@@ -26,12 +26,7 @@ namespace HrApp.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var advanceTypes = await _advanceClientService.GetAdvanceTypes();
-            var currencies = await _commonClientService.GetCurrencies();
-
-            ViewBag.AdvanceTypes = advanceTypes;
-            ViewBag.Currencies = currencies;
-
+            await ViewBagFiller();
             ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
 
             return View();
@@ -58,21 +53,17 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
-            var result = await _advanceClientService.GetAdvance(id);
+            await ViewBagFiller();
+            return _responseHandler.HandleResponse(await _advanceClientService.GetAdvance(id), "_AdvancePartialView", "Index", this);
+        }
 
+        private async Task ViewBagFiller()
+        {
             var advanceTypes = await _advanceClientService.GetAdvanceTypes();
             var currencies = await _commonClientService.GetCurrencies();
 
             ViewBag.AdvanceTypes = advanceTypes;
             ViewBag.Currencies = currencies;
-
-            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
-
-            if (result.IsSuccess) return PartialView("_AdvancePartialView", result.Data);
-
-            _notifyService.Error("Error");
-
-            return View("Index");
         }
     }
 }

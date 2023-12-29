@@ -8,9 +8,12 @@ using Newtonsoft.Json;
 public class LoginClientService
 {
     private readonly HttpClient _httpClient;
-    public LoginClientService(IHttpClientFactory httpClientFactory)
+    private readonly ValidationService validationService;
+
+    public LoginClientService(IHttpClientFactory httpClientFactory, ValidationService validationService)
     {
         _httpClient = httpClientFactory.CreateClient("api");
+        this.validationService = validationService;
     }
 
     public async Task<JsonResponse<bool>> LoginAsync(LoginViewModel loginViewModel, HttpContext httpContext)
