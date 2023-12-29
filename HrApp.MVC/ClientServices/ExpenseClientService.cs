@@ -2,6 +2,7 @@
 using HrApp.MVC.Models.Expense;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HrApp.MVC.ClientServices
 {
@@ -26,8 +27,8 @@ namespace HrApp.MVC.ClientServices
             await validationService.ProcessResponse<JsonResponse<List<ReadExpenseViewModel>>>(await _httpClient.GetAsync("Expense"));
 
 
-        public async Task<JsonResponse<List<ExpenseTypeViewModel>>> GetExpenseTypes() =>
-            await validationService.ProcessResponse<JsonResponse<List<ExpenseTypeViewModel>>>(await _httpClient.GetAsync("Expense/Types"));
+        public async Task<List<SelectListItem>> GetExpenseTypes() =>
+            validationService.ProcessResponse<JsonResponse<List<ExpenseTypeViewModel>>>(await _httpClient.GetAsync("Expense/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
 
 
         public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id) =>

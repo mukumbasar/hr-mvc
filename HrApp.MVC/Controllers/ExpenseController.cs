@@ -32,25 +32,8 @@ namespace HrApp.MVC.Controllers
             var expenseTypes = await _expenseClientService.GetExpenseTypes();
 
             var currencies = await _commonClientService.GetCurrencies();
-
-            List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
-            List<SelectListItem> currencyItems = new List<SelectListItem>();
-
-            foreach (var item in expenseTypes.Data)
-            {
-                expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            foreach (var item in currencies.Data)
-            {
-                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            var expenseTypesList = new SelectList(expenseTypeItems);
-            var currencyList = new SelectList(currencyItems);
-
-            ViewBag.ExpenseTypes = expenseTypesList.Items;
-            ViewBag.Currencies = currencyList.Items;
+            ViewBag.ExpenseTypes = currencies;
+            ViewBag.Currencies = expenseTypes;
             ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
 
             return View();
@@ -83,35 +66,11 @@ namespace HrApp.MVC.Controllers
 
             var currencies = await _commonClientService.GetCurrencies();
 
-            List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
-            List<SelectListItem> currencyItems = new List<SelectListItem>();
-
-            foreach (var item in expenseTypes.Data)
-            {
-                expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            foreach (var item in currencies.Data)
-            {
-                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            var expenseTypesList = new SelectList(expenseTypeItems);
-            var currencyList = new SelectList(currencyItems);
-
-            ViewBag.ExpenseTypes = expenseTypesList.Items;
-            ViewBag.Currencies = currencyList.Items;
+            ViewBag.ExpenseTypes = expenseTypes;
+            ViewBag.Currencies = currencies;
 
             var result = await _expenseClientService.GetExpense(id);
-
-            if (result.IsSuccess)
-            {
-                return PartialView("_ExpensePartialView", result.Data);
-            }
-
-            _notifyService.Error("Error!");
-
-            return RedirectToAction("Index");
+            return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpensePartialView", "Index", this);
         }
     }
 }

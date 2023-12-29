@@ -28,22 +28,8 @@ namespace HrApp.MVC.Controllers
         {
             var leaveTypes = await _leaveClientService.GetLeaveTypes();
 
-            List<SelectListItem> leaveTypeItems = new List<SelectListItem>();
-
-            foreach (var item in leaveTypes)
-            {
-                if (item.Id != 1)
-                {
-                    leaveTypeItems.Add(new SelectListItem(item.Name + "-" + item.NumDays, item.Id.ToString()));
-                }
-
-            };
-
-            var leaveTypesList = new SelectList(leaveTypeItems);
-
-            ViewBag.leaveTypes = leaveTypesList.Items;
+            ViewBag.leaveTypes = leaveTypes;
             ViewBag.Leaves = await _leaveClientService.GetLeaves();
-
             return View();
         }
 
@@ -68,20 +54,7 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
-            using HttpClient client = new HttpClient();
-
-            var response = await client.GetAsync("https://ank14hr.azurewebsites.net/api/Leave/{id}");
-
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
-            {
-                var responseData = response.Content.ReadAsStringAsync().Result;
-
-                var vm = JsonConvert.DeserializeObject<UpdateLeaveViewModel>(responseData);
-                return PartialView("_LeavePartialView", vm);
-            }
-
-            _notifyService.Error("Error!");
-            return RedirectToAction("Index");
+            return _responseHandler.HandleResponse(await _leaveClientService.GetLeave(id), "_LeavePartialView", "Index", this);
         }
     }
 }

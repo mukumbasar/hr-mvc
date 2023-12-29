@@ -3,6 +3,7 @@ using HrApp.MVC.Models.Advance;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -27,8 +28,8 @@ namespace HrApp.MVC.ClientServices
         public async Task<JsonResponse<UpdateAdvanceViewModel>> GetAdvance(int id) =>
             await validationService.ProcessResponse<JsonResponse<UpdateAdvanceViewModel>>(await _httpClient.GetAsync($"Advance/{id}"));
 
-        public async Task<JsonResponse<List<AdvanceTypeViewModel>>> GetAdvanceTypes() =>
-            await validationService.ProcessResponse<JsonResponse<List<AdvanceTypeViewModel>>>(await _httpClient.GetAsync("Advance/Types"));
+        public async Task<List<SelectListItem>> GetAdvanceTypes() =>
+            validationService.ProcessResponse<JsonResponse<List<AdvanceTypeViewModel>>>(await _httpClient.GetAsync("Advance/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
 
         public async Task<JsonResponse<decimal>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel, ModelStateDictionary modelState)
         {

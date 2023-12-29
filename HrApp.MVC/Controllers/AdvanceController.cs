@@ -29,24 +29,9 @@ namespace HrApp.MVC.Controllers
             var advanceTypes = await _advanceClientService.GetAdvanceTypes();
             var currencies = await _commonClientService.GetCurrencies();
 
-            List<SelectListItem> advanceTypeItems = new List<SelectListItem>();
-            List<SelectListItem> currencyItems = new List<SelectListItem>();
+            ViewBag.AdvanceTypes = advanceTypes;
+            ViewBag.Currencies = currencies;
 
-            foreach (var item in advanceTypes.Data)
-            {
-                advanceTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            foreach (var item in currencies.Data)
-            {
-                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            var advanceTypesList = new SelectList(advanceTypeItems);
-            var currencyList = new SelectList(currencyItems);
-
-            ViewBag.AdvanceTypes = advanceTypesList.Items;
-            ViewBag.Currencies = currencyList.Items;
             ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
 
             return View();
@@ -78,24 +63,10 @@ namespace HrApp.MVC.Controllers
             var advanceTypes = await _advanceClientService.GetAdvanceTypes();
             var currencies = await _commonClientService.GetCurrencies();
 
-            List<SelectListItem> advanceTypeItems = new List<SelectListItem>();
-            List<SelectListItem> currencyItems = new List<SelectListItem>();
+            ViewBag.AdvanceTypes = advanceTypes;
+            ViewBag.Currencies = currencies;
 
-            foreach (var item in advanceTypes.Data)
-            {
-                advanceTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            foreach (var item in currencies.Data)
-            {
-                currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
-            };
-
-            var advanceTypesList = new SelectList(advanceTypeItems);
-            var currencyList = new SelectList(currencyItems);
-
-            ViewBag.AdvanceTypes = advanceTypesList.Items;
-            ViewBag.Currencies = currencyList.Items;
+            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
 
             if (result.IsSuccess) return PartialView("_AdvancePartialView", result.Data);
 

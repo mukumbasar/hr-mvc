@@ -2,6 +2,7 @@
 using HrApp.MVC.Models.Expense;
 using HrApp.MVC.Models.Leave;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -24,22 +25,19 @@ namespace HrApp.MVC.ClientServices
         public async Task<List<ReadLeaveViewModel>> GetLeaves()
         {
             var response = await _httpClient.GetAsync("leave");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadLeaveViewModel>>>();
-            return result.Data;
+            return validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(response).Result.Data;
         }
 
-        public async Task<List<LeaveTypeViewModel>> GetLeaveTypes()
+        public async Task<List<SelectListItem>> GetLeaveTypes()
         {
             var response = await _httpClient.GetAsync("leave/Types");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<LeaveTypeViewModel>>>();
-            return result.Data;
+            return validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(response).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
         }
 
         public async Task<JsonResponse<ReadLeaveViewModel>> GetLeave(int id)
         {
             var response = await _httpClient.GetAsync($"leave/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<ReadLeaveViewModel>>();
-            return result;
+            return await validationService.ProcessResponse<JsonResponse<ReadLeaveViewModel>>(response);
         }
 
         public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model, ModelStateDictionary modelState)

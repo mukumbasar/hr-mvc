@@ -34,6 +34,8 @@ public class ResponseHandler
         {
             if (response.Message != "")
                 _notyfService.Success(response.Message);
+            if (successView.ToLower().Contains("partial"))
+                return controller.PartialView(response.Data);
             return successView.ToLower() == actionName ? controller.View(response.Data) : controller.RedirectToAction(successView);
         }
 
