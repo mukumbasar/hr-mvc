@@ -16,6 +16,5 @@ namespace HrApp.MVC.Validator
             RuleFor(x => x.File).NotEmpty().WithMessage("File is required");
 
         }
-
     }
 }
