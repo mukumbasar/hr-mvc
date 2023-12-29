@@ -13,11 +13,11 @@ namespace HrApp.MVC.ClientServices
             _httpClient = httpClientFactory.CreateClient("api");
         }
 
-        public async Task<List<CurrencyViewModel>> GetCurrencies()
+        public async Task<JsonResponse<List<CurrencyViewModel>>> GetCurrencies()
         {
             var response = await _httpClient.GetAsync("Common/Currency");
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<CurrencyViewModel>>>();
-            return result.Data;
+            return result;
         }
     }
 }

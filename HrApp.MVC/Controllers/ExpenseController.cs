@@ -36,12 +36,12 @@ namespace HrApp.MVC.Controllers
             List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
             List<SelectListItem> currencyItems = new List<SelectListItem>();
 
-            foreach (var item in expenseTypes)
+            foreach (var item in expenseTypes.Data)
             {
                 expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
 
-            foreach (var item in currencies)
+            foreach (var item in currencies.Data)
             {
                 currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
@@ -51,7 +51,7 @@ namespace HrApp.MVC.Controllers
 
             ViewBag.ExpenseTypes = expenseTypesList.Items;
             ViewBag.Currencies = currencyList.Items;
-            ViewBag.Expenses = await _expenseClientService.GetExpenses();
+            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
 
             return View();
         }
@@ -86,12 +86,12 @@ namespace HrApp.MVC.Controllers
             List<SelectListItem> expenseTypeItems = new List<SelectListItem>();
             List<SelectListItem> currencyItems = new List<SelectListItem>();
 
-            foreach (var item in expenseTypes)
+            foreach (var item in expenseTypes.Data)
             {
                 expenseTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
 
-            foreach (var item in currencies)
+            foreach (var item in currencies.Data)
             {
                 currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };

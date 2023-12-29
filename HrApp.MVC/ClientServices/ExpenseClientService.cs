@@ -22,12 +22,12 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<List<ReadExpenseViewModel>> GetExpenses() =>
-            await validationService.ProcessResponse<List<ReadExpenseViewModel>>(await _httpClient.GetAsync("Expense"));
+        public async Task<JsonResponse<List<ReadExpenseViewModel>>> GetExpenses() =>
+            await validationService.ProcessResponse<JsonResponse<List<ReadExpenseViewModel>>>(await _httpClient.GetAsync("Expense"));
 
 
-        public async Task<List<ExpenseTypeViewModel>> GetExpenseTypes() =>
-            await validationService.ProcessResponse<List<ExpenseTypeViewModel>>(await _httpClient.GetAsync("Expense/Types"));
+        public async Task<JsonResponse<List<ExpenseTypeViewModel>>> GetExpenseTypes() =>
+            await validationService.ProcessResponse<JsonResponse<List<ExpenseTypeViewModel>>>(await _httpClient.GetAsync("Expense/Types"));
 
 
         public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id) =>

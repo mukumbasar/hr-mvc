@@ -32,12 +32,12 @@ namespace HrApp.MVC.Controllers
             List<SelectListItem> advanceTypeItems = new List<SelectListItem>();
             List<SelectListItem> currencyItems = new List<SelectListItem>();
 
-            foreach (var item in advanceTypes)
+            foreach (var item in advanceTypes.Data)
             {
                 advanceTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
 
-            foreach (var item in currencies)
+            foreach (var item in currencies.Data)
             {
                 currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
@@ -47,7 +47,7 @@ namespace HrApp.MVC.Controllers
 
             ViewBag.AdvanceTypes = advanceTypesList.Items;
             ViewBag.Currencies = currencyList.Items;
-            ViewBag.Advances = await _advanceClientService.GetAdvances();
+            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
 
             return View();
         }
@@ -81,12 +81,12 @@ namespace HrApp.MVC.Controllers
             List<SelectListItem> advanceTypeItems = new List<SelectListItem>();
             List<SelectListItem> currencyItems = new List<SelectListItem>();
 
-            foreach (var item in advanceTypes)
+            foreach (var item in advanceTypes.Data)
             {
                 advanceTypeItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };
 
-            foreach (var item in currencies)
+            foreach (var item in currencies.Data)
             {
                 currencyItems.Add(new SelectListItem(item.Name, item.Id.ToString()));
             };

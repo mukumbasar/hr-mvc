@@ -37,17 +37,17 @@ public class PersonelClientService
 
         return await validationService.ProcessResponse<JsonResponse<AppUserUpdateViewModel>>(response);
     }
-    public async Task<JsonResponse<bool>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
+    public async Task<JsonResponse<string>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
         var validationResult = validationService.ModelValidator(appUserUpdateViewModel, updateValidator, ModelState);
         if (!validationResult.IsSuccess)
-            return JsonResponse<bool>.Failure(validationResult.Message);
+            return JsonResponse<string>.Failure(validationResult.Message);
 
         var bytes = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
 
         appUserUpdateViewModel.UpdatedImage = bytes;
 
         var response = await _httpClient.PutAsJsonAsync($"User", appUserUpdateViewModel);
-        return await validationService.ProcessResponse<JsonResponse<bool>>(response);
+        return await validationService.ProcessResponse<JsonResponse<string>>(response);
     }
 }
