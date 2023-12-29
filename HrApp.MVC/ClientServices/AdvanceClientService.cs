@@ -1,6 +1,8 @@
 ﻿using HrApp.MVC.Helpers;
 using HrApp.MVC.Models.Advance;
+using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -9,7 +11,10 @@ namespace HrApp.MVC.ClientServices
     public class AdvanceClientService
     {
         private readonly HttpClient _httpClient;
-        public AdvanceClientService(IHttpClientFactory httpClientFactory)
+        private readonly UpdateAdvanceViewModelValidator updateValidator;
+        private readonly ValidationService validationService;
+        private readonly CreateAdvanceViewModelValidator createValidator;
+        public AdvanceClientService(IHttpClientFactory httpClientFactory, UpdateAdvanceViewModelValidator updateValidator, ValidationService validationService, CreateAdvanceViewModelValidator createValidator)
         {
             _httpClient = httpClientFactory.CreateClient("api");
         }
@@ -33,15 +38,21 @@ namespace HrApp.MVC.ClientServices
             return result.Data;
         }
 
-        public async Task<JsonResponse<decimal>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel)
+        public async Task<JsonResponse<decimal>> CreateAdvance(CreateAdvanceViewModel createAdvanceViewModel, ModelStateDictionary modelState)
         {
-            var response = await _httpClient.PostAsync("Advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel),Encoding.UTF8,"application/json"));
+            var validationResult = validationService.Validate(createAdvanceViewModel, createValidator, modelState);
+            if (!validationResult.IsSuccess)
+                return JsonResponse<decimal>.Failure(validationResult.Message);
+            var response = await _httpClient.PostAsync("Advance", new StringContent(JsonConvert.SerializeObject(createAdvanceViewModel), Encoding.UTF8, "application/json"));
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<decimal>>();
             return result;
         }
-        public async Task<JsonResponse<decimal>> UpdateAdvance(UpdateAdvanceViewModel updateAdvanceViewModel)
+        public async Task<JsonResponse<decimal>> UpdateAdvance(UpdateAdvanceViewModel updateAdvanceViewModel, ModelStateDictionary modelState)
         {
-            var response = await _httpClient.PutAsync("advance", new StringContent(JsonConvert.SerializeObject(updateAdvanceViewModel),Encoding.UTF8,"application/json"));
+            var validationResult = validationService.Validate(updateAdvanceViewModel, updateValidator, modelState);
+            if (!validationResult.IsSuccess)
+                return JsonResponse<decimal>.Failure(validationResult.Message);
+            var response = await _httpClient.PutAsync("advance", new StringContent(JsonConvert.SerializeObject(updateAdvanceViewModel), Encoding.UTF8, "application/json"));
             var result = await response.Content.ReadFromJsonAsync<JsonResponse<decimal>>();
             return result;
         }

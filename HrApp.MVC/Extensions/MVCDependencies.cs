@@ -26,7 +26,7 @@ namespace HrApp.MVC.Extensions
             services.AddScoped<AdvanceClientService>();
             services.AddScoped<ExpenseClientService>();
             services.AddScoped<LeaveClientService>();
-
+            services.AddScoped<ValidationService>();
             services.AddScoped<ResponseHandler>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

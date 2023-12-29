@@ -25,7 +25,7 @@ public class ResponseHandler
     /// <param name="errorView">Response başarısız olduğunda yönlendirilecek view adı.</param>
     /// <param name="controller">Mevcut controller nesnesi, yönlendirme ve view dönüşleri için kullanılır.</param>
     /// <returns>View veya RedirectToAction sonucu döndürür. Bu sonucu girilen successView ve errorView'e göre kendisi belirler.</returns>
-    public IActionResult HandleResponse<TModel>(IResponse<TModel> response, string successView, string errorView, Controller controller)
+    public IActionResult HandleResponse<TModel>(IResponseT<TModel> response, string successView, string errorView, Controller controller)
     {
         string actionName = controller.ControllerContext.ActionDescriptor.ActionName.ToLower();
         string controllerName = controller.ControllerContext.ActionDescriptor.ControllerName.ToLower();
@@ -45,10 +45,4 @@ public class ResponseHandler
         }
     }
 
-}
-public interface IResponse<T>
-{
-    T Data { get; }
-    bool IsSuccess { get; }
-    string Message { get; }
 }

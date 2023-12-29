@@ -55,13 +55,13 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateAdvanceViewModel createAdvanceViewModel)
         {
-            return _responseHandler.HandleResponse(await _advanceClientService.CreateAdvance(createAdvanceViewModel), "Index", "Index", this);
+            return _responseHandler.HandleResponse(await _advanceClientService.CreateAdvance(createAdvanceViewModel, ModelState), "Index", "Index", this);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateAdvanceViewModel updateAdvanceViewModel)
         {
-            return _responseHandler.HandleResponse(await _advanceClientService.UpdateAdvance(updateAdvanceViewModel), "Index", "Index", this);
+            return _responseHandler.HandleResponse(await _advanceClientService.UpdateAdvance(updateAdvanceViewModel, ModelState), "Index", "Index", this);
         }
 
         [HttpGet]

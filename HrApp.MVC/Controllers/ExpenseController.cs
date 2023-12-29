@@ -3,6 +3,7 @@ using HrApp.MVC.ClientServices;
 using HrApp.MVC.Helpers;
 using HrApp.MVC.Models.Advance;
 using HrApp.MVC.Models.Expense;
+using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -59,14 +60,14 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel)
         {
             createExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(createExpenseViewModel.File);
-            return responseHandler.HandleResponse(await _expenseClientService.CreateExpense(createExpenseViewModel), "Index", "Index", this);
+            return responseHandler.HandleResponse(await _expenseClientService.CreateExpense(createExpenseViewModel, ModelState), "Index", "Index", this);
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
         {
-            updateExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(updateExpenseViewModel.File);
-            return responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel), "Index", "Index", this);
+
+            return responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel, ModelState), "Index", "Index", this);
         }
 
         [HttpGet]
