@@ -9,16 +9,16 @@ namespace HrApp.MVC.ClientServices
     {
 
         private readonly HttpClient _httpClient;
-        public CommonClientService(IHttpClientFactory httpClientFactory)
+        private readonly ValidationService validationService;
+
+        public CommonClientService(IHttpClientFactory httpClientFactory, ValidationService validationService)
         {
             _httpClient = httpClientFactory.CreateClient("api");
+            this.validationService = validationService;
         }
 
-        public async Task<List<SelectListItem>> GetCurrencies()
-        {
-            var response = await _httpClient.GetAsync("Common/Currency");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<CurrencyViewModel>>>();
-            return result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
-        }
+        public async Task<List<SelectListItem>> GetCurrencies() =>
+             validationService.ProcessResponse<JsonResponse<List<CurrencyViewModel>>>(await _httpClient.GetAsync("Common/Currency")).Result.Data.Select(x => new SelectListItem { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
     }
 }

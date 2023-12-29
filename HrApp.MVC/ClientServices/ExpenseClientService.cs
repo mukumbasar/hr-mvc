@@ -36,23 +36,26 @@ namespace HrApp.MVC.ClientServices
 
 
         public async Task<JsonResponse<int>> CreateExpense(CreateExpenseViewModel model, ModelStateDictionary modelState)
-        {
-            var validationResult = validationService.ModelValidator(model, createValidator, modelState);
-            if (!validationResult.IsSuccess)
-                return JsonResponse<int>.Failure(validationResult.Message);
-            var response = await _httpClient.PostAsJsonAsync("Expense", model);
-            return await validationService.ProcessResponse<JsonResponse<int>>(response);
-        }
+        => await validationService.ExecuteValidatedRequestAsync<CreateExpenseViewModel, int>(
+            model,
+            createValidator,
+            modelState,
+            async () =>
+            {
+                return await _httpClient.PostAsJsonAsync("Expense", model);
+            });
 
-        public async Task<JsonResponse<int>> UpdateExpense(UpdateExpenseViewModel model, ModelStateDictionary modelState)
-        {
-            var validationResult = validationService.ModelValidator(model, updateValidator, modelState);
-            if (!validationResult.IsSuccess)
-                return JsonResponse<int>.Failure(validationResult.Message);
-            model.Document = await ImageConversions.ConvertToByteArrayAsync(model.File);
-            var response = await _httpClient.PutAsJsonAsync("Expense", model);
-            return await validationService.ProcessResponse<JsonResponse<int>>(response);
-        }
+
+        public async Task<JsonResponse<int>> UpdateExpense(UpdateExpenseViewModel model, ModelStateDictionary modelState) =>
+            await validationService.ExecuteValidatedRequestAsync<UpdateExpenseViewModel, int>(
+                model,
+                updateValidator,
+                modelState,
+                async () =>
+                {
+                    return await _httpClient.PutAsJsonAsync("Expense", model);
+                });
+
 
         public async Task<JsonResponse<int>> DeleteExpense(int id) =>
             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"Expense/{id}"));

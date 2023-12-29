@@ -22,43 +22,35 @@ namespace HrApp.MVC.ClientServices
             this.validationService = validationService;
         }
 
-        public async Task<List<ReadLeaveViewModel>> GetLeaves()
-        {
-            var response = await _httpClient.GetAsync("leave");
-            return validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(response).Result.Data;
-        }
+        public async Task<List<ReadLeaveViewModel>> GetLeaves() =>
+             validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(await _httpClient.GetAsync("leave")).Result.Data;
 
-        public async Task<List<SelectListItem>> GetLeaveTypes()
-        {
-            var response = await _httpClient.GetAsync("leave/Types");
-            return validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(response).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
-        }
 
-        public async Task<JsonResponse<ReadLeaveViewModel>> GetLeave(int id)
-        {
-            var response = await _httpClient.GetAsync($"leave/{id}");
-            return await validationService.ProcessResponse<JsonResponse<ReadLeaveViewModel>>(response);
-        }
+        public async Task<List<SelectListItem>> GetLeaveTypes() =>
+             validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(await _httpClient.GetAsync("leave/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
 
-        public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model, ModelStateDictionary modelState)
-        {
-            var validationResult = validationService.ModelValidator(model, createValidator, modelState);
-            if (!validationResult.IsSuccess)
-                return JsonResponse<int>.Failure(validationResult.Message);
-            var response = await _httpClient.PostAsJsonAsync("leave", model);
-            return await validationService.ProcessResponse<JsonResponse<int>>(response);
-        }
 
-        public async Task<JsonResponse<int>> UpdateLeave(UpdateLeaveViewModel model)
-        {
-            var response = await _httpClient.PutAsync("leave", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
-            return await validationService.ProcessResponse<JsonResponse<int>>(response);
-        }
+        public async Task<JsonResponse<ReadLeaveViewModel>> GetLeave(int id) =>
+             await validationService.ProcessResponse<JsonResponse<ReadLeaveViewModel>>(await _httpClient.GetAsync($"leave/{id}"));
 
-        public async Task<JsonResponse<int>> DeleteLeave(int id)
-        {
-            var response = await _httpClient.DeleteAsync($"leave/{id}");
-            return await validationService.ProcessResponse<JsonResponse<int>>(response);
-        }
+
+        public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model, ModelStateDictionary modelState) =>
+             await validationService.ExecuteValidatedRequestAsync<CreateLeaveViewModel, int>(
+                model,
+                createValidator,
+                modelState,
+                async () =>
+                {
+                    return await _httpClient.PostAsJsonAsync("leave", model);
+                });
+
+
+        public async Task<JsonResponse<int>> UpdateLeave(UpdateLeaveViewModel model) =>
+             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.PutAsJsonAsync("leave", model));
+
+
+        public async Task<JsonResponse<int>> DeleteLeave(int id) =>
+             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"leave/{id}"));
+
     }
 }

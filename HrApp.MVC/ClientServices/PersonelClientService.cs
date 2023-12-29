@@ -19,35 +19,21 @@ public class PersonelClientService
         this.updateValidator = updateValidator;
         this.validationService = validationService;
     }
-    public async Task<JsonResponse<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId)
-    {
-        var response = await _httpClient.GetAsync($"User/{userId}");
+    public async Task<JsonResponse<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId) =>
+        await validationService.ProcessResponse<JsonResponse<AppUserHomeViewModel>>(await _httpClient.GetAsync($"User/{userId}"));
 
-        return await validationService.ProcessResponse<JsonResponse<AppUserHomeViewModel>>(response);
-    }
-    public async Task<JsonResponse<AppUserDetailViewModel>> GetAppUserDetailViewModelAsync(string userId)
-    {
-        var response = await _httpClient.GetAsync($"User/details/{userId}");
+    public async Task<JsonResponse<AppUserDetailViewModel>> GetAppUserDetailViewModelAsync(string userId) =>
+        await validationService.ProcessResponse<JsonResponse<AppUserDetailViewModel>>(await _httpClient.GetAsync($"User/details/{userId}"));
 
-        return await validationService.ProcessResponse<JsonResponse<AppUserDetailViewModel>>(response);
-    }
-    public async Task<JsonResponse<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
-    {
-        var response = await _httpClient.GetAsync($"User/details/{userId}");
-
-        return await validationService.ProcessResponse<JsonResponse<AppUserUpdateViewModel>>(response);
-    }
+    public async Task<JsonResponse<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId) =>
+        await validationService.ProcessResponse<JsonResponse<AppUserUpdateViewModel>>(await _httpClient.GetAsync($"User/details/{userId}"));
     public async Task<JsonResponse<string>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
         var validationResult = validationService.ModelValidator(appUserUpdateViewModel, updateValidator, ModelState);
         if (!validationResult.IsSuccess)
             return JsonResponse<string>.Failure(validationResult.Message);
 
-        var bytes = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
-
-        appUserUpdateViewModel.UpdatedImage = bytes;
-
-        var response = await _httpClient.PutAsJsonAsync($"User", appUserUpdateViewModel);
-        return await validationService.ProcessResponse<JsonResponse<string>>(response);
+        appUserUpdateViewModel.UpdatedImage = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
+        return await validationService.ProcessResponse<JsonResponse<string>>(await _httpClient.PutAsJsonAsync($"User", appUserUpdateViewModel));
     }
 }

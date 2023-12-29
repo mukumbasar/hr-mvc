@@ -34,4 +34,26 @@ public class ValidationService
         var content = await response.Content.ReadFromJsonAsync<T>();
         return content;
     }
+    public async Task<JsonResponse<TResult>> ExecuteValidatedRequestAsync<TModel, TResult>(
+    TModel model,
+    IValidator<TModel>? validator,
+    ModelStateDictionary? modelState,
+    Func<Task<HttpResponseMessage>> requestFunc)
+    {
+        // First, perform model validation
+        if (validator != null && modelState != null)
+        {
+            var validationResponse = ModelValidator(model, validator, modelState);
+            if (!validationResponse.IsSuccess)
+            {
+                return JsonResponse<TResult>.Failure(validationResponse.Message);
+            }
+        }
+        // Then, execute the HTTP request and process the response
+        var httpResponse = await requestFunc();
+        var responseContent = await ProcessResponse<JsonResponse<TResult>>(httpResponse);
+
+        return responseContent;
+    }
+
 }

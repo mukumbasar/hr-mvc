@@ -13,7 +13,7 @@ namespace HrApp.MVC.Validator
             RuleFor(x => x.RequestDate).NotEmpty().WithMessage("Request date is required.");
             RuleFor(x => x.Description).NotEmpty().WithMessage("Description is required.").MaximumLength(100).WithMessage("Description must be maximum of 100 characters.").MinimumLength(5).WithMessage("Description must be minimum of 5 characters.");
 
-            RuleFor(x => x.RequestDate).GreaterThan(DateTime.Now).WithMessage("Request date must be greater than today.");
+            RuleFor(x => x.RequestDate).GreaterThan(DateTime.Today).WithMessage("Request date must be greater than today.");
         }
     }
 }
