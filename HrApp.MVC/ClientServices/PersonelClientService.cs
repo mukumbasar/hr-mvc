@@ -64,7 +64,7 @@ public class PersonelClientService
     }
     public async Task<Response<bool>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
-        if (updateValidator.Validate(appUserUpdateViewModel).IsValid == false)
+        if (updateValidator.Validate(appUserUpdateViewModel).IsValid == false || !ModelState.IsValid)
         {
             PostValidationErrors.AddToModelState(updateValidator.Validate(appUserUpdateViewModel), ModelState);
             return Response<bool>.Failure("Validation error");

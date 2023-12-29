@@ -13,8 +13,9 @@ namespace HrApp.MVC.Models
         public string MobileNumber { get; set; }
 
         [CheckExtension(new string[] { ".png", ".jpeg", ".jpg" })]
+        [CheckSize(1 * 1024 * 1024, ErrorMessage = "Maximum allowed file size is {0} bytes")]
         public IFormFile NewImage { get; set; }
-
+        
         public byte[]? UpdatedImage { get; set; }
     }
 }
