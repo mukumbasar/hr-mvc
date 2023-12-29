@@ -22,7 +22,7 @@
       "hotReloadProfile": "aspnetcore"
     },
     {
-      "name": ".NET Core Launch (web) - Local Testing",
+      "name": ".NET Core Launch (web) - Staging",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
@@ -34,7 +34,7 @@
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
       },
       "env": {
-        "ASPNETCORE_ENVIRONMENT": "LocalTesting"
+        "ASPNETCORE_ENVIRONMENT": "Staging"
       },
       "sourceFileMap": {
         "/Views": "${workspaceFolder}/Views"
