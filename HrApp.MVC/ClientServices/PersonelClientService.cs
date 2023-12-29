@@ -11,75 +11,43 @@ namespace HrApp.MVC;
 public class PersonelClientService
 {
     private readonly AppUserUpdateViewModelValidator updateValidator;
+    private readonly ValidationService validationService;
     private readonly HttpClient _httpClient;
-    public PersonelClientService(IHttpClientFactory httpClientFactory, AppUserUpdateViewModelValidator updateValidator)
+    public PersonelClientService(IHttpClientFactory httpClientFactory, AppUserUpdateViewModelValidator updateValidator, ValidationService validationService)
     {
         _httpClient = httpClientFactory.CreateClient("api");
         this.updateValidator = updateValidator;
+        this.validationService = validationService;
     }
-    public async Task<Response<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId)
+    public async Task<JsonResponse<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/{userId}");
 
-        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            var responseData = response.Content.ReadAsStringAsync().Result;
-
-            var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
-
-            return Response<AppUserHomeViewModel>.Success(userHomeModel, "");
-        }
-
-        return Response<AppUserHomeViewModel>.Failure("User not found");
+        return await validationService.ProcessResponse<JsonResponse<AppUserHomeViewModel>>(response);
     }
-    public async Task<Response<AppUserDetailViewModel>> GetAppUserDetailViewModelAsync(string userId)
+    public async Task<JsonResponse<AppUserDetailViewModel>> GetAppUserDetailViewModelAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/details/{userId}");
 
-        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            var responseData = response.Content.ReadAsStringAsync().Result;
-
-            var userDetailModel = JsonConvert.DeserializeObject<AppUserDetailViewModel>(responseData);
-
-            return Response<AppUserDetailViewModel>.Success(userDetailModel, "");
-        }
-
-        return Response<AppUserDetailViewModel>.Failure("User not found");
+        return await validationService.ProcessResponse<JsonResponse<AppUserDetailViewModel>>(response);
     }
-    public async Task<Response<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
+    public async Task<JsonResponse<AppUserUpdateViewModel>> GetAppUserUpdateAsync(string userId)
     {
         var response = await _httpClient.GetAsync($"User/details/{userId}");
 
-        if (response.StatusCode == System.Net.HttpStatusCode.OK)
-        {
-            var responseData = response.Content.ReadAsStringAsync().Result;
-
-            var userDetailModel = JsonConvert.DeserializeObject<AppUserUpdateViewModel>(responseData);
-
-            return Response<AppUserUpdateViewModel>.Success(userDetailModel, "");
-        }
-
-        return Response<AppUserUpdateViewModel>.Failure("User not found");
+        return await validationService.ProcessResponse<JsonResponse<AppUserUpdateViewModel>>(response);
     }
-    public async Task<Response<bool>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
+    public async Task<JsonResponse<bool>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
-        if (updateValidator.Validate(appUserUpdateViewModel).IsValid == false || !ModelState.IsValid)
-        {
-            PostValidationErrors.AddToModelState(updateValidator.Validate(appUserUpdateViewModel), ModelState);
-            return Response<bool>.Failure("Validation error");
-        }
+        var validationResult = validationService.ModelValidator(appUserUpdateViewModel, updateValidator, ModelState);
+        if (!validationResult.IsSuccess)
+            return JsonResponse<bool>.Failure(validationResult.Message);
+
         var bytes = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
 
         appUserUpdateViewModel.UpdatedImage = bytes;
 
         var response = await _httpClient.PutAsJsonAsync($"User", appUserUpdateViewModel);
-
-        if (response.IsSuccessStatusCode)
-        {
-            return Response<bool>.Success(true);
-        }
-
-        return Response<bool>.Failure();
+        return await validationService.ProcessResponse<JsonResponse<bool>>(response);
     }
 }

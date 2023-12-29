@@ -22,54 +22,40 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<List<ReadExpenseViewModel>> GetExpenses()
-        {
-            var response = await _httpClient.GetAsync("Expense");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ReadExpenseViewModel>>>();
-            return result.Data;
-        }
+        public async Task<List<ReadExpenseViewModel>> GetExpenses() =>
+            await validationService.ProcessResponse<List<ReadExpenseViewModel>>(await _httpClient.GetAsync("Expense"));
 
-        public async Task<List<ExpenseTypeViewModel>> GetExpenseTypes()
-        {
-            var response = await _httpClient.GetAsync("Expense/Types");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<List<ExpenseTypeViewModel>>>();
-            return result.Data;
-        }
 
-        public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id)
-        {
-            var response = await _httpClient.GetAsync($"Expense/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<UpdateExpenseViewModel>>();
-            return result;
-        }
+        public async Task<List<ExpenseTypeViewModel>> GetExpenseTypes() =>
+            await validationService.ProcessResponse<List<ExpenseTypeViewModel>>(await _httpClient.GetAsync("Expense/Types"));
+
+
+        public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id) =>
+            await validationService.ProcessResponse<JsonResponse<UpdateExpenseViewModel>>(await _httpClient.GetAsync($"Expense/{id}"));
+
 
         public async Task<JsonResponse<int>> CreateExpense(CreateExpenseViewModel model, ModelStateDictionary modelState)
         {
-            var validationResult = validationService.Validate(model, createValidator, modelState);
+            var validationResult = validationService.ModelValidator(model, createValidator, modelState);
             if (!validationResult.IsSuccess)
                 return JsonResponse<int>.Failure(validationResult.Message);
             var response = await _httpClient.PostAsJsonAsync("Expense", model);
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
+            return await validationService.ProcessResponse<JsonResponse<int>>(response);
         }
 
         public async Task<JsonResponse<int>> UpdateExpense(UpdateExpenseViewModel model, ModelStateDictionary modelState)
         {
-            var validationResult = validationService.Validate(model, updateValidator, modelState);
+            var validationResult = validationService.ModelValidator(model, updateValidator, modelState);
             if (!validationResult.IsSuccess)
                 return JsonResponse<int>.Failure(validationResult.Message);
             model.Document = await ImageConversions.ConvertToByteArrayAsync(model.File);
             var response = await _httpClient.PutAsJsonAsync("Expense", model);
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
+            return await validationService.ProcessResponse<JsonResponse<int>>(response);
         }
 
-        public async Task<JsonResponse<int>> DeleteExpense(int id)
-        {
-            var response = await _httpClient.DeleteAsync($"Expense/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
-        }
+        public async Task<JsonResponse<int>> DeleteExpense(int id) =>
+            await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"Expense/{id}"));
+
 
     }
 }

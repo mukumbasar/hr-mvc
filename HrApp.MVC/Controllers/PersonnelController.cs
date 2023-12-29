@@ -32,9 +32,7 @@ namespace HrApp.MVC.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel)
-        {
-            return responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Update", this);
-        }
+        public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
+             responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Update", this);
     }
 }

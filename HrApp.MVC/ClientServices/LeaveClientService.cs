@@ -1,6 +1,7 @@
 ﻿using HrApp.MVC.Helpers;
 using HrApp.MVC.Models.Expense;
 using HrApp.MVC.Models.Leave;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -10,9 +11,14 @@ namespace HrApp.MVC.ClientServices
     {
 
         private readonly HttpClient _httpClient;
-        public LeaveClientService(IHttpClientFactory httpClientFactory)
+        private readonly CreateLeaveViewModelValidator createValidator;
+        private readonly ValidationService validationService;
+
+        public LeaveClientService(IHttpClientFactory httpClientFactory, CreateLeaveViewModelValidator createValidator, ValidationService validationService)
         {
             _httpClient = httpClientFactory.CreateClient("api");
+            this.createValidator = createValidator;
+            this.validationService = validationService;
         }
 
         public async Task<List<ReadLeaveViewModel>> GetLeaves()
@@ -36,25 +42,25 @@ namespace HrApp.MVC.ClientServices
             return result;
         }
 
-        public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model)
+        public async Task<JsonResponse<int>> CreateLeave(CreateLeaveViewModel model, ModelStateDictionary modelState)
         {
-            var response = await _httpClient.PostAsync("leave", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
+            var validationResult = validationService.ModelValidator(model, createValidator, modelState);
+            if (!validationResult.IsSuccess)
+                return JsonResponse<int>.Failure(validationResult.Message);
+            var response = await _httpClient.PostAsJsonAsync("leave", model);
+            return await validationService.ProcessResponse<JsonResponse<int>>(response);
         }
 
         public async Task<JsonResponse<int>> UpdateLeave(UpdateLeaveViewModel model)
         {
             var response = await _httpClient.PutAsync("leave", new StringContent(JsonConvert.SerializeObject(model), Encoding.UTF8, "application/json"));
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
+            return await validationService.ProcessResponse<JsonResponse<int>>(response);
         }
 
         public async Task<JsonResponse<int>> DeleteLeave(int id)
         {
             var response = await _httpClient.DeleteAsync($"leave/{id}");
-            var result = await response.Content.ReadFromJsonAsync<JsonResponse<int>>();
-            return result;
+            return await validationService.ProcessResponse<JsonResponse<int>>(response);
         }
     }
 }

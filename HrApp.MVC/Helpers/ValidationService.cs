@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using System.Net;
+using FluentValidation;
 using HrApp.MVC.Helpers;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -6,16 +7,31 @@ namespace HrApp.MVC;
 
 public class ValidationService
 {
-    public JsonResponse<T> Validate<T>(T model, IValidator<T> validator, ModelStateDictionary? modelState)
+    public JsonResponse<T> ModelValidator<T>(T model, IValidator<T> validator, ModelStateDictionary modelState)
     {
         var validationResult = validator.Validate(model);
-        if (validationResult.IsValid)
+        if (validationResult.IsValid && modelState.IsValid)
             return JsonResponse<T>.Success(model);
         foreach (var error in validationResult.Errors)
         {
             modelState?.AddModelError(error.PropertyName, error.ErrorMessage);
         }
-        var tempError = string.Join("\n", validationResult.Errors.Select(x => x.ErrorMessage));
+        var tempError = string.Join(" ", modelState.Values
+                                        .SelectMany(x => x.Errors)
+                                        .Select(x => x.ErrorMessage));
         return JsonResponse<T>.Failure(tempError);
+    }
+    public async Task<T> ProcessResponse<T>(HttpResponseMessage response)
+    {
+        if (!response.IsSuccessStatusCode)
+        {
+            // Read the error response and include it in the failure message
+            var errorContent = await response.Content.ReadFromJsonAsync<T>();
+            return errorContent;
+        }
+
+        // Deserialize the response content to the specified type
+        var content = await response.Content.ReadFromJsonAsync<T>();
+        return content;
     }
 }

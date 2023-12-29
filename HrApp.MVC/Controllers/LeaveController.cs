@@ -50,7 +50,7 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateLeaveViewModel createLeaveViewModel)
         {
-            return _responseHandler.HandleResponse(await _leaveClientService.CreateLeave(createLeaveViewModel), "Index", "Index", this);
+            return _responseHandler.HandleResponse(await _leaveClientService.CreateLeave(createLeaveViewModel, ModelState), "Index", "Index", this);
         }
 
         [HttpPost]

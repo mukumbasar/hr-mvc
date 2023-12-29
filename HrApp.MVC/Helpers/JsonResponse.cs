@@ -8,7 +8,7 @@
         public JsonResponse(T data, bool IsSuccess, string message)
         {
             Data = data;
-            IsSuccess = IsSuccess;
+            this.IsSuccess = IsSuccess;
             Message = message;
         }
 
