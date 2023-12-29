@@ -25,14 +25,15 @@
                             </div>
                             <div class="form-group">
                                 <label asp-for="StartDate">Start Date</label>
-                                <input asp-for="StartDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                                <input asp-for="StartDate" class="form-control" />
                                 <span asp-validation-for="StartDate" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="EndDate">End Date</label>
-                                <input asp-for="EndDate" asp-format="{dd/MM/yyyy}" class="form-control" />
+                                <input asp-for="EndDate" class="form-control" />
                                 <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
+                            <input type="hidden" asp-for="RequestDate" value="@DateTime.Now" />
                             <input type="submit" value="Add">
                         </form>
                     </div>
@@ -73,24 +74,23 @@
 
 
 
-    <div class="container">
+    <div class="container mt-4">
         <div class="text-center">
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Leaves</h5>
         </div>
     </div>
 
-    <table class="grid table text-dark" id="Leaves">
+    <table class="grid table text-dark mb-0" id="Leaves">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Leave Type</th>
                 <th>Start Date</th>
-                <th>Amount</th>
+                <th>Day Count</th>
                 <th>End Date</th>
                 <th>Request Date</th>
                 <th>Approval Status</th>
                 <th>Approval Date</th>
-                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -120,7 +120,7 @@
                                 }
                                 else
                                 {
-                                    <td>@advance.ApprovalDate</td>
+                                    <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
                                 }
                             }
 

@@ -22,17 +22,18 @@ namespace HrApp.MVC.Controllers
             this.personelClientService = personelClientService;
             this.responseHandler = responseHandler;
         }
+        [HttpGet]
         public async Task<IActionResult> Details(string id) =>
-            responseHandler.HandleResponse(await personelClientService.GetAppUserDetailViewModelAsync(User.FindFirstValue("nameid")), "details", "index", this);
+            responseHandler.HandleResponse(await personelClientService.GetAppUserDetailViewModelAsync(User.FindFirstValue("nameid")), "Details", "Details", this);
 
         [HttpGet]
         public async Task<IActionResult> UpdateAsync() =>
-            responseHandler.HandleResponse(await personelClientService.GetAppUserUpdateAsync(User.FindFirstValue("nameid")), "update", "Index", this);
+            responseHandler.HandleResponse(await personelClientService.GetAppUserUpdateAsync(User.FindFirstValue("nameid")), "Update", "Details", this);
 
 
         [HttpPost]
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
-            responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "details", "update", this);
+            responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Update", this);
 
 
     }

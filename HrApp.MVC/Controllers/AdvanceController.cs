@@ -1,12 +1,14 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Advance;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 
 namespace HrApp.MVC.Controllers
 {
+    [Authorize]
     public class AdvanceController : Controller
     {
         public INotyfService _notifyService { get; }

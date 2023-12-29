@@ -27,7 +27,7 @@ public class PersonelClientService
 
             var userHomeModel = JsonConvert.DeserializeObject<AppUserHomeViewModel>(responseData);
 
-            return Response<AppUserHomeViewModel>.Success(userHomeModel);
+            return Response<AppUserHomeViewModel>.Success(userHomeModel, "");
         }
 
         return Response<AppUserHomeViewModel>.Failure("User not found");
@@ -42,7 +42,7 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserDetailViewModel>(responseData);
 
-            return Response<AppUserDetailViewModel>.Success(userDetailModel);
+            return Response<AppUserDetailViewModel>.Success(userDetailModel, "");
         }
 
         return Response<AppUserDetailViewModel>.Failure("User not found");
@@ -57,7 +57,7 @@ public class PersonelClientService
 
             var userDetailModel = JsonConvert.DeserializeObject<AppUserUpdateViewModel>(responseData);
 
-            return Response<AppUserUpdateViewModel>.Success(userDetailModel);
+            return Response<AppUserUpdateViewModel>.Success(userDetailModel, "");
         }
 
         return Response<AppUserUpdateViewModel>.Failure("User not found");

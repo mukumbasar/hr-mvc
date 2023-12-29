@@ -39,7 +39,7 @@
                 <form asp-action="Login" method="post" class="mt-4">
                     @Html.AntiForgeryToken()
                     <div class="input-group mb-4">
-                        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required />
+                        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required placeholder = "Please enter your email"/>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-4">
-                        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password" />
+                        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password" placeholder = "Please enter your password"/>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span id="togglePassword" class="fas fa-eye field-icon"></span>
