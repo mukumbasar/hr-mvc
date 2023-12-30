@@ -1,5 +1,4 @@
-﻿using System.Net;
-using FluentValidation;
+﻿using FluentValidation;
 using HrApp.MVC.Helpers;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 

@@ -42,6 +42,7 @@ namespace HrApp.MVC.ClientServices
                 modelState,
                 async () =>
                 {
+                    model.Document = await ImageConversions.ConvertToByteArrayAsync(model.File);
                     return await _httpClient.PostAsJsonAsync("Expense", model);
                 });
 
@@ -53,6 +54,7 @@ namespace HrApp.MVC.ClientServices
                 modelState,
                 async () =>
                 {
+                    model.Document = await ImageConversions.ConvertToByteArrayAsync(model.File);
                     return await _httpClient.PutAsJsonAsync("Expense", model);
                 });
 

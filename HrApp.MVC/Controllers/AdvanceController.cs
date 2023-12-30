@@ -26,44 +26,41 @@ namespace HrApp.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await ViewBagFiller();
+            ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
+            ViewBag.Currencies = await _commonClientService.GetCurrencies();
             ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
 
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateAdvanceViewModel createAdvanceViewModel)
-        {
-            return _responseHandler.HandleResponse(await _advanceClientService.CreateAdvance(createAdvanceViewModel, ModelState), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Create(CreateAdvanceViewModel createAdvanceViewModel) =>
+            _responseHandler.HandleResponse(await _advanceClientService.CreateAdvance(createAdvanceViewModel, ModelState), "Index", "Index", this);
+
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateAdvanceViewModel updateAdvanceViewModel)
-        {
-            return _responseHandler.HandleResponse(await _advanceClientService.UpdateAdvance(updateAdvanceViewModel, ModelState), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Update(UpdateAdvanceViewModel updateAdvanceViewModel) =>
+            _responseHandler.HandleResponse(await _advanceClientService.UpdateAdvance(updateAdvanceViewModel, ModelState), "Index", "Index", this);
+
 
         [HttpGet]
-        public async Task<IActionResult> Delete(int id)
-        {
-            return _responseHandler.HandleResponse(await _advanceClientService.DeleteAdvance(id), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Delete(int id) =>
+            _responseHandler.HandleResponse(await _advanceClientService.DeleteAdvance(id), "Index", "Index", this);
+
 
         [HttpGet]
         public async Task<IActionResult> Read(int id)
         {
-            await ViewBagFiller();
+            ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
+            ViewBag.Currencies = await _commonClientService.GetCurrencies();
             return _responseHandler.HandleResponse(await _advanceClientService.GetAdvance(id), "_AdvancePartialView", "Index", this);
         }
 
         private async Task ViewBagFiller()
         {
-            var advanceTypes = await _advanceClientService.GetAdvanceTypes();
-            var currencies = await _commonClientService.GetCurrencies();
+            ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
+            ViewBag.Currencies = await _commonClientService.GetCurrencies();
 
-            ViewBag.AdvanceTypes = advanceTypes;
-            ViewBag.Currencies = currencies;
         }
     }
 }

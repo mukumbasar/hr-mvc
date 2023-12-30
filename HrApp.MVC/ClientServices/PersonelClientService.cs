@@ -1,10 +1,7 @@
-﻿using System.Net.Http;
-using System.Text;
-using HrApp.MVC.Helpers;
+﻿using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Newtonsoft.Json;
 
 namespace HrApp.MVC;
 
@@ -29,11 +26,15 @@ public class PersonelClientService
         await validationService.ProcessResponse<JsonResponse<AppUserUpdateViewModel>>(await _httpClient.GetAsync($"User/details/{userId}"));
     public async Task<JsonResponse<string>> UpdateAppUserUpdateViewModelAsync(AppUserUpdateViewModel appUserUpdateViewModel, ModelStateDictionary ModelState)
     {
-        var validationResult = validationService.ModelValidator(appUserUpdateViewModel, updateValidator, ModelState);
-        if (!validationResult.IsSuccess)
-            return JsonResponse<string>.Failure(validationResult.Message);
+        return await validationService.ExecuteValidatedRequestAsync<AppUserUpdateViewModel, string>(
+            appUserUpdateViewModel,
+            updateValidator,
+            ModelState,
+            async () =>
+            {
+                appUserUpdateViewModel.UpdatedImage = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
+                return await _httpClient.PutAsJsonAsync("User", appUserUpdateViewModel);
+            });
 
-        appUserUpdateViewModel.UpdatedImage = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
-        return await validationService.ProcessResponse<JsonResponse<string>>(await _httpClient.PutAsJsonAsync($"User", appUserUpdateViewModel));
     }
 }

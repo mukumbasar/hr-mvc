@@ -13,9 +13,17 @@ public class CreateLeaveViewModelValidator : AbstractValidator<CreateLeaveViewMo
 
         RuleFor(x => x.StartDate).GreaterThanOrEqualTo(DateTime.Today).WithMessage("Start date must be today or later.");
 
-        RuleFor(x => x.EndDate).GreaterThanOrEqualTo(DateTime.Today).WithMessage("End date must be greater than today.").When(x => x.LeaveTypeId == 1);
+        When(x => x.LeaveTypeId == 1, () =>
+        {
+            RuleFor(x => x.EndDate)
+                .GreaterThanOrEqualTo(DateTime.Today)
+                .WithMessage("End date must be greater than today.");
 
-        RuleFor(x => x.EndDate).GreaterThanOrEqualTo(x => x.StartDate).WithMessage("End date must be greater than start date.").When(x => x.LeaveTypeId == 1);
+            RuleFor(x => x.EndDate)
+                .GreaterThanOrEqualTo(x => x.StartDate)
+                .WithMessage("End date must be greater than start date.");
+        });
+
 
     }
 }

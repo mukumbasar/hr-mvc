@@ -29,29 +29,24 @@ namespace HrApp.MVC.Controllers
 
         public async Task<IActionResult> Index()
         {
-            await ViewBagFiller();
-            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
+            await ViewBagFillerFull();
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel)
-        {
-            createExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(createExpenseViewModel.File);
-            return responseHandler.HandleResponse(await _expenseClientService.CreateExpense(createExpenseViewModel, ModelState), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Create(CreateExpenseViewModel createExpenseViewModel) =>
+            responseHandler.HandleResponse(await _expenseClientService.CreateExpense(createExpenseViewModel, ModelState), "Index", "Index", this);
+
 
         [HttpPost]
-        public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel)
-        {
-            updateExpenseViewModel.Document = await ImageConversions.ConvertToByteArrayAsync(updateExpenseViewModel.File);
-            return responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel, ModelState), "Index", "Index", this);
-        }
+        public async Task<IActionResult> Update(UpdateExpenseViewModel updateExpenseViewModel) =>
+            responseHandler.HandleResponse(await _expenseClientService.UpdateExpense(updateExpenseViewModel, ModelState), "Index", "Index", this);
+
 
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id) =>
-        responseHandler.HandleResponse(await _expenseClientService.DeleteExpense(id), "Index", "Index", this);
+            responseHandler.HandleResponse(await _expenseClientService.DeleteExpense(id), "Index", "Index", this);
 
 
         [HttpGet]
@@ -67,6 +62,11 @@ namespace HrApp.MVC.Controllers
             var currencies = await _commonClientService.GetCurrencies();
             ViewBag.ExpenseTypes = expenseTypes;
             ViewBag.Currencies = currencies;
+        }
+        private async Task ViewBagFillerFull()
+        {
+            await ViewBagFiller();
+            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
         }
     }
 }
