@@ -35,6 +35,6 @@ public class PersonelClientService
                 appUserUpdateViewModel.UpdatedImage = await ImageConversions.ConvertToByteArrayAsync(appUserUpdateViewModel.NewImage);
                 return await _httpClient.PutAsJsonAsync("User", appUserUpdateViewModel);
             });
-
     }
+
 }
