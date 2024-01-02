@@ -8,13 +8,15 @@ namespace HrApp.MVC;
 public class PersonelClientService
 {
     private readonly AppUserUpdateViewModelValidator updateValidator;
+    private readonly AppUserAddViewModelValidator addValidator;
     private readonly ValidationService validationService;
     private readonly HttpClient _httpClient;
-    public PersonelClientService(IHttpClientFactory httpClientFactory, AppUserUpdateViewModelValidator updateValidator, ValidationService validationService)
+    public PersonelClientService(IHttpClientFactory httpClientFactory, AppUserUpdateViewModelValidator updateValidator, ValidationService validationService, AppUserAddViewModelValidator addValidator)
     {
         _httpClient = httpClientFactory.CreateClient("api");
         this.updateValidator = updateValidator;
         this.validationService = validationService;
+        this.addValidator = addValidator;
     }
     public async Task<JsonResponse<AppUserHomeViewModel>> GetAppUserHomeViewModelAsync(string userId) =>
         await validationService.ProcessResponse<JsonResponse<AppUserHomeViewModel>>(await _httpClient.GetAsync($"User/{userId}"));
@@ -37,4 +39,17 @@ public class PersonelClientService
             });
     }
 
+    public async Task<JsonResponse<string>> AddAppUserAddViewModelAsync(AppUserAddViewModel appUserAddViewModel, ModelStateDictionary ModelState)
+    {
+        return await validationService.ExecuteValidatedRequestAsync<AppUserAddViewModel, string>(appUserAddViewModel,
+            addValidator,
+            ModelState,
+            async () =>
+        {
+            appUserAddViewModel.ImageData = await
+            ImageConversions.ConvertToByteArrayAsync
+            (appUserAddViewModel.NewImage);
+            return await _httpClient.PostAsJsonAsync("User", appUserAddViewModel);
+        });
+    }
 }
