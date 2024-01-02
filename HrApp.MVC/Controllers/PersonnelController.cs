@@ -34,5 +34,21 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
              responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Details", this);
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult PasswordChange(string token, string id)
+        {
+            //todo servis yazıldıktan sonra buraya logic işlencek
+            return View();
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public IActionResult PasswordChange(AppUserPasswordChangeViewModel model)
+        {
+            //todo servis yazıldıktan sonra mantık işlencek buraya
+            return View("Details");
+        }
+
     }
 }

@@ -14791,7 +14791,7 @@ body:not(.layout-fixed) .main-sidebar .sidebar {
   .sidebar-mini.sidebar-collapse .main-sidebar .user-panel .image {
     float: none;
   }
-  , .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused {
+   .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused {
     width: 250px;
   }
    .brand-link, .sidebar-mini.sidebar-collapse .main-sidebar.sidebar-focused .brand-link {
