@@ -37,7 +37,7 @@ namespace HrApp.MVC.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public IActionResult PasswordChange(string token, string id)
+        public IActionResult PasswordChange(string token, string userId)
         {
             //todo servis yazıldıktan sonra buraya logic işlencek
             return View();
