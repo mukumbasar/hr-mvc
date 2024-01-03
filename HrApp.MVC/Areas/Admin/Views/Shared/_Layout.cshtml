@@ -106,6 +106,18 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="Add" class="nav-link @(currentController == "Personnel" && currentAction == "Index" ? "active" : "")">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>Add Personnel</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="List" class="nav-link @(currentController == "Personnel" && currentAction == "Index" ? "active" : "")">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>Personnel List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a asp-controller="Advance" asp-action="Index" class="nav-link @(currentController == "Advance" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-money"></i>
                                         <p>Advances</p>

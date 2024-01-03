@@ -1,7 +1,9 @@
-﻿@{
+﻿
+@{
     ViewData["Title"] = "Add";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
+@using HrApp.MVC.Areas.Admin.Models.Personnel
 @model AppUserAddViewModel
 <style>
     input::-webkit-outer-spin-button,
@@ -23,7 +25,7 @@
                 <div class="card-header">
                     <h3 class="card-title">Add Personnel</h3>
                 </div>
-                <form asp-action="Add" enctype="multipart/form-data" method="post">
+                <form asp-area="Admin" asp-controller="Personnel" asp-action="Add" enctype="multipart/form-data" method="post">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -151,8 +153,8 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="TurkishIdentificationNumber" class="control-label"></label>
                                 <input type="number" asp-for="TurkishIdentificationNumber" data-maxlength="11"
-                                    oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                    class="form-control" />
+                                       oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                       class="form-control" />
                                 <span asp-validation-for="TurkishIdentificationNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -189,8 +191,8 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="MobileNumber" class="control-label"></label>
                                 <input type="number" asp-for="MobileNumber" data-maxlength="11"
-                                    oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                    class="form-control" />
+                                       oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                       class="form-control" />
                                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -205,12 +207,16 @@
                                 <label asp-for="GenderId" class="control-label">Gender</label>
                                 <div class="row">
                                     <div class="col-1">
-                                        <label> <input id="male" asp-for="GenderId" type="radio"
-                                                value="1" />Male</label>
+                                        <label>
+                                            <input id="male" asp-for="GenderId" type="radio"
+                                                   value="1" />Male
+                                        </label>
                                     </div>
                                     <div class="col-1">
-                                        <label> <input id="female" asp-for="GenderId" type="radio"
-                                                value="2" />Female</label>
+                                        <label>
+                                            <input id="female" asp-for="GenderId" type="radio"
+                                                   value="2" />Female
+                                        </label>
                                     </div>
                                     <span asp-validation-for="GenderId" class="text-danger"></span>
                                 </div>
@@ -218,7 +224,7 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="NewImage" class="control-label">Photo</label>
                                 <input asp-for="NewImage" type="file" class="form-control-file"
-                                    accept=".jpg , .jpeg , .png" />
+                                       accept=".jpg , .jpeg , .png" />
                                 <span asp-validation-for="NewImage" class="text-danger"></span>
                             </div>
                         </div>
@@ -239,3 +245,5 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+

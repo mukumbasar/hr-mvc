@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using HrApp.MVC.Models;
+using HrApp.MVC.Areas.Admin.Models.Personnel;
 
 namespace HrApp.MVC.Validator
 {
