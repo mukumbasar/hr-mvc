@@ -4,7 +4,7 @@ using HrApp.MVC.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddMVCDependencies();
 builder.Services.AddControllersWithViews();
 GlobalOptions.Initialize(builder.Configuration);
