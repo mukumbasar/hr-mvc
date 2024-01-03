@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.Areas.Admin.Models.Personnel;
 using HrApp.MVC.Helpers;
-using HrApp.MVC.Models;
+using HrApp.MVC.Models.Personnel;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,11 +36,6 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
              responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Details", this);
 
-        [HttpGet]
-        public async Task<IActionResult> Add() => View();
-        [HttpPost]
-        public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
-             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState), "Add", "Add", this);
 
         [AllowAnonymous]
         [HttpGet]

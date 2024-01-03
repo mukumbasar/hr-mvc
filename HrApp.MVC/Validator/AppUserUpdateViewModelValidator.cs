@@ -1,6 +1,6 @@
 ﻿using System.Data;
 using FluentValidation;
-using HrApp.MVC.Models;
+using HrApp.MVC.Models.Personnel;
 
 namespace HrApp.MVC.Validator
 {

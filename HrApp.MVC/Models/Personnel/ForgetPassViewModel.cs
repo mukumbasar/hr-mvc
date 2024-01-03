@@ -1,4 +1,4 @@
-﻿namespace HrApp.MVC.Models
+﻿namespace HrApp.MVC.Models.Personnel
 {
     public class ForgetPassViewModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HrApp.MVC;
+namespace HrApp.MVC.Models.Personnel;
 
 public class AppUserPasswordChangeViewModel
 {

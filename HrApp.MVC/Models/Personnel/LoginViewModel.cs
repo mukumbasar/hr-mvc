@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HrApp.MVC.Models
+namespace HrApp.MVC.Models.Personnel
 {
     public class LoginViewModel
     {

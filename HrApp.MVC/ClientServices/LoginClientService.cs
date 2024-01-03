@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using HrApp.MVC;
 using HrApp.MVC.Helpers;
 using HrApp.MVC.Models;
+using HrApp.MVC.Models.Personnel;
 using Newtonsoft.Json;
 
 public class LoginClientService
