@@ -18,8 +18,10 @@ public class AdminRedirectMiddleware
         // Kullanıcı giriş yapmışsa
         if (context.User.Identity.IsAuthenticated)
         {
+            var temp = context.GetRouteData();
+            var tempAction = temp.Values["action"].ToString().ToLower();
             // Kullanıcı 'Admin' rolünde mi kontrol et
-            if (context.User.FindFirstValue("role").ToLower().Contains("admin"))
+            if (context.User.FindFirstValue("role").ToLower().Contains("admin") && tempAction != "logout")
             {
                 // Eğer kullanıcı zaten Admin alanında değilse, Admin alanına yönlendir
                 if (!context.Request.Path.StartsWithSegments("/Admin"))
