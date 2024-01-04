@@ -41,15 +41,15 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public IActionResult PasswordChange(string token, string userId)
         {
-            //todo servis yazıldıktan sonra buraya logic işlencek
-            return View();
+            if (token == null || userId == null)
+                return RedirectToAction("Index", "Home");
+            return View(new AppUserPasswordChangeApiViewModel { Token = token, Id = userId });
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult PasswordChange(AppUserPasswordChangeViewModel model)
+        public async Task<IActionResult> PasswordChangeAsync(AppUserPasswordChangeApiViewModel model)
         {
-            //todo servis yazıldıktan sonra mantık işlencek buraya
-            return View("Details");
+            return responseHandler.HandleResponse(await personelClientService.ChangePasswordAppUserViewModelAsync(model, ModelState), "Details", "Details", this);
         }
 
     }
