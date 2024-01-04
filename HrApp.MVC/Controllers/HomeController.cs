@@ -1,4 +1,5 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models;
 using HrApp.MVC.Models.Personnel;
 using Microsoft.AspNetCore.Authorization;
@@ -13,14 +14,16 @@ namespace HrApp.MVC.Controllers
         public INotyfService _notifyService { get; }
         private readonly LoginClientService loginClientService;
         private readonly PersonelClientService personelClientService;
+        private readonly EmailClientService emailClientService;
         private readonly ResponseHandler responseHandler;
 
-        public HomeController(INotyfService notifyService, LoginClientService loginClientService, PersonelClientService personelClientService, ResponseHandler responseHandler)
+        public HomeController(INotyfService notifyService, LoginClientService loginClientService, PersonelClientService personelClientService, ResponseHandler responseHandler, EmailClientService emailClientService)
         {
             _notifyService = notifyService;
             this.loginClientService = loginClientService;
             this.personelClientService = personelClientService;
             this.responseHandler = responseHandler;
+            this.emailClientService = emailClientService;
         }
         [Authorize]
         public async Task<IActionResult> Index() =>
@@ -37,6 +40,12 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout() =>
             responseHandler.HandleResponse(await loginClientService.LogoutAsync(HttpContext), "Index", "Logout", this);
+
+        [HttpGet]
+        public IActionResult SendPasswordEmail() => View();
+
+        [HttpPost]
+        public async Task<IActionResult> SendPasswordEmail(ForgetPassViewModel forgetPassViewModel) => responseHandler.HandleResponse(await emailClientService.SendEmail(forgetPassViewModel, ModelState), "Login", "Home", this);
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

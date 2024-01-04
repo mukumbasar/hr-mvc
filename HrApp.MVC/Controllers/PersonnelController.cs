@@ -52,5 +52,7 @@ namespace HrApp.MVC.Controllers
             return responseHandler.HandleResponse(await personelClientService.ChangePasswordAppUserViewModelAsync(model, ModelState), "Details", "Details", this);
         }
 
+        
+
     }
 }
