@@ -52,5 +52,7 @@ namespace HrApp.MVC.Controllers
             return View("Details");
         }
 
+        
+
     }
 }
