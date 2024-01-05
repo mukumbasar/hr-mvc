@@ -34,7 +34,7 @@ app.UseAuthorization();
 //    name: "default",
 //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
-app.UseMiddleware<AdminRedirectMiddleware>();
+// app.UseMiddleware<AdminRedirectMiddleware>();
 
 app.UseEndpoints(endpoints =>
 {

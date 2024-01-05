@@ -22,7 +22,7 @@ public class AdminRedirectMiddleware
 
             var tempController = temp.Values["controller"].ToString().ToLower();
             // Kullanıcı 'Admin' rolünde mi kontrol et
-            if (context.User.FindFirstValue("role").ToLower().Contains("admin") && tempController != "personnel" || tempController != "home" || tempController != "error")
+            if (context.User.FindFirstValue("role").ToLower().Contains("admin") && tempController != "personnel" && tempController != "home" && tempController != "error")
             {
                 // Eğer kullanıcı zaten Admin alanında değilse, Admin alanına yönlendir
                 if (!context.Request.Path.StartsWithSegments("/Admin"))
