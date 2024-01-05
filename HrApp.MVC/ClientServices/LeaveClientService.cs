@@ -33,9 +33,9 @@ namespace HrApp.MVC.ClientServices
 
         public async Task<List<SelectListItem>> GetLeaveTypes()
         {
-            return validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(await _httpClient.GetAsync($"leave/Types/")).Result.Data.Where(x => x.Id != 1  && x.LeaveTypeFocusId == int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue("gender")) || x.LeaveTypeFocusId == 3).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
+            return validationService.ProcessResponse<JsonResponse<List<LeaveTypeViewModel>>>(await _httpClient.GetAsync($"leave/Types/")).Result.Data.Where(x => x.LeaveTypeFocusId == int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue("gender")) || x.LeaveTypeFocusId == 3 && x.Id != 1).Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
         }
-            
+
 
 
         public async Task<JsonResponse<ReadLeaveViewModel>> GetLeave(int id) =>
