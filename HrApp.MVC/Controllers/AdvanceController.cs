@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Controllers
 {
@@ -28,7 +29,7 @@ namespace HrApp.MVC.Controllers
         {
             ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
             ViewBag.Currencies = await _commonClientService.GetCurrencies();
-            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data;
+            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data.Where(x => x.AppUserId == User.FindFirstValue("nameid"));
 
             return View();
         }

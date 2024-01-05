@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Controllers
 {
@@ -27,9 +28,10 @@ namespace HrApp.MVC.Controllers
         public async Task<IActionResult> Index()
         {
             var leaveTypes = await _leaveClientService.GetLeaveTypes();
+            var leaves = await _leaveClientService.GetLeaves();
 
             ViewBag.leaveTypes = leaveTypes;
-            ViewBag.Leaves = await _leaveClientService.GetLeaves();
+            ViewBag.Leaves = leaves.Where(x => x.AppUserId == User.FindFirstValue("nameid"));
             return View();
         }
 
