@@ -1,7 +1,8 @@
 ﻿using System.Security.Claims;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using HrApp.MVC.Areas.Admin.Models.Personnel;
 using HrApp.MVC.Helpers;
-using HrApp.MVC.Models;
+using HrApp.MVC.Models.Personnel;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,5 +35,24 @@ namespace HrApp.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(AppUserUpdateViewModel userViewModel) =>
              responseHandler.HandleResponse(await personelClientService.UpdateAppUserUpdateViewModelAsync(userViewModel, ModelState), "Details", "Details", this);
+
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult PasswordChange(string token, string userId)
+        {
+            if (token == null || userId == null)
+                return RedirectToAction("Index", "Home");
+            return View(new AppUserPasswordChangeApiViewModel { Token = token, Id = userId });
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<IActionResult> PasswordChangeAsync(AppUserPasswordChangeApiViewModel model)
+        {
+            return responseHandler.HandleResponse(await personelClientService.ChangePasswordAppUserViewModelAsync(model, ModelState), "Details", "Details", this);
+        }
+
+        
+
     }
 }

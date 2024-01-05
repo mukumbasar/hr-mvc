@@ -2,6 +2,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HrApp.MVC.ClientServices;
+using HrApp.MVC.CustomMiddlewares;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Reflection;
@@ -28,6 +29,7 @@ namespace HrApp.MVC.Extensions
             services.AddScoped<ExpenseClientService>();
             services.AddScoped<LeaveClientService>();
             services.AddScoped<ValidationService>();
+            services.AddScoped<EmailClientService>();
             services.AddScoped<ResponseHandler>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -37,6 +39,14 @@ namespace HrApp.MVC.Extensions
                 opt.Cookie.Name = "HrAppCookie"; // Cookie adı
                 opt.Cookie.HttpOnly = false;
             });
+
+            
+        }
+
+        public static IApplicationBuilder UseNotFoundErrorHandlingMiddleware(
+        this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<NotFoundErrorHandlingMiddleware>();
         }
     }
 }

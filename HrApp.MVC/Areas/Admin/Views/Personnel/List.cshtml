@@ -1,0 +1,105 @@
+﻿@using HrApp.MVC.Areas.Admin.Models.Personnel;
+@{
+    ViewData["Title"] = "Personnel List";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <!-- AdminLTE DataTables CSS -->
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+}
+@model AppUserListViewModel
+
+<div class="container mt-4">
+    <div class="text-center">
+        <h5 class="section-title ff-secondary text-center text-primary fw-normal">Personnels</h5>
+    </div>
+</div>
+
+<table class="table table-bordered table-striped" id="Personnels">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Second Name</th>
+            <th>Surname</th>
+            <th>Second Surname</th>
+            <th>Birth Year</th>
+            <th>Birth Place</th>
+            <th>Turkish Identification Number</th>
+            <th>Gender</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Department</th>
+            <th>Company Name</th>
+            <th>Occupation</th>
+            <th>Address</th>
+            <th>Mobile Number</th>
+            <th>Salary</th>
+            <th>Yearly Leave Days Left</th>
+            <th>Yearly Advance Amount Left</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.Personnels != null)
+            {
+                @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.Personnels)
+                {
+                    <tr>
+                        <td>@personnel.Id</td>
+                        <td>@personnel.Name</td>
+                        <td>@personnel.SecondName</td>
+                        <td>@personnel.Surname</td>
+                        <td>@personnel.SecondSurname</td>
+                        <td>@personnel.BirthYear.ToString("dd/MM/yyyy")</td>
+                        <td>@personnel.BirthPlace</td>
+                        <td>@personnel.TurkishIdentificationNumber</td>
+                        <td>@personnel.GenderId</td>
+                        <td>@personnel.StartDate.ToString("dd/MM/yyyy")</td>
+                        <td>@(personnel.EndDate.HasValue ? personnel.EndDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                        <td>@personnel.Department</td>
+                        <td>@personnel.CompanyName</td>
+                        <td>@personnel.Occupation</td>
+                        <td>@personnel.Address</td>
+                        <td>@personnel.MobileNumber</td>
+                        <td>@personnel.Salary</td>
+                        <td>@personnel.YearlyLeaveDaysLeft</td>
+                        <td>@personnel.YearlyAdvanceAmountLeft</td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+@section Scripts {
+
+    <!-- DataTables ve AdminLTE DataTables Plugin JS -->
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <!-- Gerekli DataTables buttons plugin js dosyaları -->
+    <script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+
+    <script>
+        $(function () {
+            $("#Personnels").DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            }).buttons().container().appendTo('#Personnels_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+
+}

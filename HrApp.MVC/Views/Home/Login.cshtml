@@ -1,4 +1,5 @@
-﻿@model LoginViewModel
+﻿@using HrApp.MVC.Models.Personnel
+@model LoginViewModel
 @{
     ViewData["Title"] = "Login";
 }
@@ -70,7 +71,7 @@
                 </form>
 
                 <p>
-                    <a href="#">I forgot my password</a>
+                    <a href="@Url.Action("SendPasswordEmail", "Home")">I forgot my password</a>
                 </p>
             </div>
         </div>

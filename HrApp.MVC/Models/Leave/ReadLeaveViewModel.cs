@@ -10,5 +10,6 @@
         public DateTime RequestDate { get; set; }
         public string ApprovalStatus { get; set; }
         public DateTime ApprovalDate { get; set; }
+        public string AppUserId { get; set; }
     }
 }

@@ -107,45 +107,56 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                if (User.FindFirstValue("role") == "Admin")
-                                {
-                                    <li class="nav-item">
-                                        <a asp-controller="Personnel" asp-action="List" asp-area="Admin" class="nav-link">
-                                            <i class="nav-icon fas fa-user-tie"></i>
-                                            <p>Admin</p>
-                                        </a>
-                                    </li>
-                                }
+                                @* <li class="nav-item">
+                        <a asp-controller="Home" asp-action="Index"
+                        class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-home"></i>
+                        <p>Home</p>
+                        </a>
+                        </li> *@
                                 <li class="nav-item">
-                                    <a asp-controller="Home" asp-action="Index"
-                                        class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-home"></i>
-                                        <p>Home</p>
+                                    <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link">
+                                        <i class="nav-icon fas fa-user"></i>
+                                        <p>Personnel</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Advance" asp-action="Index"
-                                        class="nav-link @(currentController == "Advance" && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-money"></i>
-                                        <p>Advances</p>
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
+                                        class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
+                                        <i class="nav-icon fas fa-user-plus"></i>
+                                        <p>Add Personnel</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-controller="Expense" asp-action="Index"
-                                        class="nav-link @(currentController == "Expense" && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-credit-card"></i>
-                                        <p>Expenses</p>
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="List"
+                                        class="nav-link @(currentController == "Personnel" && currentAction == "List" ? "active" : "")">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>Personnel List</p>
                                     </a>
                                 </li>
+                                @* <li class="nav-item">
+                        <a asp-controller="Advance" asp-action="Index" class="nav-link @(currentController == "Advance"
+                        && currentAction == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-money"></i>
+                        <p>Advances</p>
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a asp-controller="Expense" asp-action="Index" class="nav-link @(currentController == "Expense"
+                        && currentAction == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-credit-card"></i>
+                        <p>Expenses</p>
+                        </a>
+                        </li>
+                        <li class="nav-item">
+                        <a asp-controller="Leave" asp-action="Index" class="nav-link @(currentController == "Leave" &&
+                        currentAction == "Index" ? "active" : "")">
+                        <i class="nav-icon fas fa-calendar"></i>
+                        <p>Leaves</p>
+                        </a>
+                        </li> *@
                                 <li class="nav-item">
-                                    <a asp-controller="Leave" asp-action="Index"
-                                        class="nav-link @(currentController == "Leave" && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-calendar"></i>
-                                        <p>Leaves</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a asp-action="Logout" asp-controller="Home" class="nav-link"><i
+                                    <a asp-action="Logout" asp-controller="Home" asp-area="" class="nav-link"><i
                                             class="nav-icon fa fa-sign-out"></i>
                                         <p>Logout</p>
                                     </a>

@@ -46,5 +46,4 @@ public class ResponseHandler
             return errorView.ToLower() == actionName ? controller.View(response.Data) : controller.RedirectToAction(errorView, controllerName);
         }
     }
-
 }

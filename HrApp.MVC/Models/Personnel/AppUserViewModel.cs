@@ -1,6 +1,6 @@
-﻿namespace HrApp.MVC.Models
+﻿namespace HrApp.MVC.Models.Personnel
 {
-    public class AppUserHomeViewModel
+    public class AppUserViewModel
     {
         public string Id { get; set; }
         public string Name { get; set; }

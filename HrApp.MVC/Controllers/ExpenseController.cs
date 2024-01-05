@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Controllers
 {
@@ -66,7 +67,7 @@ namespace HrApp.MVC.Controllers
         private async Task ViewBagFillerFull()
         {
             await ViewBagFiller();
-            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data;
+            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data.Where(x => x.AppUserId == User.FindFirstValue("nameid"));
         }
     }
 }
