@@ -25,6 +25,37 @@
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     @RenderSection("Styles", required: false)
+    <style>
+        html, body {
+            box-sizing: border-box!important;
+        }
+
+        *, *:before, *:after {
+            box-sizing: inherit !important;
+        }
+
+        .wrapper {
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100% !important;
+        }
+        .main-sidebar {
+            height: 100% !important;
+            position: fixed !important;
+        }
+
+        .content-wrapper {
+            min-height: 100% !important;
+            flex: 1 !important;
+        }
+
+        body {
+            display: flex !important;
+            flex-direction: column !important;
+            min-height: 100vh !important;
+            margin: 0 !important;
+        }
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini">
