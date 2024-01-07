@@ -9,7 +9,8 @@
             <div class="login-agileits-top">
                 <form asp-action="Create" enctype="multipart/form-data" method="post">
                     <div asp-validation-summary="ModelOnly"></div>
-                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> @* cookieden AppUserId çekilecek ve valueya yazılacak! *@
+                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" /> @* cookieden
+                    AppUserId çekilecek ve valueya yazılacak! *@
                     <div class="form-group">
                         <label class="mt-4" asp-for="ExpenseTypeId">Expense Types</label>
                         <select class="form-control" asp-for="ExpenseTypeId" asp-items="@ViewBag.ExpenseTypes"></select>
@@ -22,12 +23,14 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Amount">Expense Amount</label>
-                        <input asp-for="Amount" class="form-control" min="1" max="10000" step="1" /> @* max değer belirlenecek *@
+                        <input asp-for="Amount" class="form-control" min="1" max="10000" step="1" /> @* max değer
+                        belirlenecek *@
                         <span asp-validation-for="Amount" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="File" class="control-label">File</label>
-                        <input asp-for="File" type="file" class="form-control-file" accept=".jpg , .jpeg , .png, .pdf" />
+                        <input asp-for="File" type="file" class="form-control-file"
+                            accept=".jpg , .jpeg , .png, .pdf" />
                         <span asp-validation-for="File" class="text-danger"></span>
                     </div>
                     <input type="submit" value="Add">
@@ -51,6 +54,7 @@
                 <th>Currency</th>
                 <th>Approval Status</th>
                 <th>Approval Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -106,9 +110,36 @@
 </div>
 
 @section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- DataTables and its plugins -->
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <!-- DataTables initialization script -->
+    <script>
+        $(document).ready(function () {
+            $('#Expenses').DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "colvis"],
+            }).buttons().container().appendTo('#Expenses_wrapper .col-md-6:eq(0)');
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
