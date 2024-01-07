@@ -1,4 +1,6 @@
-﻿namespace HrApp.MVC.Areas.Admin.Models.Personnel
+﻿using HrApp.MVC.CustomAttributes;
+
+namespace HrApp.MVC.Areas.Admin.Models.Personnel
 {
     public class AppUserAddViewModel
     {
@@ -16,6 +18,8 @@
         public string Address { get; set; }
         public string MobileNumber { get; set; }
         public decimal Salary { get; set; }
+        [CheckExtension(new string[] { ".png", ".jpeg", ".jpg" })]
+        [CheckSize(1 * 1024 * 1024, ErrorMessage = "Maximum allowed file size is {0} bytes")]
         public IFormFile NewImage { get; set; }
         public byte[]? ImageData { get; set; }
         public int GenderId { get; set; }
