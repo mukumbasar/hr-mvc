@@ -12,7 +12,7 @@
     <title>Human Resources - @ViewData["Title"]</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -26,11 +26,14 @@
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     @RenderSection("Styles", required: false)
     <style>
-        html, body {
-            box-sizing: border-box!important;
+        html,
+        body {
+            box-sizing: border-box !important;
         }
 
-        *, *:before, *:after {
+        *,
+        *:before,
+        *:after {
             box-sizing: inherit !important;
         }
 
@@ -39,6 +42,7 @@
             flex-direction: column !important;
             min-height: 100% !important;
         }
+
         .main-sidebar {
             height: 100% !important;
             position: fixed !important;
@@ -92,7 +96,7 @@
             <!-- Brand Logo -->
             <a href="/admin/" class="brand-link">
                 <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                     class="brand-image img-circle elevation-3" style="opacity: .8">
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Human Resources</span>
             </a>
 
@@ -138,17 +142,17 @@
                         </li> *@
 
                                 <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
-                                       class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
-                                        <i class="nav-icon fas fa-user-plus"></i>
-                                        <p>Add Personnel</p>
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="ActiveList"
+                                        class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
+                                        <i class="nav-icon fas fa-users"></i>
+                                        <p>Personnel List</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="ActiveList"
-                                       class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
-                                        <i class="nav-icon fas fa-users"></i>
-                                        <p>Personnel List</p>
+                                    <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
+                                        class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
+                                        <i class="nav-icon fas fa-user-plus"></i>
+                                        <p>Add Personnel</p>
                                     </a>
                                 </li>
                                 @* <li class="nav-item">
