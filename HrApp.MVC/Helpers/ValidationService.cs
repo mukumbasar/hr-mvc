@@ -48,7 +48,7 @@ public class ValidationService
                 return JsonResponse<TResult>.Failure(validationResponse.Message);
             }
         }
-        Thread.Sleep(1000);
+        Thread.Sleep(500);
         var httpResponse = await requestFunc();
         var responseContent = await ProcessResponse<JsonResponse<TResult>>(httpResponse);
 
