@@ -22,6 +22,7 @@ public class ValidationService
     }
     public async Task<T> ProcessResponse<T>(HttpResponseMessage response)
     {
+        Thread.Sleep(1000);
         if (!response.IsSuccessStatusCode)
         {
             // Read the error response and include it in the failure message
