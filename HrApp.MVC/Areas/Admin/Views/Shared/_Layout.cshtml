@@ -12,7 +12,7 @@
     <title>Human Resources - @ViewData["Title"]</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -31,39 +31,28 @@
     <header>
 
         <!-- Navbar -->
-        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light d-flex">
             <!-- Left navbar links -->
-            <ul class="navbar-nav">
+            <ul class="navbar-nav justify-content-between">
                 <li class="nav-item">
-                    <a id="leftmenu" class="nav-link" data-widget="pushmenu" href="#" role="button"><i
-                            class="fas fa-bars"></i></a>
+                    <a id="leftmenu" class="nav-link" data-widget="pushmenu" href="#" role="button">
+                        <i class="fas fa-bars"></i>
+                    </a>
                 </li>
             </ul>
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                @* <!-- Navbar Search -->
-                <li class="nav-item">
-                <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-                </a>
-                <div class="navbar-search-block">
-                <form class="form-inline">
-                <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                <i class="fas fa-times"></i>
-                </button>
-                </div>
-                </div>
-                </form>
-                </div>
-                </li> *@
-                <!-- Left navbar links -->
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link">
+                                <p> <i class="nav-icon fas fa-user"></i> User </p>
+                            </a>
+                        </li>
+                    }
+                }
             </ul>
         </nav>
         <!-- /.navbar -->
@@ -72,7 +61,7 @@
             <!-- Brand Logo -->
             <a href="/admin/" class="brand-link">
                 <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                    class="brand-image img-circle elevation-3" style="opacity: .8">
+                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Human Resources</span>
             </a>
 
@@ -116,22 +105,17 @@
                         <p>Home</p>
                         </a>
                         </li> *@
-                                <li class="nav-item">
-                                    <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link">
-                                        <i class="nav-icon fas fa-user"></i>
-                                        <p>Personnel</p>
-                                    </a>
-                                </li>
+
                                 <li class="nav-item">
                                     <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
-                                        class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
+                                       class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
                                         <i class="nav-icon fas fa-user-plus"></i>
                                         <p>Add Personnel</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-area="Admin" asp-controller="Personnel" asp-action="ActiveList"
-                                        class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
+                                       class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
                                         <i class="nav-icon fas fa-users"></i>
                                         <p>Personnel List</p>
                                     </a>
@@ -158,8 +142,8 @@
                         </a>
                         </li> *@
                                 <li class="nav-item">
-                                    <a asp-action="Logout" asp-controller="Home" asp-area="" class="nav-link"><i
-                                            class="nav-icon fa fa-sign-out"></i>
+                                    <a asp-action="Logout" asp-controller="Home" asp-area="" class="nav-link">
+                                        <i class="nav-icon fa fa-sign-out"></i>
                                         <p>Logout</p>
                                     </a>
                                 </li>
