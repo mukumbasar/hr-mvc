@@ -45,7 +45,7 @@ namespace HrApp.MVC.Controllers
         public IActionResult SendPasswordEmail() => View();
 
         [HttpPost]
-        public async Task<IActionResult> SendPasswordEmail(ForgetPassViewModel forgetPassViewModel) => responseHandler.HandleResponse(await emailClientService.SendEmail(forgetPassViewModel, ModelState), "Login", "Home", this);
+        public async Task<IActionResult> SendPasswordEmail(ForgetPassViewModel forgetPassViewModel) => responseHandler.HandleResponse(await emailClientService.SendEmail(forgetPassViewModel, ModelState), "Login", "Index", this);
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
