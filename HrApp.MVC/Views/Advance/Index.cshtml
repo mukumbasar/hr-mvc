@@ -2,42 +2,46 @@
 @using System.Security.Claims
 
 @model CreateAdvanceViewModel
-
-<div class="container">
-    <div class="login-form login-form-left">
-        <div class="agile-row">
-            <div class="login-agileits-top">
-                <form asp-action="Create" enctype="multipart/form-data" method="post">
-                    <div asp-validation-summary="ModelOnly"></div>
-                    <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" />
-                    <div class="form-group">
-                        <label class="mt-4" asp-for="AdvanceTypeId">Advance Types</label>
-                        <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
-                        <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="container">
+            <div class="login-form login-form-left">
+                <div class="agile-row">
+                    <h2></h2>
+                    <div class="login-agileits-top">
+                        <form asp-action="Create" enctype="multipart/form-data" method="post">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" />
+                            <div class="form-group">
+                                <label class="mt-4" asp-for="AdvanceTypeId">Advance Types</label>
+                                <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
+                                <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="CurrencyId">Currencies</label>
+                                <select class="form-control" asp-for="CurrencyId" asp-items="@ViewBag.Currencies"></select>
+                                <span asp-validation-for="CurrencyId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Amount">Advance Amount</label>
+                                <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max değeri
+                                kullanıcıya göre belirlenecek *@
+                                <span asp-validation-for="Amount" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="RequestDate">Request Date</label>
+                                <input asp-for="RequestDate" class="form-control" type="date" />
+                                <span asp-validation-for="RequestDate" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description">Description</label>
+                                <input asp-for="Description" class="form-control" />
+                                <span asp-validation-for="Description" class="text-danger"></span>
+                            </div>
+                            <input type="submit" value="Add">
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label asp-for="CurrencyId">Currencies</label>
-                        <select class="form-control" asp-for="CurrencyId" asp-items="@ViewBag.Currencies"></select>
-                        <span asp-validation-for="CurrencyId" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Amount">Advance Amount</label>
-                        <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max değeri
-                        kullanıcıya göre belirlenecek *@
-                        <span asp-validation-for="Amount" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="RequestDate">Request Date</label>
-                        <input asp-for="RequestDate" class="form-control" type="date" />
-                        <span asp-validation-for="RequestDate" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label asp-for="Description">Description</label>
-                        <input asp-for="Description" class="form-control" />
-                        <span asp-validation-for="Description" class="text-danger"></span>
-                    </div>
-                    <input type="submit" value="Add">
-                </form>
+                </div>
             </div>
         </div>
     </div>
@@ -47,7 +51,6 @@
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Advances</h5>
         </div>
     </div>
-
     <table class="grid table text-dark mb-0" id="Advances">
         <thead>
             <tr>
