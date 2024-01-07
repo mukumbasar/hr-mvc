@@ -22,15 +22,17 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             this.responseHandler = responseHandler;
         }
         [HttpGet]
-        public async Task<IActionResult> ActiveList() 
+        public async Task<IActionResult> ActiveList()
         {
-            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data.Where(x => x.IsActive).ToList();
+            var temp = await personelClientService.GetAppUserAsync();
+            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).ToList();
             return View();
         }
         [HttpGet]
         public async Task<IActionResult> PassiveList()
         {
-            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data.Where(x => !x.IsActive).ToList();
+            var temp = await personelClientService.GetAppUserAsync();
+            ViewBag.Personnels = temp.Data.Where(x => !x.IsActive).ToList();
             return View();
         }
         [HttpGet]
