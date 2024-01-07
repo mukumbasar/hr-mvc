@@ -37,7 +37,7 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> Listx(string userId) =>
-            responseHandler.HandleResponse(await personelClientService.GetAppUserAsync(userId), "List", "List", this);
+            responseHandler.HandleResponse(await personelClientService.GetAppUserAsync(userId), "ActiveList", "ActiveList", this);
 
         [HttpGet]
         public async Task<IActionResult> Add() => View();
