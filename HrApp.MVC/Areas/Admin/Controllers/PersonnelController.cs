@@ -4,6 +4,7 @@ using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Personnel;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
@@ -21,9 +22,15 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             this.responseHandler = responseHandler;
         }
         [HttpGet]
-        public async Task<IActionResult> List() 
+        public async Task<IActionResult> ActiveList() 
         {
-            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data;
+            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data.Where(x => x.IsActive).ToList();
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> PassiveList()
+        {
+            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data.Where(x => !x.IsActive).ToList();
             return View();
         }
         [HttpGet]

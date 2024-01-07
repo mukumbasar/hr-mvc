@@ -15,7 +15,14 @@
     <div class="text-center">
         <h5 class="section-title ff-secondary text-center text-primary fw-normal">Personnels</h5>
     </div>
+    <div class="row d-flex justify-content-end">
+        <div class="col-4 d-flex justify-content-end">
+            <button id="toggleButton" onclick="toggleButton()" class="btn btn-primary">Active</button> <br />
+        </div>
+    </div> 
+   
 </div>
+
 
 <table class="table table-bordered table-striped" id="Personnels">
     <thead>
@@ -100,6 +107,19 @@
                 "buttons": ["copy", "csv", "excel", "colvis"],
             }).buttons().container().appendTo('#Personnels_wrapper .col-md-6:eq(0)');
         });
+        function toggleButton() {
+            var button = document.getElementById('toggleButton');
+
+            if (button.innerHTML === 'Active') {
+                button.innerHTML = 'Passive';
+                button.classList.add('pasif');
+                window.location.href = '/Admin/Personnel/PassiveList';
+            } else {
+                button.innerHTML = 'Active';
+                button.classList.remove('pasif');
+                window.location.href = '/Admin/Personnel/ActiveList';
+            }
+        }
     </script>
 
 }
