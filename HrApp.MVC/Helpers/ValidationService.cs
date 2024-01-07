@@ -22,7 +22,6 @@ public class ValidationService
     }
     public async Task<T> ProcessResponse<T>(HttpResponseMessage response)
     {
-        Thread.Sleep(1000);
         if (!response.IsSuccessStatusCode)
         {
             // Read the error response and include it in the failure message
@@ -49,7 +48,7 @@ public class ValidationService
                 return JsonResponse<TResult>.Failure(validationResponse.Message);
             }
         }
-        // Then, execute the HTTP request and process the response
+        Thread.Sleep(1000);
         var httpResponse = await requestFunc();
         var responseContent = await ProcessResponse<JsonResponse<TResult>>(httpResponse);
 

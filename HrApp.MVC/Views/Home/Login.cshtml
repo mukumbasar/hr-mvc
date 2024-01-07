@@ -5,7 +5,8 @@
 }
 
 <style>
-    .login-page, .register-page {
+    .login-page,
+    .register-page {
         align-items: center;
         display: flex;
         flex-direction: column;
@@ -13,7 +14,8 @@
         min-height: 100vh;
     }
 
-    .login-box, .register-box {
+    .login-box,
+    .register-box {
         width: 100%;
         max-width: 360px;
         margin: 0 auto;
@@ -23,6 +25,7 @@
         cursor: pointer;
     }
 </style>
+
 <body class="login-page">
     <div class="row">
         <div class="col-12 position-absolute">
@@ -40,7 +43,8 @@
                 <form asp-action="Login" method="post" class="mt-4">
                     @Html.AntiForgeryToken()
                     <div class="input-group mb-4">
-                        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required placeholder = "Please enter your email"/>
+                        <input type="text" name="Email" id="Email" class="form-control" asp-for="Email" required
+                            placeholder="Please enter your email" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -48,7 +52,8 @@
                         </div>
                     </div>
                     <div class="input-group mb-4">
-                        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password" placeholder = "Please enter your password"/>
+                        <input type="password" name="Password" id="Password" class="form-control" asp-for="Password"
+                            placeholder="Please enter your password" />
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span id="togglePassword" class="fas fa-eye field-icon"></span>
@@ -76,6 +81,8 @@
             </div>
         </div>
     </div>
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <script>
         $(document).ready(function () {
