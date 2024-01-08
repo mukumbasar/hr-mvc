@@ -4,6 +4,7 @@ using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Personnel;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
@@ -21,19 +22,27 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             this.responseHandler = responseHandler;
         }
         [HttpGet]
-        public async Task<IActionResult> List() 
+        public async Task<IActionResult> ActiveList()
         {
-            ViewBag.Personnels = personelClientService.GetAppUserAsync().Result.Data;
+            var temp = await personelClientService.GetAppUserAsync();
+            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).ToList();
+            return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> PassiveList()
+        {
+            var temp = await personelClientService.GetAppUserAsync();
+            ViewBag.Personnels = temp.Data.Where(x => !x.IsActive).ToList();
             return View();
         }
         [HttpGet]
         public async Task<IActionResult> Listx(string userId) =>
-            responseHandler.HandleResponse(await personelClientService.GetAppUserAsync(userId), "List", "List", this);
+            responseHandler.HandleResponse(await personelClientService.GetAppUserAsync(userId), "ActiveList", "ActiveList", this);
 
         [HttpGet]
         public async Task<IActionResult> Add() => View();
         [HttpPost]
         public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
-             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState), "Add", "Add", this);
+             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState), "ActiveList", "Add", this);
     }
 }

@@ -29,7 +29,8 @@ namespace HrApp.MVC.Controllers
         {
             ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
             ViewBag.Currencies = await _commonClientService.GetCurrencies();
-            ViewBag.Advances = _advanceClientService.GetAdvances().Result.Data.Where(x => x.AppUserId == User.FindFirstValue("nameid"));
+            var temp = await _advanceClientService.GetAdvances();
+            ViewBag.Advances = temp.Data.Where(x => x.AppUserId == User.FindFirstValue("nameid"));
 
             return View();
         }

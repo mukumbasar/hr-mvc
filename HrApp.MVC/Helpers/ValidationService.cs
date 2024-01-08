@@ -25,8 +25,8 @@ public class ValidationService
         if (!response.IsSuccessStatusCode)
         {
             // Read the error response and include it in the failure message
-            var errorContent = await response.Content.ReadFromJsonAsync<T>();
-            return errorContent;
+            var errorContent = await response.Content.ReadFromJsonAsync<JsonResponse<string>>();
+            return (T)(object)errorContent;
         }
 
         // Deserialize the response content to the specified type
@@ -48,7 +48,6 @@ public class ValidationService
                 return JsonResponse<TResult>.Failure(validationResponse.Message);
             }
         }
-        // Then, execute the HTTP request and process the response
         var httpResponse = await requestFunc();
         var responseContent = await ProcessResponse<JsonResponse<TResult>>(httpResponse);
 
