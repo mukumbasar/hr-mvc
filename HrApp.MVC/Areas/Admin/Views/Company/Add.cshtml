@@ -1,0 +1,105 @@
+﻿@{
+    ViewData["Title"] = "Add Company";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using HrApp.MVC.Areas.Admin.Models.Company
+
+@model AddCompanyViewModel
+
+
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Add Company</h3>
+                </div>
+                <form asp-action="Add" method="post" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="p-5">
+                        <div>
+                            <label for="type">Company Type:</label>
+                            <select id="type" class="form-control" asp-for="CompanyTypeId">
+                                <option value="1">Limited</option>
+                                <option value="2">Anonim</option>
+                                <option value="3">Kooperatif</option>
+                                <option value="4">Kollektif</option>
+                                <option value="5">Komandit</option>
+                                <option value="6">Adi</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="name">Company Name:</label>
+                            <input id="name" class="form-control" asp-for="Name" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="mersisno">Mersis No:</label>
+                            <input id="mersisno" class="form-control" asp-for="MersisNo" />
+                            <span asp-validation-for="MersisNo" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="logo">Logo:</label>
+                            <input id="logo" class="form-control text-black" type="file" asp-for="File" />
+                            <span asp-validation-for="File" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="taxno">Tax No:</label>
+                            <input id="taxno" class="form-control" asp-for="TaxNo" />
+                            <span asp-validation-for="TaxNo" class="text-danger"></span>
+                            <label for="taxof">Tax Office:</label>
+                            <input id="taxof" class="form-control" asp-for="TaxOffice" />
+                            <span asp-validation-for="TaxOffice" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="phone">Phone Number:</label>
+                            <input id="phone" class="form-control" asp-for="PhoneNumber" />
+                            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="address">Address:</label>
+                            <input id="address" class="form-control" asp-for="Address" />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="email">Email Address:</label>
+                            <input id="email" class="form-control" asp-for="EmailAddress" />
+                            <span asp-validation-for="EmailAddress" class="text-danger"></span>
+                        </div>
+                        @* <div>
+                            <label for="employeeCount">Employee Count:</label>
+                            <input id="employeeCount" class="form-control" asp-for="EmployeeCount" />
+                            <span asp-validation-for="EmployeeCount" class="text-danger"></span>
+                        </div> *@
+                        <div>
+                            <label for="foundationYear">Foundation Year:</label>
+                            <input id="foundationYear" class="form-control" type="date" asp-for="FoundationYear" />
+                            <span asp-validation-for="FoundationYear" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="contractStartDate">Contract Start Date:</label>
+                            <input id="contractStartDate" type="date" asp-for="ContractStartDate" class="form-control" />
+                            <span asp-validation-for="ContractStartDate" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <label for="contractEndDate">Contract End Date:</label>
+                            <input id="contractEndDate" type="date" asp-for="ContractEndDate" class="form-control" />
+                            <span asp-validation-for="ContractEndDate" class="text-danger"></span>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary mt-4">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
