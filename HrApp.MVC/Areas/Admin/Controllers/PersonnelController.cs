@@ -43,6 +43,6 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> Add() => View();
         [HttpPost]
         public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
-             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState), "ActiveList", "Add", this);
+             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.IsInRole("WebsiteManager")), "ActiveList", "Add", this);
     }
 }
