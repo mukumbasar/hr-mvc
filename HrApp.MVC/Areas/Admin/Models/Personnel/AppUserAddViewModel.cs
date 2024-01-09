@@ -23,5 +23,6 @@ namespace HrApp.MVC.Areas.Admin.Models.Personnel
         public IFormFile NewImage { get; set; }
         public byte[]? ImageData { get; set; }
         public int GenderId { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

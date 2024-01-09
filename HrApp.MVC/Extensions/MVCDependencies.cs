@@ -40,7 +40,7 @@ namespace HrApp.MVC.Extensions
                 opt.Cookie.HttpOnly = false;
             });
 
-            
+
         }
 
         public static IApplicationBuilder UseNotFoundErrorHandlingMiddleware(
