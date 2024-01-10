@@ -4,7 +4,6 @@
 }
 
 @using HrApp.MVC.Areas.Admin.Models.Company
-
 @model AddCompanyViewModel
 
 
@@ -19,15 +18,10 @@
                 <form asp-action="Add" method="post" enctype="multipart/form-data">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="p-5">
+                        <div id="companyTypesContainer"></div>
                         <div>
                             <label for="type">Company Type:</label>
-                            <select id="type" class="form-control" asp-for="CompanyTypeId">
-                                <option value="1">Limited</option>
-                                <option value="2">Anonim</option>
-                                <option value="3">Kooperatif</option>
-                                <option value="4">Kollektif</option>
-                                <option value="5">Komandit</option>
-                                <option value="6">Adi</option>
+                            <select id="type" class="form-control" asp-for="CompanyTypeId"></select>
                             </select>
                         </div>
                         <div>
@@ -102,4 +96,27 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+
+    <script>
+        $(document).ready(function () {
+            // Make an Ajax request to get company types
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCompanyTypes", "Company")',
+                dataType: 'json',
+                success: function (data) {
+                    // Update the original dropdown with the received data
+                    var select = $('#type');
+                    select.empty();
+
+                    $.each(data, function (index, item) {
+                        select.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+                },
+                error: function () {
+                    console.error('Failed to retrieve company types.');
+                }
+            });
+        });
+    </script>
 }

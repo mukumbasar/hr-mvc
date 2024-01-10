@@ -30,6 +30,7 @@ namespace HrApp.MVC.Extensions
             services.AddScoped<LeaveClientService>();
             services.AddScoped<ValidationService>();
             services.AddScoped<EmailClientService>();
+            services.AddScoped<CompanyClientService>();
             services.AddScoped<ResponseHandler>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
