@@ -37,7 +37,7 @@
                                 <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
                             <input type="hidden" asp-for="RequestDate" value="@DateTime.Now" />
-                            <input type="submit" value="Add">
+                            <input class="btn btn-primary" type="submit" value="Add">
                         </form>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                             </div>
                             <input type="hidden" asp-for="EndDate" id="hiddenEndDate" value="@DateTime.Now" />
                             <input type="hidden" asp-for="RequestDate" value="@DateTime.Now" />
-                            <input type="submit" value="Add">
+                            <input class="btn btn-primary" type="submit" value="Add">
                         </form>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
                 <th>Request Date</th>
                 <th>Approval Status</th>
                 <th>Approval Date</th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -125,7 +125,6 @@
                                     <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
                                 }
                             }
-
                         </tr>
                     }
                 }
