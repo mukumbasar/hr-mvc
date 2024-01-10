@@ -2,6 +2,7 @@
 {
     public class ListCompanyViewModel
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string MersisNo { get; set; }
         public string TaxNo { get; set; }

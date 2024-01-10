@@ -30,6 +30,12 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             return Json(companyTypes);
         }
 
+        public async Task<IActionResult> GetCompanies()
+        {
+            var companies = await _companyClientService.GetCompanies();
+            return Json(companies);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {

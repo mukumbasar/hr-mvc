@@ -14,7 +14,7 @@ namespace HrApp.MVC.Validator
             RuleFor(x => x.TurkishIdentificationNumber).NotEmpty().WithMessage("Turkish identification number is required.").Length(11).WithMessage("Turkish identification number must be 11 character.").Must(BeAValidTCKN).WithMessage("Geçersiz TC Kimlik Numarası."); ;
             RuleFor(x => x.StartDate).NotEmpty().WithMessage("Start date is required.");
             RuleFor(x => x.Department).NotEmpty().WithMessage("Department is required.");
-            RuleFor(x => x.CompanyName).NotEmpty().WithMessage("Company name is required.");
+            RuleFor(x => x.CompanyId).NotEmpty().WithMessage("CompanyId is required.");
             RuleFor(x => x.Occupation).NotEmpty().WithMessage("Occupation is required.");
             RuleFor(y => y.Address).NotEmpty().WithMessage("Please enter your address.").MaximumLength(200).WithMessage("Address must be maximum of 200 characters.").MinimumLength(15).WithMessage("Address must be minimum of 15 characters.");
             RuleFor(y => y.MobileNumber).NotEmpty().WithMessage("Please enter your mobile phone number.").Length(9, 11).WithMessage("Please enter a valid phone number. Like 5325323232");
