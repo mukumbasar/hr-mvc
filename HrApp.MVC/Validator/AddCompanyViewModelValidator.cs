@@ -24,7 +24,6 @@ namespace HrApp.MVC.Validator
             RuleFor(x => x.ContractStartDate).NotEmpty().WithMessage("Contract Start Date is required.");
             RuleFor(x => x.ContractEndDate).NotEmpty().WithMessage("Contract End Date is required.")
                 .GreaterThan(x => x.ContractStartDate).WithMessage("Contract End Date must be greater than Contract Start Date.");
-            RuleFor(x => x.IsActive).NotEmpty().WithMessage("Is Active is required.");
             RuleFor(x => x.CompanyTypeId).NotEmpty().WithMessage("Company Type is required.");
             RuleFor(x => x.MersisNo).NotEmpty().WithMessage("Mersis Number is required.").Must((model, mersisNo) => IsAValidMersisNo(mersisNo, model.CompanyTypeId, model.TaxNo)).WithMessage("Invalid MERSİS Number.");
         }
