@@ -27,8 +27,9 @@ namespace HrApp.MVC.ClientServices
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task<List<ReadLeaveViewModel>> GetLeaves() =>
-            validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(await _httpClient.GetAsync("leave")).Result.Data;
+        public async Task<List<ReadLeaveViewModel>> GetLeaves(string id = "") =>
+            validationService.ProcessResponse<JsonResponse<List<ReadLeaveViewModel>>>(await _httpClient.GetAsync($"leave{(string.IsNullOrEmpty(id) ? "" : $"?id={id}")}")).Result.Data;
+
 
 
         public async Task<List<SelectListItem>> GetLeaveTypes()

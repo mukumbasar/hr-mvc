@@ -66,7 +66,6 @@ public class LoginHelper
             }, out SecurityToken validatedToken);
 
             var jwtToken = (JwtSecurityToken)validatedToken;
-            var temp = jwtToken.Claims.ToList();
             return jwtToken.Claims.ToList();
         }
         catch

@@ -26,10 +26,9 @@ namespace HrApp.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            ViewBag.ExpenseTypes= await _expenseClientService.GetExpenseTypes();
-            ViewBag.Currencies= await _commonClientService.GetCurrencies();
-            var temp = await _expenseClientService.GetExpenses();
-            ViewBag.Expenses = temp.Data;
+            ViewBag.ExpenseTypes = _expenseClientService.GetExpenseTypes().Result.ToList();
+            ViewBag.Currencies = _commonClientService.GetCurrencies().Result.ToList();
+            ViewBag.Expenses = _expenseClientService.GetExpenses().Result.Data.ToList();
 
             return View();
         }

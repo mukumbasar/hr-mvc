@@ -20,8 +20,9 @@ namespace HrApp.MVC.ClientServices
             this.validationService = validationService;
             this.createValidator = createValidator;
         }
-        public async Task<JsonResponse<List<ReadAdvanceViewModel>>> GetAdvances() =>
-            await validationService.ProcessResponse<JsonResponse<List<ReadAdvanceViewModel>>>(await _httpClient.GetAsync("Advance"));
+        public async Task<JsonResponse<List<ReadAdvanceViewModel>>> GetAdvances(string id = "") =>
+    await validationService.ProcessResponse<JsonResponse<List<ReadAdvanceViewModel>>>(await _httpClient.GetAsync($"Advance{(string.IsNullOrEmpty(id) ? "" : $"?id={id}")}"));
+
         public async Task<JsonResponse<UpdateAdvanceViewModel>> GetAdvance(int id) =>
             await validationService.ProcessResponse<JsonResponse<UpdateAdvanceViewModel>>(await _httpClient.GetAsync($"Advance/{id}"));
 

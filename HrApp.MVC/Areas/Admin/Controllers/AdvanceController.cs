@@ -28,8 +28,7 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         {
             ViewBag.AdvanceTypes = await _advanceClientService.GetAdvanceTypes();
             ViewBag.Currencies = await _commonClientService.GetCurrencies();
-            var temp = await _advanceClientService.GetAdvances();
-            ViewBag.Advances = temp.Data;
+            ViewBag.Advances = await _advanceClientService.GetAdvances();
 
             return View();
         }

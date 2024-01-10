@@ -21,7 +21,6 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            ViewBag.LeaveType= await _leaveClientService.GetLeaveTypes();
             ViewBag.LeaveType = await _leaveClientService.GetLeaves();
             return View();
         }
