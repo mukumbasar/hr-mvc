@@ -77,7 +77,7 @@
                     @item.TaxOffice
                 </td>
                 <td>
-                    <img src="@item.ImageData" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
+                    <img src="@await ImageConversions.ConvertToIFormFileAsync(item.ImageData)" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
                 </td>
                 <td>
                     @item.PhoneNumber
