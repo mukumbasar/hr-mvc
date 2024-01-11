@@ -1,7 +1,4 @@
-﻿using System.Net;
-using System.Text;
-
-namespace HrApp.MVC.CustomMiddlewares
+﻿namespace HrApp.MVC.CustomMiddlewares
 {
     public class NotFoundErrorHandlingMiddleware
     {
@@ -15,7 +12,7 @@ namespace HrApp.MVC.CustomMiddlewares
         {
             await _next(context);
 
-            if (context.Response.StatusCode == 404 && !context.Response.HasStarted)
+            if ((context.Response.StatusCode == 404 || context.Response.StatusCode == 500 || context.Response.StatusCode == 505) && !context.Response.HasStarted)
             {
                 //Re-execute the request so the user gets the error page
                 string originalPath = context.Request.Path.Value;
