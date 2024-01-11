@@ -1,8 +1,8 @@
-using System.Security.Claims;
 using HrApp.MVC;
 using HrApp.MVC.ClientServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace MyApp.Namespace
 {
@@ -25,19 +25,13 @@ namespace MyApp.Namespace
             this.approvalClientService = approvalClientService;
             this.responseHandler = responseHandler;
         }
-        public async Task<ActionResult> Index()
-        {
-
-            return View();
-        }
-
-        public async Task<ActionResult> GetLeaves()
+        public ActionResult GetLeaves()
         {
             var temp = leaveClientService.GetLeaves(User.FindFirstValue("company")).Result.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
             return View(temp);
         }
 
-        public async Task<ActionResult> GetAdvances()
+        public ActionResult GetAdvances()
         {
             var temp = advanceClientService.GetAdvances(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
             return View(temp);
