@@ -74,7 +74,7 @@
                             {
                                 <td></td>
                                 <td>
-                                    <a class="details" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a> |
+                                    <a class="file" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a> |
                                     <a asp-action="Delete" asp-route-id="@expense.Id" class="details">
                                         <i class="fa-regular fa-trash-can"></i> Delete</a> |
                                     <a class="details" style="cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i> Update</a>
@@ -166,22 +166,7 @@
         $(function () {
             $("#Expenses .file").click(function () {
                 var id = $(this).closest("tr").find("td").eq(0).html();
-
-                $.ajax({
-                    type: "GET",
-                    url: "/Expense/ReadFile",
-                    data: { "id": id },
-                    success: function (response) {
-                        $("#partialModal").find(".modal-body").html(response);
-                        $("#partialModal").modal('show');
-                    },
-                    failure: function (response) {
-                        alert(response.responsetext);
-                    },
-                    error: function (response) {
-                        alert(response.responsetext);
-                    }
-                });
+                window.open('/Expense/GetReport/' + id, '_blank');
             });
         });
     </script>

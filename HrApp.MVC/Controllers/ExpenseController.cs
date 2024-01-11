@@ -73,10 +73,20 @@ namespace HrApp.MVC.Controllers
             if (base64String.StartsWith("data:image/jpg;base64,"))
             {
                 base64String = base64String.Substring("data:image/jpg;base64,".Length);
+                byte[] imageBytes = Convert.FromBase64String(base64String);
+
+                // Return the byte array as an image file
+                return File(imageBytes, "image/jpeg");
             }
 
             try
             {
+                int commaIndex = base64String.IndexOf(',');
+                if (commaIndex != -1)
+                {
+                    // Remove the data type and encoding information (e.g., "data:image/jpg;base64,")
+                    base64String = base64String.Substring(commaIndex + 1);
+                }
                 // Decode Base64 string to byte array
                 byte[] fileBytes = Convert.FromBase64String(base64String);
 
