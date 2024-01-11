@@ -1,11 +1,13 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Personnel;
 using HrApp.MVC.Validator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CompanyManagerController : Controller
     {
         private readonly PersonelClientService personelClientService;

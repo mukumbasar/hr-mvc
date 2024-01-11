@@ -3,12 +3,14 @@ using HrApp.MVC.Areas.Admin.Models.Personnel;
 using HrApp.MVC.ClientServices;
 using HrApp.MVC.Models.Personnel;
 using HrApp.MVC.Validator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class PersonnelController : Controller
     {
         private readonly PersonelClientService personelClientService;
