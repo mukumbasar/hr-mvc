@@ -7,6 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Advance Type</th>
                 <th>Amount</th>
                 <th>Currency</th>
@@ -22,6 +24,8 @@
                     {
                         <tr>
                             <td>@advance.Id</td>
+                            <td>@advance.Name @advance.SecondName</td>
+                            <td>@advance.Surname @advance.SecondSurname</td>
                             <td>@advance.AdvanceTypeName</td>
                             <td>@advance.Amount</td>
                             <td>@advance.Currency</td>

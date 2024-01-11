@@ -3,6 +3,10 @@
     public class ReadLeaveViewModel
     {
         public int Id { get; set; }
+        public string Name { get; set; }
+        public string? SecondName { get; set; }
+        public string Surname { get; set; }
+        public string? SecondSurname { get; set; }
         public string LeaveTypeName { get; set; }
         public DateTime StartDate { get; set; }
         public int NumDays { get; set; }

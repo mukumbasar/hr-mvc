@@ -8,6 +8,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Expense Type</th>
                 <th>Amount</th>
                 <th>Currency</th>
@@ -22,15 +24,17 @@
                     {
                         <tr>
                             <td>@expense.Id</td>
+                            <td>@expense.Name @expense.SecondName</td>
+                            <td>@expense.Surname @expense.SecondSurname</td>
                             <td>@expense.ExpenseTypeName</td>
                             <td>@expense.Amount</td>
                             <td>@expense.Currency</td>
                             <td>
                                 <a asp-action="Approve" asp-route-id="@expense.Id" class="details" asp-route-data="expense"
-                                   asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
+                                    asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
                                 |
                                 <a asp-action="Approve" class="details" asp-route-id="@expense.Id" asp-route-data="expense"
-                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+                                    asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
 
                             </td>
                         </tr>
