@@ -2,46 +2,48 @@
 
 @model List<ReadAdvanceViewModel>
 
-
-
-
-<table class="table table-bordered table-striped data-table" id="Advances">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Advance Type</th>
-            <th>Amount</th>
-            <th>Currency</th>
-            <th>Request Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (Model != null)
-            {
-                @foreach (var advance in Model)
+<div class="container">
+    <table class="table table-bordered table-striped data-table" id="Advances">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Advance Type</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Request Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
                 {
-                    <tr>
-                        <td>@advance.Id</td>
-                        <td>@advance.AdvanceTypeName</td>
-                        <td>@advance.Amount</td>
-                        <td>@advance.Currency</td>
-                        <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
-                        <td>
-                            <a asp-action="Approve" asp-route-id="@advance.Id" asp-route-data="advance" class="details"
-                                asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
-                            |
-                            <a asp-action="Approve" class="details" asp-route-id="@advance.Id" asp-route-data="advance"
-                                asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+                    @foreach (var advance in Model)
+                    {
+                        <tr>
+                            <td>@advance.Id</td>
+                            <td>@advance.AdvanceTypeName</td>
+                            <td>@advance.Amount</td>
+                            <td>@advance.Currency</td>
+                            <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a asp-action="Approve" asp-route-id="@advance.Id" asp-route-data="advance" class="details"
+                                   asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
+                                |
+                                <a asp-action="Approve" class="details" asp-route-id="@advance.Id" asp-route-data="advance"
+                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+
+
+
 
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
