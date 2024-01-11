@@ -1,10 +1,9 @@
-﻿using System.Security.Claims;
-using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Company;
 using HrApp.MVC.ClientServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
+using System.Security.Claims;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
