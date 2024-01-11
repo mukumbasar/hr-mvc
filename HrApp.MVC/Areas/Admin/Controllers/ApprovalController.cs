@@ -27,10 +27,26 @@ namespace MyApp.Namespace
         }
         public async Task<ActionResult> Index()
         {
-            ViewBag.Leaves = leaveClientService.GetLeaves(User.FindFirstValue("company")).Result.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
-            ViewBag.Advances = advanceClientService.GetAdvances(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
-            ViewBag.Expenses = expenseClientService.GetExpenses(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
+            
             return View();
+        }
+
+        public async Task<ActionResult> GetLeaves()
+        {
+            var temp = leaveClientService.GetLeaves(User.FindFirstValue("company")).Result.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
+            return PartialView("_LeaveApprovalPartialView", temp);
+        }
+
+        public async Task<ActionResult> GetAdvances()
+        {
+            var temp = advanceClientService.GetAdvances(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
+            return PartialView("_AdvanceApprovalPartialView", temp);
+        }
+
+        public async Task<ActionResult> GetExpenses()
+        {
+            var temp = expenseClientService.GetExpenses(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
+            return PartialView("_ExpenseApprovalPartialView", temp);
         }
         public async Task<ActionResult> Approve(string id, string data, bool isApproved)
         {
