@@ -23,5 +23,6 @@
         public int YearlyLeaveDaysLeft { get; set; }
         public decimal YearlyAdvanceAmountLeft { get; set; }
         public int GenderId { get; set; }
+        public string GenderName { get; set; }
     }
 }
