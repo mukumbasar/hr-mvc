@@ -1,4 +1,6 @@
-﻿namespace HrApp.MVC.Models.Expense
+﻿using HrApp.MVC.CustomAttributes;
+
+namespace HrApp.MVC.Models.Expense
 {
     public class ReadExpenseViewModel
     {

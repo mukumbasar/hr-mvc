@@ -1,0 +1,12 @@
+﻿@using HrApp.MVC.Models.Expense
+
+@model ReadExpenseFileViewModel
+
+<img src="@Model.ConvertedFile" />
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}

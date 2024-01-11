@@ -3,6 +3,7 @@ using HrApp.MVC.Models.Expense;
 using HrApp.MVC.Validator;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.IdentityModel.Tokens;
 
 namespace HrApp.MVC.ClientServices
 {
@@ -31,10 +32,11 @@ namespace HrApp.MVC.ClientServices
         public async Task<List<SelectListItem>> GetExpenseTypes() =>
             validationService.ProcessResponse<JsonResponse<List<ExpenseTypeViewModel>>>(await _httpClient.GetAsync("Expense/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
 
-
         public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id) =>
             await validationService.ProcessResponse<JsonResponse<UpdateExpenseViewModel>>(await _httpClient.GetAsync($"Expense/{id}"));
 
+        public async Task<JsonResponse<ReadExpenseFileViewModel>> GetExpenseFile(int id) =>
+            await validationService.ProcessResponse<JsonResponse<ReadExpenseFileViewModel>>(await _httpClient.GetAsync($"Expense/{id}"));
 
         public async Task<JsonResponse<int>> CreateExpense(CreateExpenseViewModel model, ModelStateDictionary modelState) =>
             await validationService.ExecuteValidatedRequestAsync<CreateExpenseViewModel, int>(
@@ -58,7 +60,6 @@ namespace HrApp.MVC.ClientServices
                     model.Document = await ImageConversions.ConvertToByteArrayAsync(model.File);
                     return await _httpClient.PutAsJsonAsync("Expense", model);
                 });
-
 
         public async Task<JsonResponse<int>> DeleteExpense(int id) =>
             await validationService.ProcessResponse<JsonResponse<int>>(await _httpClient.DeleteAsync($"Expense/{id}"));
