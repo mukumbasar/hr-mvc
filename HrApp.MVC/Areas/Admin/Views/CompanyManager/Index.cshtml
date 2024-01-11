@@ -42,8 +42,8 @@
                     <div class="card-header">
                         <h3 class="card-title">Add Company Manager</h3>
                     </div>
-                    <form asp-area="Admin" asp-controller="Personnel" asp-action="Add" enctype="multipart/form-data"
-                        method="post">
+                    <form asp-area="Admin" asp-controller="CompanyManager" asp-action="Add"
+                        enctype="multipart/form-data" method="post">
                         <div class="card-body">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -267,9 +267,7 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Second Name</th>
                         <th>Surname</th>
-                        <th>Second Surname</th>
                         <th>Company Name</th>
                         <th>Email</th>
                     </tr>
@@ -281,10 +279,8 @@
                             @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.CompanyManagers)
                             {
                                 <tr>
-                                    <td>@personnel.Name</td>
-                                    <td>@personnel.SecondName</td>
-                                    <td>@personnel.Surname</td>
-                                    <td>@personnel.SecondSurname</td>
+                                    <td>@personnel.Name @personnel.SecondName</td>
+                                    <td>@personnel.Surname @personnel.SecondSurname</td>
                                     <td>@personnel.CompanyName</td>
                                     <td>@personnel.Email</td>
                                 </tr>
