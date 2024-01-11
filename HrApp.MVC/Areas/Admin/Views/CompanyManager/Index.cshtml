@@ -30,7 +30,7 @@
                     <h3 class="card-title">Add Personnel</h3>
                 </div>
                 <form asp-area="Admin" asp-controller="Personnel" asp-action="Add" enctype="multipart/form-data"
-                      method="post">
+                    method="post">
                     <div class="card-body">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -158,8 +158,8 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="TurkishIdentificationNumber" class="control-label"></label>
                                 <input type="number" asp-for="TurkishIdentificationNumber" data-maxlength="11"
-                                       oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                       class="form-control" />
+                                    oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                    class="form-control" />
                                 <span asp-validation-for="TurkishIdentificationNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -196,8 +196,8 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="MobileNumber" class="control-label"></label>
                                 <input type="number" asp-for="MobileNumber" data-maxlength="11"
-                                       oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                       class="form-control" />
+                                    oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                    class="form-control" />
                                 <span asp-validation-for="MobileNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
@@ -227,7 +227,7 @@
                             <div class="form-group col-md-6">
                                 <label asp-for="NewImage" class="control-label">Photo</label>
                                 <input asp-for="NewImage" type="file" class="form-control-file"
-                                       accept=".jpg , .jpeg , .png" />
+                                    accept=".jpg , .jpeg , .png" />
                                 <span asp-validation-for="NewImage" class="text-danger"></span>
                             </div>
                         </div>
@@ -239,70 +239,45 @@
             </div>
         </div>
     </div>
-</div>
-<div class="container mt-4">
-    <div class="text-center">
-        <h5 class="section-title ff-secondary text-center text-primary fw-normal">Company Managers</h5>
+
+    <div class="container mt-4">
+        <div class="text-center">
+            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Company Managers</h5>
+        </div>
     </div>
-</div>
 
 
-<table class="table table-bordered table-striped" id="CompanyManagers">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Second Name</th>
-            <th>Surname</th>
-            <th>Second Surname</th>
-            <th>Birth Year</th>
-            <th>Birth Place</th>
-            <th>Turkish Identification Number</th>
-            <th>Gender</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Department</th>
-            <th>Company Name</th>
-            <th>Occupation</th>
-            <th>Address</th>
-            <th>Mobile Number</th>
-            <th>Salary</th>
-            <th>Yearly Leave Days Left</th>
-            <th>Yearly Advance Amount Left</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (ViewBag.CompanyManagers != null)
-            {
-                @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.CompanyManagers)
+    <table class="table table-bordered table-striped" id="CompanyManagers">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Second Name</th>
+                <th>Surname</th>
+                <th>Second Surname</th>
+                <th>Company Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (ViewBag.CompanyManagers != null)
                 {
-                    <tr>
-                        <td>@personnel.Id</td>
-                        <td>@personnel.Name</td>
-                        <td>@personnel.SecondName</td>
-                        <td>@personnel.Surname</td>
-                        <td>@personnel.SecondSurname</td>
-                        <td>@personnel.BirthYear.ToString("dd/MM/yyyy")</td>
-                        <td>@personnel.BirthPlace</td>
-                        <td>@personnel.TurkishIdentificationNumber</td>
-                        <td>@personnel.GenderId</td>
-                        <td>@personnel.StartDate.ToString("dd/MM/yyyy")</td>
-                        <td>@(personnel.EndDate.HasValue ? personnel.EndDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
-                        <td>@personnel.Department</td>
-                        <td>@personnel.CompanyName</td>
-                        <td>@personnel.Occupation</td>
-                        <td>@personnel.Address</td>
-                        <td>@personnel.MobileNumber</td>
-                        <td>@personnel.Salary ₺</td>
-                        <td>@personnel.YearlyLeaveDaysLeft</td>
-                        <td>@personnel.YearlyAdvanceAmountLeft ₺</td>
-                    </tr>
+                    @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.CompanyManagers)
+                    {
+                        <tr>
+                            <td>@personnel.Name</td>
+                            <td>@personnel.SecondName</td>
+                            <td>@personnel.Surname</td>
+                            <td>@personnel.SecondSurname</td>
+                            <td>@personnel.CompanyName</td>
+                            <td>@personnel.Email</td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
 @section Scripts {
 
     <!-- DataTables ve AdminLTE DataTables Plugin JS -->

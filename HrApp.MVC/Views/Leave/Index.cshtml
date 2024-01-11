@@ -80,58 +80,58 @@
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Leaves</h5>
         </div>
     </div>
-
-    <table class="table table-bordered table-striped" id="Leaves">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Leave Type</th>
-                <th>Start Date</th>
-                <th>Day Count</th>
-                <th>End Date</th>
-                <th>Request Date</th>
-                <th>Approval Status</th>
-                <th>Approval Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (ViewBag.Leaves != null)
-                {
-                    @foreach (var advance in ViewBag.Leaves)
+    <div id="Leaves_wrapper" class="dataTables_wrapper dt-bootstrap4">
+        <table class="table table-bordered table-striped" id="Leaves">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Leave Type</th>
+                    <th>Start Date</th>
+                    <th>Day Count</th>
+                    <th>End Date</th>
+                    <th>Request Date</th>
+                    <th>Approval Status</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (ViewBag.Leaves != null)
                     {
-                        <tr>
-                            <td>@advance.Id</td>
-                            <td>@advance.LeaveTypeName</td>
-                            <td>@advance.StartDate.ToString("dd/MM/yyyy")</td>
-                            <td>@advance.NumDays</td>
-                            <td>@advance.EndDate.ToString("dd/MM/yyyy")</td>
-                            <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
-                            <td>@advance.ApprovalStatus</td>
+                        @foreach (var leave in ViewBag.Leaves)
+                        {
+                            <tr>
+                                <td>@leave.Id</td>
+                                <td>@leave.LeaveTypeName</td>
+                                <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
+                                <td>@leave.NumDays</td>
+                                <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
+                                <td>@leave.RequestDate.ToString("dd/MM/yyyy")</td>
+                                <td>@leave.ApprovalStatus</td>
 
-                            @{
-                                if (advance.ApprovalStatus == "Waiting...")
-                                {
-                                    <td>
-                                    </td>
-                                    <td>
-
-                                        <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
-                                    </td>
+                                @{
+                                    if (leave.ApprovalStatus == "Waiting...")
+                                    {
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a asp-action="Delete" asp-route-id="@leave.Id" class="btn btn-danger">Delete</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@leave.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                        <td></td>
+                                    }
                                 }
-                                else
-                                {
-                                    <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
-                                    <td></td>
-                                }
-                            }
-                        </tr>
+                            </tr>
+                        }
                     }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
 @* <div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog">

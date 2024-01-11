@@ -177,18 +177,25 @@
                                 <li class="nav-item">
                                     <a asp-area="Admin" asp-controller="Company" asp-action="Add" class="nav-link @(currentController == "Company"
                         && currentAction == "Add" ? "active" : "")">
-                                        <i class="nav-icon fas fa-user-tie"></i>
+                                        <i class="nav-icon fas fa-plus"></i>
                                         <p>Add Company</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-area="Admin" asp-controller="Company" asp-action="List" class="nav-link @(currentController == "Company"
                         && currentAction == "List" ? "active" : "")">
-                                        <i class="nav-icon fas fa-user-tie"></i>
+                                        <i class="nav-icon fas fa-list"></i>
                                         <p>Company List</p>
                                     </a>
                                 </li>
 
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="CompanyManager" asp-action="Index" class="nav-link @(currentController == "CompanyManager"
+                        && currentAction == "Index" ? "active" : "")">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p>Company Manager Actions</p>
+                                    </a>
+                                </li>
                             }
                             <li class="nav-item">
                                 <a asp-action="Logout" asp-controller="Home" asp-area="" class="nav-link">
