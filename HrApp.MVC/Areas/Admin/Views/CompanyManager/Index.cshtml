@@ -43,7 +43,7 @@
                         <h3 class="card-title">Add Company Manager</h3>
                     </div>
                     <form asp-area="Admin" asp-controller="Personnel" asp-action="Add" enctype="multipart/form-data"
-                          method="post">
+                        method="post">
                         <div class="card-body">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
@@ -171,8 +171,8 @@
                                 <div class="form-group col-md-6">
                                     <label asp-for="TurkishIdentificationNumber" class="control-label"></label>
                                     <input type="number" asp-for="TurkishIdentificationNumber" data-maxlength="11"
-                                           oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                           class="form-control" />
+                                        oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                        class="form-control" />
                                     <span asp-validation-for="TurkishIdentificationNumber" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -188,8 +188,9 @@
                                     <span asp-validation-for="Department" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label asp-for="CompanyId" class="control-label"></label>
-                                    <input asp-for="CompanyId" class="form-control"></input>
+                                    <label asp-for="CompanyId" class="control-label">Company</label>
+                                    <select id="companyName" class="form-control" asp-for="CompanyId"
+                                        readonlyAttribute></select>
                                     <span asp-validation-for="CompanyId" class="text-danger"></span>
                                 </div>
                             </div>
@@ -201,7 +202,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label asp-for="Address" class="control-label"></label>
-                                    <textarea asp-for="Address" rows="4" maxlength="200" class="form-control"></textarea>
+                                    <textarea asp-for="Address" rows="4" maxlength="200"
+                                        class="form-control"></textarea>
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
                             </div>
@@ -209,8 +211,8 @@
                                 <div class="form-group col-md-6">
                                     <label asp-for="MobileNumber" class="control-label"></label>
                                     <input type="number" asp-for="MobileNumber" data-maxlength="11"
-                                           oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
-                                           class="form-control" />
+                                        oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
+                                        class="form-control" />
                                     <span asp-validation-for="MobileNumber" class="text-danger"></span>
                                 </div>
                                 <div class="form-group col-md-6">
@@ -240,7 +242,7 @@
                                 <div class="form-group col-md-6">
                                     <label asp-for="NewImage" class="control-label">Photo</label>
                                     <input asp-for="NewImage" type="file" class="form-control-file"
-                                           accept=".jpg , .jpeg , .png" />
+                                        accept=".jpg , .jpeg , .png" />
                                     <span asp-validation-for="NewImage" class="text-danger"></span>
                                 </div>
                             </div>
@@ -323,5 +325,27 @@
             }).buttons().container().appendTo('#CompanyManagers_wrapper .col-md-6:eq(0)').addClass("mb-4");
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            // Make an Ajax request to get company types
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCompanies", "Company")',
+                dataType: 'json',
+                success: function (data) {
+                    // Update the original dropdown with the received data
+                    var select = $('#companyName');
+                    select.empty();
 
+                    $.each(data.data, function (index, item) {
+                        // Append the option to the select element
+                        select.append($('<option>').text(item.name).attr('value', item.id));
+                    });
+                },
+                error: function () {
+                    console.error('Failed to retrieve companies.');
+                }
+            });
+        });
+    </script>
 }

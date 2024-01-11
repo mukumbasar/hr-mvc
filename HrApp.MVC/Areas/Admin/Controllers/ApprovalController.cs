@@ -53,7 +53,7 @@ namespace MyApp.Namespace
             if (data == "leave")
                 return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetLeaves", "GetLeaves", this);
             else if (data == "advance")
-                return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetExpense", "GetExpense", this);
+                return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetAdvances", "GetAdvances", this);
             else
                 return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetExpenses", "GetExpenses", this);
         }
