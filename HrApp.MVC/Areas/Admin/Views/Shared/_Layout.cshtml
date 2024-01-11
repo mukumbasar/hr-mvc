@@ -12,7 +12,7 @@
     <title>Human Resources - @ViewData["Title"]</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <script src="https://kit.fontawesome.com/ab91b57068.js" crossorigin="anonymous"></script>
     @RenderSection("Styles", required: false)
     <style>
         html,
@@ -81,14 +82,11 @@
                 @{
                     if (User.Identity.IsAuthenticated)
                     {
-                        if (User.FindFirstValue("role") == "Admin")
-                        {
-                            <li class="nav-item">
-                                <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link btn btn-light">
-                                    <p> <i class="nav-icon fas fa-user"></i> Admin </p>
-                                </a>
-                            </li>
-                        }
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" asp-area="" class="nav-link btn btn-light">
+                                <p> <i class="nav-icon fas fa-user-tie"></i> Admin </p>
+                            </a>
+                        </li>
                     }
                 }
             </ul>
@@ -102,20 +100,20 @@
                 {
                     <a href="/admin/" class="brand-link">
                         <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                             class="brand-image img-circle elevation-3" style="opacity: .8">
+                            class="brand-image img-circle elevation-3" style="opacity: .8">
                         <span class="brand-text font-weight-light">Human Resources</span>
                     </a>
                 }
                 if (User.FindFirstValue("role") == "WebsiteManager")
                 {
-                    <a href="/admin/" class="brand-link">
+                    <a href="/Admin/CompanyManager/Index" class="brand-link">
                         <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                             class="brand-image img-circle elevation-3" style="opacity: .8">
+                            class="brand-image img-circle elevation-3" style="opacity: .8">
                         <span class="brand-text font-weight-light">Human Resources</span>
                     </a>
                 }
             }
-                
+
 
             <!-- Sidebar -->
             <div class="sidebar">
@@ -150,34 +148,41 @@
                         @{
                             if (User.Identity.IsAuthenticated)
                             {
-                                <li class="nav-item">
-                                    <a href=".././Views/Home/Index.cshtml"
-                                       class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-home"></i>
-                                        <p>Home</p>
-                                    </a>
-                                </li>
                                 if (User.FindFirstValue("role") == "Admin")
                                 {
                                     <li class="nav-item">
                                         <a asp-area="Admin" asp-controller="Personnel" asp-action="ActiveList"
-                                        class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
+                                            class="nav-link @(currentController == "Personnel" && currentAction == "ActiveList" ? "active" : "")">
                                             <i class="nav-icon fas fa-users"></i>
                                             <p>Personnel List</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
                                         <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
-                                        class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
+                                            class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
                                             <i class="nav-icon fas fa-user-plus"></i>
                                             <p>Add Personnel</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Approval" asp-action="Index" class="nav-link @(currentController == "Advance"
-                        && currentAction == "Index" ? "active" : "")">
-                                            <i class="nav-icon fas fa-money"></i>
-                                            <p>Approval</p>
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetExpenses" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetExpenses" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Expense Approval</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetAdvances" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetAdvances" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Advance Approval</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetLeaves" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetLeaves" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Leave Approval</p>
                                         </a>
                                     </li>
                                 }
@@ -185,10 +190,25 @@
                             if (User.FindFirstValue("role") == "WebsiteManager")
                             {
                                 <li class="nav-item">
-                                    <a asp-area="Admin" asp-controller="CompanyManager" asp-action="Index" class="nav-link @(currentController == "Expense"
+                                    <a asp-area="Admin" asp-controller="Company" asp-action="Add" class="nav-link @(currentController == "Company"
+                        && currentAction == "Add" ? "active" : "")">
+                                        <i class="nav-icon fas fa-plus"></i>
+                                        <p>Add Company</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="Company" asp-action="List" class="nav-link @(currentController == "Company"
+                        && currentAction == "List" ? "active" : "")">
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p>Company List</p>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a asp-area="Admin" asp-controller="CompanyManager" asp-action="Index" class="nav-link @(currentController == "CompanyManager"
                         && currentAction == "Index" ? "active" : "")">
-                                        <i class="nav-icon fas fa-user-tie"></i>
-                                        <p>Company Managers</p>
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p>Company Manager Actions</p>
                                     </a>
                                 </li>
                             }

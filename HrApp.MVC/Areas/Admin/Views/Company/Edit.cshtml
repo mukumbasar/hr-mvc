@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Edit Company";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using HrApp.MVC.Areas.Admin.Models.Company
+
+@model UpdateCompanyViewModel 
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12 text-left">
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Edit Company</h3>
+                </div>
+                <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="Id" value="@Model.Id"/>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="p-5">
+                        <div id="companyTypesContainer"></div>
+                        <div>
+                            <label for="type">Company Type:</label>
+                            <select id="type" class="form-control" asp-for="CompanyTypeId"></select>
+                        </div>
+                        <!-- Other input fields similar to the add page -->
+                        <div>
+                            <button type="submit" class="btn btn-primary mt-4">Update</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            // Make an Ajax request to get company types
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetCompanyTypes", "Company")',
+                dataType: 'json',
+                success: function (data) {
+                    // Update the original dropdown with the received data
+                    var select = $('#type');
+                    select.empty();
+
+                    $.each(data, function (index, item) {
+                        select.append($('<option>').text(item.text).attr('value', item.value));
+                    });
+
+                    // Set the selected value based on the model's CompanyTypeId
+                    select.val('@Model.CompanyTypeId');
+                },
+                error: function () {
+                    console.error('Failed to retrieve company types.');
+                }
+            });
+        });
+    </script>
+}

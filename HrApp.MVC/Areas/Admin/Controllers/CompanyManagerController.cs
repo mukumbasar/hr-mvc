@@ -1,11 +1,14 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using System.Security.Claims;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Personnel;
 using HrApp.MVC.Validator;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CompanyManagerController : Controller
     {
         private readonly PersonelClientService personelClientService;
@@ -21,15 +24,12 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var temp = await personelClientService.GetAppUserAsync();
-            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).ToList();
+            var temp = await personelClientService.GetAllAdmin();
+            ViewBag.CompanyManagers = temp.Data.ToList();
             return View();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Add() => View();
         [HttpPost]
         public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
-             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.IsInRole("WebsiteManager")), "Index", "Add", this);
+             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.FindFirstValue("role") != "Admin"), "Index", "Index", this);
     }
 }

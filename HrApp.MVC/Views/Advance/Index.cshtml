@@ -14,17 +14,20 @@
                             <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" />
                             <div class="form-group">
                                 <label class="mt-4" asp-for="AdvanceTypeId">Advance Types</label>
-                                <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
+                                <select class="form-control" asp-for="AdvanceTypeId"
+                                    asp-items="@ViewBag.AdvanceTypes"></select>
                                 <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="CurrencyId">Currencies</label>
-                                <select class="form-control" asp-for="CurrencyId" asp-items="@ViewBag.Currencies"></select>
+                                <select class="form-control" asp-for="CurrencyId"
+                                    asp-items="@ViewBag.Currencies"></select>
                                 <span asp-validation-for="CurrencyId" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Amount">Advance Amount</label>
-                                <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max değeri
+                                <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max
+                                değeri
                                 kullanıcıya göre belirlenecek *@
                                 <span asp-validation-for="Amount" class="text-danger"></span>
                             </div>
@@ -51,53 +54,60 @@
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Advances</h5>
         </div>
     </div>
-    <table class="grid table text-dark mb-0" id="Advances">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Advance Type</th>
-                <th>Amount</th>
-                <th>Currency</th>
-                <th>Request Date</th>
-                <th>Approval Status</th>
-                <th>Approval Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (ViewBag.Advances != null)
-                {
-                    @foreach (var advance in ViewBag.Advances)
+    <div class="container">
+        <table class="grid table text-dark mb-0" id="Advances">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Advance Type</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Request Date</th>
+                    <th>Approval Status</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (ViewBag.Advances != null)
                     {
-                        <tr>
-                            <td>@advance.Id</td>
-                            <td>@advance.AdvanceTypeName</td>
-                            <td>@advance.Amount</td>
-                            <td>@advance.Currency</td>
-                            <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
-                            <td>@advance.ApprovalStatus</td>
-                            @{
-                                if (advance.ApprovalStatus == "Waiting...")
-                                {
-                                    <td></td>
-                                    <td>
-                                        <a class="details btn btn-primary">Update</a>
-                                        <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
-                                    </td>
+                        @foreach (var advance in ViewBag.Advances)
+                        {
+                            <tr>
+                                <td>@advance.Id</td>
+                                <td>@advance.AdvanceTypeName</td>
+                                <td>@advance.Amount</td>
+                                <td>@advance.Currency</td>
+                                <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
+                                <td>@advance.ApprovalStatus</td>
+                                @{
+                                    if (advance.ApprovalStatus == "Waiting...")
+                                    {
+                                        <td></td>
+                                        <td>
+                                            <a asp-action="Delete" asp-route-id="@advance.Id" class="details">
+                                                <i class="fa-regular fa-trash-can"></i> Delete
+                                            </a> |
+                                            <a class="details" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Update</a>
+
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                        <td></td>
+                                    }
                                 }
-                                else
-                                {
-                                    <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
-                                }
-                            }
-                        </tr>
+                            </tr>
+                        }
                     }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 <div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">

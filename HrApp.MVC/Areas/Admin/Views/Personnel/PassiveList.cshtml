@@ -26,63 +26,62 @@
         </div>
     </div>
 </div>
-
-<table class="table table-bordered table-striped" id="Personnels">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Second Name</th>
-            <th>Surname</th>
-            <th>Second Surname</th>
-            <th>Birth Year</th>
-            <th>Birth Place</th>
-            <th>Turkish Identification Number</th>
-            <th>Gender</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Department</th>
-            <th>Company Name</th>
-            <th>Occupation</th>
-            <th>Address</th>
-            <th>Mobile Number</th>
-            <th>Salary</th>
-            <th>Yearly Leave Days Left</th>
-            <th>Yearly Advance Amount Left</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (ViewBag.Personnels != null)
-            {
-                @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.Personnels)
+<div class="container">
+    <table class="table table-bordered table-striped" id="Personnels">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Birth Year</th>
+                <th>Birth Place</th>
+                <th>Turkish Identification Number</th>
+                <th>Gender</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Department</th>
+                <th>Company Name</th>
+                <th>Occupation</th>
+                <th>Address</th>
+                <th>Mobile Number</th>
+                <th>Salary</th>
+                <th>Yearly Leave Days Left</th>
+                <th>Yearly Advance Amount Left</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (ViewBag.Personnels != null)
                 {
-                    <tr>
-                        <td>@personnel.Id</td>
-                        <td>@personnel.Name</td>
-                        <td>@personnel.SecondName</td>
-                        <td>@personnel.Surname</td>
-                        <td>@personnel.SecondSurname</td>
-                        <td>@personnel.BirthYear.ToString("dd/MM/yyyy")</td>
-                        <td>@personnel.BirthPlace</td>
-                        <td>@personnel.TurkishIdentificationNumber</td>
-                        <td>@personnel.GenderId</td>
-                        <td>@personnel.StartDate.ToString("dd/MM/yyyy")</td>
-                        <td>@(personnel.EndDate.HasValue ? personnel.EndDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
-                        <td>@personnel.Department</td>
-                        <td>@personnel.CompanyName</td>
-                        <td>@personnel.Occupation</td>
-                        <td>@personnel.Address</td>
-                        <td>@personnel.MobileNumber</td>
-                        <td>@personnel.Salary ₺</td>
-                        <td>@personnel.YearlyLeaveDaysLeft</td>
-                        <td>@personnel.YearlyAdvanceAmountLeft ₺</td>
-                    </tr>
+                    @foreach (var personnel in (List<AppUserListViewModel>)ViewBag.Personnels)
+                    {
+                        <tr>
+                            <td>@personnel.Id</td>
+                            <td>@personnel.Name @personnel.SecondName</td>
+                            <td>@personnel.Surname @personnel.SecondSurname</td>
+                            <td>@personnel.BirthYear.ToString("dd/MM/yyyy")</td>
+                            <td>@personnel.BirthPlace</td>
+                            <td>@personnel.TurkishIdentificationNumber</td>
+                            <td>@personnel.Gender</td>
+                            <td>@personnel.StartDate.ToString("dd/MM/yyyy")</td>
+                            <td>@(personnel.EndDate.HasValue ? personnel.EndDate.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                            <td>@personnel.Department</td>
+                            <td>@personnel.CompanyName</td>
+                            <td>@personnel.Occupation</td>
+                            <td>@personnel.Address</td>
+                            <td>@personnel.MobileNumber</td>
+                            <td>@personnel.Salary ₺</td>
+                            <td>@personnel.YearlyLeaveDaysLeft</td>
+                            <td>@personnel.YearlyAdvanceAmountLeft ₺</td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+
+</div>
+
 @section Scripts {
 
     <!-- DataTables ve AdminLTE DataTables Plugin JS -->

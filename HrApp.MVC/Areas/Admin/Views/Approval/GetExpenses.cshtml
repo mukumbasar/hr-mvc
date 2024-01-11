@@ -1,0 +1,72 @@
+﻿@using HrApp.MVC.Models.Expense
+
+@model List<ReadExpenseViewModel>
+
+
+<div class="container">
+    <table class="table table-bordered table-striped data-table" id="Expenses">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Expense Type</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
+                {
+                    @foreach (var expense in Model)
+                    {
+                        <tr>
+                            <td>@expense.Id</td>
+                            <td>@expense.ExpenseTypeName</td>
+                            <td>@expense.Amount</td>
+                            <td>@expense.Currency</td>
+                            <td>
+                                <a asp-action="Approve" asp-route-id="@expense.Id" class="details" asp-route-data="expense"
+                                   asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
+                                |
+                                <a asp-action="Approve" class="details" asp-route-id="@expense.Id" asp-route-data="expense"
+                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#Expenses').DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "colvis"],
+            }).buttons().container().appendTo('#Expenses_wrapper .col-md-6:eq(0)');
+        });
+    </script>
+}

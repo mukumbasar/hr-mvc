@@ -56,6 +56,41 @@ namespace HrApp.MVC.Controllers
             await ViewBagFiller();
             return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpensePartialView", "Index", this);
         }
+        
+        [HttpGet]
+        public async Task<IActionResult> ReadFile(int id)
+        {
+            return responseHandler.HandleResponse(await _expenseClientService.GetExpenseFile(id), "_ExpenseFilePartialView", "Index", this);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetReport(int id)
+        {
+            var temp = await _expenseClientService.GetExpenseFile(id);
+
+            // Remove the prefix if it exists
+            string base64String = temp.Data.ConvertedFile;
+            if (base64String.StartsWith("data:image/jpg;base64,"))
+            {
+                base64String = base64String.Substring("data:image/jpg;base64,".Length);
+            }
+
+            try
+            {
+                // Decode Base64 string to byte array
+                byte[] fileBytes = Convert.FromBase64String(base64String);
+
+                // Return the byte array as a PDF file
+                return File(fileBytes, "application/pdf");
+            }
+            catch (FormatException ex)
+            {
+                // Handle the exception or log the error
+                // ...
+                return BadRequest("Invalid Base64 format");
+            }
+        }
+
 
         private async Task ViewBagFiller()
         {

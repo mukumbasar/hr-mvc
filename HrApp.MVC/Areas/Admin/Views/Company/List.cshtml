@@ -7,111 +7,185 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-<h1>List Companies</h1>
+<div id="companies_wrapper" class="dataTables_wrapper dt-bootstrap4">
+    <div class="container">
+        <h1>List Companies</h1>
 
-<p>
-    <a asp-action="Add">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                MersisNo
-            </th>
-            <th>
-                TaxNo
-            </th>
-            <th>
-                TaxOffice
-            </th>
-            <th>
-                ImageData
-            </th>
-            <th>
-                PhoneNumber
-            </th>
-            <th>
-                Address
-            </th>
-            <th>
-                EmailAddress
-            </th>
-            <th>
-                EmployeeCount
-            </th>
-            <th>
-                FoundationYear
-            </th>
-            <th>
-                ContractStartDate
-            </th>
-            <th>
-                ContractEndDate
-            </th>
-            <th>
-                IsActive
-            </th>
-            <th>
-                CompanyTypeId
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in (List<ListCompanyViewModel>)ViewBag.Companies)
-        {
-            <tr>
-                <td>
-                    @item.Name
-                </td>
-                <td>
-                    @item.MersisNo
-                </td>
-                <td>
-                    @item.TaxNo
-                </td>
-                <td>
-                    @item.TaxOffice
-                </td>
-                <td>
-                    <img src="@await ImageConversions.ConvertToIFormFileAsync(item.ImageData)" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
-                </td>
-                <td>
-                    @item.PhoneNumber
-                </td>
-                <td>
-                    @item.Address
-                </td>
-                <td>
-                    @item.EmailAddress
-                </td>
-                <td>
-                    @item.EmployeeCount
-                </td>
-                <td>
-                    @item.FoundationYear
-                </td>
-                <td>
-                    @item.ContractStartDate
-                </td>
-                <td>
-                    @item.ContractEndDate
-                </td>
-                <td>
-                    @item.IsActive
-                </td>
-                <td>
-                    @item.CompanyTypeName
-                </td>
-                <td>
-                    <a asp-action="Edit">Edit</a> |
-                    <a asp-action="Details">Details</a> |
-                    <a asp-action="Delete">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+        <p>
+            <a asp-action="Add">Create New</a>
+        </p>
+        <table class="table table-bordered table-striped dataTable dtr-inline" id="companies">
+            <thead>
+                <tr>
+                    <th>
+                        ImageData
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        CompanyType
+                    </th>
+                    <th>
+                        Mail
+                    </th>
+                    <th>
+                        PhoneNumber
+                    </th>
+                    <th>
+                        Address
+                    </th>
+                    <th>
+                        EmployeeCount
+                    </th>
+                    <th>
+                        FoundationYear
+                    </th>
+                    <th>
+                        ContractStartDate
+                    </th>
+                    <th>
+                        ContractEndDate
+                    </th>
+                    <th>
+                        IsActive
+                    </th>
+                    <th>
+                        Mersis No
+                    </th>
+                    <th>
+                        Tax No
+                    </th>
+                    <th>
+                        Tax Office
+                    </th>
+
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in (List<ListCompanyViewModel>)ViewBag.Companies)
+                {
+                    <tr>
+                        <td>
+                            <img src="@await ImageConversions.ConvertToIFormFileAsync(item.ImageData)" class="img-fluid"
+                                alt="User Image" style="max-width: 100%; height: auto;">
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.CompanyTypeName
+                        </td>
+                        <td>
+                            @item.EmailAddress
+                        </td>
+                        <td>
+                            @item.PhoneNumber
+                        </td>
+                        <td>
+                            @item.Address
+                        </td>
+                        <td>
+                            @item.EmployeeCount
+                        </td>
+                        <td>
+                            @item.FoundationYear
+                        </td>
+                        <td>
+                            @item.ContractStartDate
+                        </td>
+                        <td>
+                            @item.ContractEndDate
+                        </td>
+                        <td>
+                            @item.IsActive
+                        </td>
+                        <td>
+                            @item.MersisNo
+                        </td>
+                        <td>
+                            @item.TaxNo
+                        </td>
+                        <td>
+                            @item.TaxOffice
+                        </td>
+                        <td>
+                            <a class="details btn btn-primary" data-id="@item.Id">Update</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company</h5>
+                <button type="button" class="fa fa-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <!-- DataTables ve AdminLTE DataTables Plugin JS -->
+    <script src="~/AdminLTE-3.1.0/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <!-- Gerekli DataTables buttons plugin js dosyaları -->
+    <script src="~/AdminLTE-3.1.0/plugins/jszip/jszip.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/pdfmake/vfs_fonts.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+
+    
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+            $('#companies').DataTable({
+                "responsive": true,
+                "lengthChange": true,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "colvis"],
+            }).buttons().container().appendTo('#companies_wrapper .col-md-6:eq(0)');
+
+            $("#companies").on("click", ".details", function () {
+                var id = $(this).data("id");
+                console.log(id);
+                $.ajax({
+                    type: "GET",
+                    url: "GetCompany/" + id,
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+}

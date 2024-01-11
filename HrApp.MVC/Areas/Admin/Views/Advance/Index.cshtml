@@ -13,54 +13,57 @@
             <h5 class="section-title ff-secondary text-center text-primary fw-normal">Advances</h5>
         </div>
     </div>
-    <table class="grid table text-dark mb-0" id="Advances">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Advance Type</th>
-                <th>Amount</th>
-                <th>Currency</th>
-                <th>Request Date</th>
-                <th>Approval Status</th>
-                <th>Approval Date</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (ViewBag.Advances != null)
-                {
-                    @foreach (var advance in ViewBag.Advances)
+    <div class="container">
+        <table class="grid table text-dark mb-0" id="Advances">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Advance Type</th>
+                    <th>Amount</th>
+                    <th>Currency</th>
+                    <th>Request Date</th>
+                    <th>Approval Status</th>
+                    <th>Approval Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    if (ViewBag.Advances != null)
                     {
-                        <tr>
-                            <td>@advance.Id</td>
-                            <td>@advance.AdvanceTypeName</td>
-                            <td>@advance.Amount</td>
-                            <td>@advance.Currency</td>
-                            <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
-                            <td>@advance.ApprovalStatus</td>
-                            <td>@advance.ApprovalStatus</td>
-                            @{
-                                if (advance.ApprovalStatus == "Waiting...")
-                                {
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <a asp-action="Approve" class="btn btn-success">Approve</a>
-                                        <a asp-action="Disapprove" class="btn btn-danger">Disapprove</a>
-                                    </td>
+                        @foreach (var advance in ViewBag.Advances)
+                        {
+                            <tr>
+                                <td>@advance.Id</td>
+                                <td>@advance.AdvanceTypeName</td>
+                                <td>@advance.Amount</td>
+                                <td>@advance.Currency</td>
+                                <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
+                                <td>@advance.ApprovalStatus</td>
+                                <td>@advance.ApprovalStatus</td>
+                                @{
+                                    if (advance.ApprovalStatus == "Waiting...")
+                                    {
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <a asp-action="Approve" class="btn btn-success">Approve</a>
+                                            <a asp-action="Disapprove" class="btn btn-danger">Disapprove</a>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                    }
                                 }
-                                else
-                                {
-                                    <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
-                                }
-                            }
-                        </tr>
+                            </tr>
+                        }
                     }
                 }
-            }
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
+    
 </div>
 @section Scripts {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -25,6 +25,9 @@ public class PersonelClientService
     }
     public async Task<JsonResponse<List<AppUserListViewModel>>> GetAppUserAsync() =>
             await validationService.ProcessResponse<JsonResponse<List<AppUserListViewModel>>>(await _httpClient.GetAsync("User/list"));
+
+    public async Task<JsonResponse<List<AppUserListViewModel>>> GetAllAdmin() =>
+        await validationService.ProcessResponse<JsonResponse<List<AppUserListViewModel>>>(await _httpClient.GetAsync($"user/list/admin"));
     public async Task<JsonResponse<AppUserListViewModel>> GetAppUserAsync(string userId) =>
         await validationService.ProcessResponse<JsonResponse<AppUserListViewModel>>(await _httpClient.GetAsync($"User/list/{userId}"));
     public async Task<JsonResponse<AppUserViewModel>> GetAppUserHomeViewModelAsync(string userId) =>

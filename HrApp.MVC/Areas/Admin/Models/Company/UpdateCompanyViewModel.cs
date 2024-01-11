@@ -1,12 +1,11 @@
 ﻿using HrApp.MVC.CustomAttributes;
 using System.ComponentModel.DataAnnotations;
-using System.Data;
 
 namespace HrApp.MVC.Areas.Admin.Models.Company
 {
-    public class AddCompanyViewModel
+    public class UpdateCompanyViewModel
     {
-
+        public int Id { get; set; }
         public string Name { get; set; }
         [MinLength(16), MaxLength(16)]
         public string MersisNo { get; set; }

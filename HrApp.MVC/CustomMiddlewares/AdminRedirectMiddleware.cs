@@ -21,13 +21,14 @@ public class AdminRedirectMiddleware
             var temp = context.GetRouteData();
 
             var tempController = temp.Values["controller"].ToString().ToLower();
+            var tempAction = temp.Values["action"].ToString().ToLower();
             // Kullanıcı 'Admin' rolünde mi kontrol et
-            if (context.User.FindFirstValue("role").ToLower().Contains("admin") && tempController != "personnel" && tempController != "home" && tempController != "error")
+            if (context.User.FindFirstValue("role").ToLower().Contains("website") && tempAction != "logout" && tempController != "error")
             {
                 // Eğer kullanıcı zaten Admin alanında değilse, Admin alanına yönlendir
                 if (!context.Request.Path.StartsWithSegments("/Admin"))
                 {
-                    context.Response.Redirect("/Admin");
+                    context.Response.Redirect("/Admin/CompanyManager/Index");
                     return;
                 }
             }
