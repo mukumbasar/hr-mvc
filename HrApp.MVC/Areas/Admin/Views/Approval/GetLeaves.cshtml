@@ -7,6 +7,8 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
+                <th>Surname</th>
                 <th>Leave Type</th>
                 <th>Start Date</th>
                 <th>Day Count</th>
@@ -23,6 +25,8 @@
                     {
                         <tr>
                             <td>@leave.Id</td>
+                            <td>@leave.Name @leave.SecondName</td>
+                            <td>@leave.Surname @leave.SecondSurname</td>
                             <td>@leave.LeaveTypeName</td>
                             <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
                             <td>@leave.NumDays</td>
@@ -30,10 +34,10 @@
                             <td>@leave.RequestDate.ToString("dd/MM/yyyy")</td>
                             <td>
                                 <a asp-action="Approve" asp-route-id="@leave.Id" class="details" asp-route-data="leave"
-                                   asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
+                                    asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
                                 |
                                 <a asp-action="Approve" class="details" asp-route-id="@leave.Id" asp-route-data="leave"
-                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+                                    asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
 
 
                             </td>
