@@ -248,7 +248,7 @@
             // Make an Ajax request to get company types
             $.ajax({
                 type: 'GET',
-                url: '/Admin/Personnel/GetCompanies',
+                url: '@Url.Action("GetCompanies", "Company")',
                 dataType: 'json',
                 success: function (data) {
                     // Update the original dropdown with the received data
