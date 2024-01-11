@@ -30,6 +30,6 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
-             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.FindFirstValue("role") != "Admin"), "Index", "Add", this);
+             responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.FindFirstValue("role") != "Admin"), "Index", "Index", this);
     }
 }
