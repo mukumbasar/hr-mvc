@@ -59,7 +59,7 @@ namespace HrApp.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> ReadFile(int id)
         {
-            return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpenseFilePartialView", "Index", this);
+            return responseHandler.HandleResponse(await _expenseClientService.GetExpenseFile(id), "_ExpenseFilePartialView", "Index", this);
         }
 
         private async Task ViewBagFiller()

@@ -164,7 +164,7 @@
                 });
             });
         });
-        $(function file() {
+        $(function () {
             $("#Expenses .file").click(function () {
                 var id = $(this).closest("tr").find("td").eq(0).html();
 
@@ -173,14 +173,14 @@
                     url: "/Expense/ReadFile",
                     data: { "id": id },
                     success: function (response) {
-                        $("#partialModal").find(".modal-body").html(response);
-                        $("#partialModal").modal('show');
+                        $("#partialmodal").find(".modal-body").html(response);
+                        $("#partialmodal").modal('show');
                     },
                     failure: function (response) {
-                        alert(response.responseText);
+                        alert(response.responsetext);
                     },
                     error: function (response) {
-                        alert(response.responseText);
+                        alert(response.responsetext);
                     }
                 });
             });

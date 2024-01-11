@@ -35,6 +35,8 @@ namespace HrApp.MVC.ClientServices
         public async Task<JsonResponse<UpdateExpenseViewModel>> GetExpense(int id) =>
             await validationService.ProcessResponse<JsonResponse<UpdateExpenseViewModel>>(await _httpClient.GetAsync($"Expense/{id}"));
 
+        public async Task<JsonResponse<ReadExpenseFileViewModel>> GetExpenseFile(int id) =>
+            await validationService.ProcessResponse<JsonResponse<ReadExpenseFileViewModel>>(await _httpClient.GetAsync($"Expense/{id}"));
 
         public async Task<JsonResponse<int>> CreateExpense(CreateExpenseViewModel model, ModelStateDictionary modelState) =>
             await validationService.ExecuteValidatedRequestAsync<CreateExpenseViewModel, int>(

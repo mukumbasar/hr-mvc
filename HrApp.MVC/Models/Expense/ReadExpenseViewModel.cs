@@ -11,9 +11,5 @@ namespace HrApp.MVC.Models.Expense
         public string ApprovalStatus { get; set; }
         public DateTime ApprovalDate { get; set; }
         public string AppUserId { get; set; }
-
-        [CheckExtension(new string[] { ".png", ".jpeg", ".jpg", ".pdf" })]
-        public IFormFile? File { get; set; }
-        public byte[]? Document { get; set; }
     }
 }

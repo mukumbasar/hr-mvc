@@ -1,8 +1,12 @@
 ﻿@using HrApp.MVC.Models.Expense
-@using System.Security.Claims
-@*
-    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@model UpdateExpenseViewModel
 
-<img src="@Model.File" />
+@model ReadExpenseFileViewModel
+
+<img src="@Model.ConvertedFile" />
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+}
