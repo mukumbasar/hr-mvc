@@ -12,7 +12,7 @@
     <title>Human Resources - @ViewData["Title"]</title>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/fontawesome-free/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
@@ -21,9 +21,14 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="~/AdminLTE-3.1.0/dist/css/adminlte.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" href="~/AdminLTE-3.1.0/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     @RenderSection("Styles", required: false)
     <style>
-        html, body, .wrapper {
+        html,
+        body,
+        .wrapper {
             height: 100% !important;
         }
 
@@ -49,7 +54,8 @@
             bottom: 0 !important;
             width: 100% !important;
             text-align: center !important;
-            background-color: #f8f9fa !important; /* Set your desired background color */
+            background-color: #f8f9fa !important;
+            /* Set your desired background color */
         }
     </style>
 </head>
@@ -76,8 +82,18 @@
                         if (User.FindFirstValue("role") == "Admin")
                         {
                             <li class="nav-item">
-                                <a asp-controller="Personnel" asp-action="ActiveList" asp-area="Admin" class="nav-link btn btn-light">
-                                    <p><i class="nav-icon fas fa-user-tie"></i> User </p>
+                                <a asp-controller="Personnel" asp-action="ActiveList" asp-area="Admin"
+                                    class="nav-link btn btn-light">
+                                    <p><i class="nav-icon fas fa-user"></i> User </p>
+                                </a>
+                            </li>
+                        }
+                        else if (User.FindFirstValue("role") == "WebsiteManager")
+                        {
+                            <li class="nav-item">
+                                <a asp-controller="CompanyManager" asp-action="Index" asp-area="Admin"
+                                    class="nav-link btn btn-light">
+                                    <p><i class="nav-icon fas fa-user"></i> User </p>
                                 </a>
                             </li>
                         }
@@ -91,7 +107,7 @@
             <!-- Brand Logo -->
             <a asp-controller="Home" asp-action="Index" class="brand-link">
                 <img src="~/AdminLTE-3.1.0/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-                     class="brand-image img-circle elevation-3" style="opacity: .8">
+                    class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">Human Resources</span>
             </a>
 
@@ -108,42 +124,32 @@
 
                                 <li class="nav-item">
                                     <a asp-controller="Home" asp-action="Index"
-                                       class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
+                                        class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-home"></i>
                                         <p>Home</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Advance" asp-action="Index"
-                                       class="nav-link @(currentController == "Advance" && currentAction == "Index" ? "active" : "")">
+                                        class="nav-link @(currentController == "Advance" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-money"></i>
                                         <p>Advances</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Expense" asp-action="Index"
-                                       class="nav-link @(currentController == "Expense" && currentAction == "Index" ? "active" : "")">
+                                        class="nav-link @(currentController == "Expense" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-credit-card"></i>
                                         <p>Expenses</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a asp-controller="Leave" asp-action="Index"
-                                       class="nav-link @(currentController == "Leave" && currentAction == "Index" ? "active" : "")">
+                                        class="nav-link @(currentController == "Leave" && currentAction == "Index" ? "active" : "")">
                                         <i class="nav-icon fas fa-calendar"></i>
                                         <p>Leaves</p>
                                     </a>
                                 </li>
-                                if (User.FindFirstValue("role") == "WebsiteManager")
-                                {
-                                    <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="CompanyManager" asp-action="Index" class="nav-link @(currentController == "Expense"
-                        && currentAction == "Index" ? "active" : "")">
-                                            <i class="nav-icon fas fa-user-tie"></i>
-                                            <p>Company Managers</p>
-                                        </a>
-                                    </li>
-                                }
 
                                 <li class="nav-item">
                                     <a asp-action="Logout" asp-controller="Home" class="nav-link">
