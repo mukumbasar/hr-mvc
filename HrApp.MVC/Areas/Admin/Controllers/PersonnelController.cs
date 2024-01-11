@@ -25,14 +25,14 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> ActiveList()
         {
             var temp = await personelClientService.GetAppUserAsync();
-            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).ToList();
+            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).Where(x => x.CompanyId == int.Parse(User.FindFirstValue("company"))).ToList();
             return View();
         }
         [HttpGet]
         public async Task<IActionResult> PassiveList()
         {
             var temp = await personelClientService.GetAppUserAsync();
-            ViewBag.Personnels = temp.Data.Where(x => !x.IsActive).ToList();
+            ViewBag.Personnels = temp.Data.Where(x => !x.IsActive).Where(x => x.CompanyId == int.Parse(User.FindFirstValue("company"))).ToList();
             return View();
         }
 
