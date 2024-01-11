@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label asp-for="File" class="control-label">File</label>
                         <input asp-for="File" type="file" class="form-control-file"
-                               accept=".jpg , .jpeg , .png, .pdf" />
+                            accept=".jpg , .jpeg , .png, .pdf" />
                         <span asp-validation-for="File" class="text-danger"></span>
                     </div>
                     <input class="btn btn-primary" type="submit" value="Add">
@@ -81,6 +81,7 @@
                             else
                             {
                                 <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                <td></td>
                             }
                         }
                     </tr>

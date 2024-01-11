@@ -14,17 +14,20 @@
                             <input type="hidden" asp-for="AppUserId" value="@User.FindFirstValue("nameid")" />
                             <div class="form-group">
                                 <label class="mt-4" asp-for="AdvanceTypeId">Advance Types</label>
-                                <select class="form-control" asp-for="AdvanceTypeId" asp-items="@ViewBag.AdvanceTypes"></select>
+                                <select class="form-control" asp-for="AdvanceTypeId"
+                                    asp-items="@ViewBag.AdvanceTypes"></select>
                                 <span asp-validation-for="AdvanceTypeId" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="CurrencyId">Currencies</label>
-                                <select class="form-control" asp-for="CurrencyId" asp-items="@ViewBag.Currencies"></select>
+                                <select class="form-control" asp-for="CurrencyId"
+                                    asp-items="@ViewBag.Currencies"></select>
                                 <span asp-validation-for="CurrencyId" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="Amount">Advance Amount</label>
-                                <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max değeri
+                                <input asp-for="Amount" class="form-control" min="1" max="20000" step="1" /> @* max
+                                değeri
                                 kullanıcıya göre belirlenecek *@
                                 <span asp-validation-for="Amount" class="text-danger"></span>
                             </div>
@@ -89,6 +92,7 @@
                                 else
                                 {
                                     <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                    <td></td>
                                 }
                             }
                         </tr>
