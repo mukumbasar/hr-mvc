@@ -56,11 +56,12 @@ namespace HrApp.MVC.Controllers
             await ViewBagFiller();
             return responseHandler.HandleResponse(await _expenseClientService.GetExpense(id), "_ExpensePartialView", "Index", this);
         }
-        //[HttpGet]
-        //public async Task<IActionResult> ReadFile(int id)
-        //{
-        //    return responseHandler.HandleResponse(await _expenseClientService.GetExpenseFile(id), "_ExpenseFilePartialView", "Index", this);
-        //}
+        
+        [HttpGet]
+        public async Task<IActionResult> ReadFile(int id)
+        {
+            return responseHandler.HandleResponse(await _expenseClientService.GetExpenseFile(id), "_ExpenseFilePartialView", "Index", this);
+        }
 
         private async Task ViewBagFiller()
         {
