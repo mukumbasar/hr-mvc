@@ -37,7 +37,7 @@
                                 <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="SecondName" class="control-label"></label>
+                                <label asp-for="SecondName" class="control-label">Second Name</label>
                                 <input asp-for="SecondName" class="form-control" />
                                 <span asp-validation-for="SecondName" class="text-danger"></span>
                             </div>
@@ -49,19 +49,19 @@
                                 <span asp-validation-for="Surname" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="SecondSurname" class="control-label"></label>
+                                <label asp-for="SecondSurname" class="control-label">Second Surname</label>
                                 <input asp-for="SecondSurname" class="form-control"></input>
                                 <span asp-validation-for="SecondSurname" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="BirthYear" class="control-label"></label>
-                                <input asp-for="BirthYear" type="date" class="form-control"></input>
+                                <label asp-for="BirthYear" class="control-label">Birth Year</label>
+                                <input asp-for="BirthYear" type="date" class="form-control">Birth Year</input>
                                 <span asp-validation-for="BirthYear" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="BirthPlace" class="control-label"></label>
+                                <label asp-for="BirthPlace" class="control-label">Birth Place</label>
                                 <select asp-for="BirthPlace" class="form-control">
                                     <option value="0">------</option>
                                     <option value="Adana">Adana</option>
@@ -151,14 +151,14 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="TurkishIdentificationNumber" class="control-label"></label>
+                                <label asp-for="TurkishIdentificationNumber" class="control-label">Turkish Identification Number</label>
                                 <input type="number" asp-for="TurkishIdentificationNumber" data-maxlength="11"
                                     oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                     class="form-control" />
                                 <span asp-validation-for="TurkishIdentificationNumber" class="text-danger"></span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label asp-for="StartDate" class="control-label"></label>
+                                <label asp-for="StartDate" class="control-label">Start Date</label>
                                 <input asp-for="StartDate" type="date" class="form-control"></input>
                                 <span asp-validation-for="StartDate" class="text-danger"></span>
                             </div>
@@ -190,7 +190,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label asp-for="MobileNumber" class="control-label"></label>
+                                <label asp-for="MobileNumber" class="control-label">Mobile Number</label>
                                 <input type="number" asp-for="MobileNumber" data-maxlength="11"
                                     oninput="this.value=this.value.slice(0,this.dataset.maxlength)"
                                     class="form-control" />
