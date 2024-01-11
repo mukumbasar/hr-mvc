@@ -61,26 +61,27 @@
         @{
             if (ViewBag.Expenses != null)
             {
-                @foreach (var advance in ViewBag.Expenses)
+                @foreach (var expense in ViewBag.Expenses)
                 {
                     <tr>
-                        <td>@advance.Id</td>
-                        <td>@advance.ExpenseTypeName</td>
-                        <td>@advance.Amount</td>
-                        <td>@advance.Currency</td>
-                        <td>@advance.ApprovalStatus</td>
+                        <td>@expense.Id</td>
+                        <td>@expense.ExpenseTypeName</td>
+                        <td>@expense.Amount</td>
+                        <td>@expense.Currency</td>
+                        <td>@expense.ApprovalStatus</td>
                         @{
-                            if (advance.ApprovalStatus == "Waiting...")
+                            if (expense.ApprovalStatus == "Waiting...")
                             {
                                 <td></td>
                                 <td>
+                                    <a class="file btn btn-light">Show File</a>
                                     <a class="details btn btn-primary">Update</a>
-                                    <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
+                                    <a asp-action="Delete" asp-route-id="@expense.Id" class="btn btn-danger">Delete</a>
                                 </td>
                             }
                             else
                             {
-                                <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                <td>@expense.ApprovalDate.ToString("dd/MM/yyyy")</td>
                                 <td></td>
                             }
                         }
@@ -149,6 +150,27 @@
                 $.ajax({
                     type: "GET",
                     url: "/Expense/Read",
+                    data: { "id": id },
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
+        });
+        $(function file() {
+            $("#Expenses .file").click(function () {
+                var id = $(this).closest("tr").find("td").eq(0).html();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Expense/ReadFile",
                     data: { "id": id },
                     success: function (response) {
                         $("#partialModal").find(".modal-body").html(response);

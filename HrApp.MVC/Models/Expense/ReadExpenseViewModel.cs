@@ -1,4 +1,6 @@
-﻿namespace HrApp.MVC.Models.Expense
+﻿using HrApp.MVC.CustomAttributes;
+
+namespace HrApp.MVC.Models.Expense
 {
     public class ReadExpenseViewModel
     {
@@ -9,5 +11,9 @@
         public string ApprovalStatus { get; set; }
         public DateTime ApprovalDate { get; set; }
         public string AppUserId { get; set; }
+
+        [CheckExtension(new string[] { ".png", ".jpeg", ".jpg", ".pdf" })]
+        public IFormFile? File { get; set; }
+        public byte[]? Document { get; set; }
     }
 }
