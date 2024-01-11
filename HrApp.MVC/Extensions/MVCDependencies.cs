@@ -30,7 +30,9 @@ namespace HrApp.MVC.Extensions
             services.AddScoped<LeaveClientService>();
             services.AddScoped<ValidationService>();
             services.AddScoped<EmailClientService>();
+            services.AddScoped<CompanyClientService>();
             services.AddScoped<ResponseHandler>();
+            services.AddScoped<ApprovalClientService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(opt =>
@@ -40,7 +42,7 @@ namespace HrApp.MVC.Extensions
                 opt.Cookie.HttpOnly = false;
             });
 
-            
+
         }
 
         public static IApplicationBuilder UseNotFoundErrorHandlingMiddleware(

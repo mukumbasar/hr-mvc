@@ -23,8 +23,9 @@ namespace HrApp.MVC.ClientServices
         }
 
 
-        public async Task<JsonResponse<List<ReadExpenseViewModel>>> GetExpenses() =>
-            await validationService.ProcessResponse<JsonResponse<List<ReadExpenseViewModel>>>(await _httpClient.GetAsync("Expense"));
+        public async Task<JsonResponse<List<ReadExpenseViewModel>>> GetExpenses(string id = "") =>
+            await validationService.ProcessResponse<JsonResponse<List<ReadExpenseViewModel>>>(await _httpClient.GetAsync($"Expense{(string.IsNullOrEmpty(id) ? "" : $"?id={id}")}"));
+
 
 
         public async Task<List<SelectListItem>> GetExpenseTypes() =>

@@ -25,8 +25,8 @@ public class ValidationService
         if (!response.IsSuccessStatusCode)
         {
             // Read the error response and include it in the failure message
-            var errorContent = await response.Content.ReadFromJsonAsync<JsonResponse<string>>();
-            return (T)(object)errorContent;
+            var errorContent = await response.Content.ReadFromJsonAsync<T>();
+            return errorContent;
         }
 
         // Deserialize the response content to the specified type

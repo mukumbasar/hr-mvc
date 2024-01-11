@@ -48,7 +48,7 @@ public class PersonelClientService
             });
     }
 
-    public async Task<JsonResponse<string>> AddAppUserAddViewModelAsync(AppUserAddViewModel appUserAddViewModel, ModelStateDictionary ModelState)
+    public async Task<JsonResponse<string>> AddAppUserAddViewModelAsync(AppUserAddViewModel appUserAddViewModel, ModelStateDictionary ModelState, bool isAdmin)
     {
         return await validationService.ExecuteValidatedRequestAsync<AppUserAddViewModel, string>(
             appUserAddViewModel,
@@ -56,6 +56,7 @@ public class PersonelClientService
             ModelState,
             async () =>
         {
+            appUserAddViewModel.IsAdmin = isAdmin;
             appUserAddViewModel.ImageData = await
             ImageConversions.ConvertToByteArrayAsync
             (appUserAddViewModel.NewImage);

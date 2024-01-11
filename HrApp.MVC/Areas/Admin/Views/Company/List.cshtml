@@ -1,0 +1,117 @@
+﻿@using HrApp.MVC.Areas.Admin.Models.Company
+@using HrApp.MVC.Helpers
+@model IEnumerable<HrApp.MVC.Areas.Admin.Models.Company.ListCompanyViewModel>
+
+@{
+    ViewData["Title"] = "List Companies";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>List Companies</h1>
+
+<p>
+    <a asp-action="Add">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Name
+            </th>
+            <th>
+                MersisNo
+            </th>
+            <th>
+                TaxNo
+            </th>
+            <th>
+                TaxOffice
+            </th>
+            <th>
+                ImageData
+            </th>
+            <th>
+                PhoneNumber
+            </th>
+            <th>
+                Address
+            </th>
+            <th>
+                EmailAddress
+            </th>
+            <th>
+                EmployeeCount
+            </th>
+            <th>
+                FoundationYear
+            </th>
+            <th>
+                ContractStartDate
+            </th>
+            <th>
+                ContractEndDate
+            </th>
+            <th>
+                IsActive
+            </th>
+            <th>
+                CompanyTypeId
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in (List<ListCompanyViewModel>)ViewBag.Companies)
+        {
+            <tr>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.MersisNo
+                </td>
+                <td>
+                    @item.TaxNo
+                </td>
+                <td>
+                    @item.TaxOffice
+                </td>
+                <td>
+                    <img src="@await ImageConversions.ConvertToIFormFileAsync(item.ImageData)" class="img-fluid" alt="User Image" style="max-width: 100%; height: auto;">
+                </td>
+                <td>
+                    @item.PhoneNumber
+                </td>
+                <td>
+                    @item.Address
+                </td>
+                <td>
+                    @item.EmailAddress
+                </td>
+                <td>
+                    @item.EmployeeCount
+                </td>
+                <td>
+                    @item.FoundationYear
+                </td>
+                <td>
+                    @item.ContractStartDate
+                </td>
+                <td>
+                    @item.ContractEndDate
+                </td>
+                <td>
+                    @item.IsActive
+                </td>
+                <td>
+                    @item.CompanyTypeName
+                </td>
+                <td>
+                    <a asp-action="Edit">Edit</a> |
+                    <a asp-action="Details">Details</a> |
+                    <a asp-action="Delete">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

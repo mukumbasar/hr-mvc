@@ -13,7 +13,7 @@ namespace HrApp.MVC.Areas.Admin.Models.Personnel
         public string TurkishIdentificationNumber { get; set; }
         public DateTime StartDate { get; set; }
         public string Department { get; set; }
-        public string CompanyName { get; set; }
+        public int CompanyId { get; set; }
         public string Occupation { get; set; }
         public string Address { get; set; }
         public string MobileNumber { get; set; }
@@ -23,5 +23,6 @@ namespace HrApp.MVC.Areas.Admin.Models.Personnel
         public IFormFile NewImage { get; set; }
         public byte[]? ImageData { get; set; }
         public int GenderId { get; set; }
+        public bool IsAdmin { get; set; }
     }
 }

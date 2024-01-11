@@ -30,68 +30,65 @@
                     <div class="form-group">
                         <label asp-for="File" class="control-label">File</label>
                         <input asp-for="File" type="file" class="form-control-file"
-                            accept=".jpg , .jpeg , .png, .pdf" />
+                               accept=".jpg , .jpeg , .png, .pdf" />
                         <span asp-validation-for="File" class="text-danger"></span>
                     </div>
-                    <input type="submit" value="Add">
+                    <input class="btn btn-primary" type="submit" value="Add">
                 </form>
             </div>
         </div>
     </div>
 </div>
-    <div class="container  mt-4">
-        <div class="text-center">
-            <h5 class="section-title ff-secondary text-center text-primary fw-normal">Expenses</h5>
-        </div>
+<div class="container  mt-4">
+    <div class="text-center">
+        <h5 class="section-title ff-secondary text-center text-primary fw-normal">Expenses</h5>
     </div>
+</div>
 
-    <table class="grid table text-dark mb-0" id="Expenses">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Expense Type</th>
-                <th>Amount</th>
-                <th>Currency</th>
-                <th>Approval Status</th>
-                <th>Approval Date</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @{
-                if (ViewBag.Expenses != null)
+<table class="grid table text-dark mb-0" id="Expenses">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Expense Type</th>
+            <th>Amount</th>
+            <th>Currency</th>
+            <th>Approval Status</th>
+            <th>Approval Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (ViewBag.Expenses != null)
+            {
+                @foreach (var advance in ViewBag.Expenses)
                 {
-                    @foreach (var advance in ViewBag.Expenses)
-                    {
-                        <tr>
-                            <td>@advance.Id</td>
-                            <td>@advance.ExpenseTypeName</td>
-                            <td>@advance.Amount</td>
-                            <td>@advance.Currency</td>
-                            <td>@advance.ApprovalStatus</td>
-                            @{
-                                if (advance.ApprovalStatus == "Waiting...")
-                                {
-                                    <td>
-                                    </td>
-                                    <td>
-                                        <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
-                                }
+                    <tr>
+                        <td>@advance.Id</td>
+                        <td>@advance.ExpenseTypeName</td>
+                        <td>@advance.Amount</td>
+                        <td>@advance.Currency</td>
+                        <td>@advance.ApprovalStatus</td>
+                        @{
+                            if (advance.ApprovalStatus == "Waiting...")
+                            {
+                                <td></td>
+                                <td>
+                                    <a class="details btn btn-primary">Update</a>
+                                    <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
+                                </td>
                             }
-                            <td>
-                                <a class="details btn btn-primary">Update</a>
-                            </td>
-                        </tr>
-                    }
+                            else
+                            {
+                                <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                            }
+                        }
+                    </tr>
                 }
             }
-        </tbody>
-    </table>
+        }
+    </tbody>
+</table>
 
 <div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">

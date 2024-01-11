@@ -38,7 +38,7 @@
                                 <input asp-for="Description" class="form-control" />
                                 <span asp-validation-for="Description" class="text-danger"></span>
                             </div>
-                            <input type="submit" value="Add">
+                            <input class="btn btn-primary" type="submit" value="Add">
                         </form>
                     </div>
                 </div>
@@ -61,7 +61,7 @@
                 <th>Request Date</th>
                 <th>Approval Status</th>
                 <th>Approval Date</th>
-                <th></th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -77,13 +77,12 @@
                             <td>@advance.Currency</td>
                             <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
                             <td>@advance.ApprovalStatus</td>
-                            <td>@advance.ApprovalStatus</td>
                             @{
                                 if (advance.ApprovalStatus == "Waiting...")
                                 {
+                                    <td></td>
                                     <td>
-                                    </td>
-                                    <td>
+                                        <a class="details btn btn-primary">Update</a>
                                         <a asp-action="Delete" asp-route-id="@advance.Id" class="btn btn-danger">Delete</a>
                                     </td>
                                 }
@@ -92,9 +91,6 @@
                                     <td>@advance.ApprovalDate.ToString("dd/MM/yyyy")</td>
                                 }
                             }
-                            <td>
-                                <a class="details btn btn-primary">Update</a>
-                            </td>
                         </tr>
                     }
                 }
