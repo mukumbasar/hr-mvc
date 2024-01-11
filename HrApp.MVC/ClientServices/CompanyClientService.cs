@@ -23,8 +23,8 @@ namespace HrApp.MVC.ClientServices
             this.updatevalidator = updatevalidator;
         }
 
-        public async Task<JsonResponse<List<ListCompanyViewModel>>> GetCompanies() =>
-            await validationService.ProcessResponse<JsonResponse<List<ListCompanyViewModel>>>(await _httpClient.GetAsync("Company"));
+        public async Task<JsonResponse<List<ListCompanyViewModel>>> GetCompanies(bool onlyFreeCompanies = false) =>
+            await validationService.ProcessResponse<JsonResponse<List<ListCompanyViewModel>>>(await _httpClient.GetAsync($"Company?isFree={onlyFreeCompanies}"));
 
         public async Task<JsonResponse<UpdateCompanyViewModel>> GetCompany(int id) =>
             await validationService.ProcessResponse<JsonResponse<UpdateCompanyViewModel>>(await _httpClient.GetAsync($"Company/{id}"));

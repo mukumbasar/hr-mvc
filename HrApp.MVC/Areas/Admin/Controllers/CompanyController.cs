@@ -2,6 +2,7 @@
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Company;
 using HrApp.MVC.ClientServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 
@@ -13,7 +14,7 @@ namespace HrApp.MVC.Areas.Admin.Controllers
     {
         private readonly CompanyClientService _companyClientService;
         private readonly ResponseHandler responseHandler;
-        
+
         public INotyfService _notifyService { get; }
 
         public CompanyController(INotyfService notifyService, CompanyClientService companyClientService, ResponseHandler responseHandler)
@@ -39,6 +40,12 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             var companies = await _companyClientService.GetCompanies();
             if (User.FindFirstValue("role") == "Admin")
                 companies.Data = companies.Data.Where(x => x.Id == int.Parse(User.FindFirstValue("company"))).ToList();
+            return Json(companies);
+        }
+
+        public async Task<IActionResult> GetFreeCompanies()
+        {
+            var companies = await _companyClientService.GetCompanies(true);
             return Json(companies);
         }
 
@@ -69,9 +76,9 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(UpdateCompanyViewModel updateCompanyViewModel) => 
+        public async Task<IActionResult> Edit(UpdateCompanyViewModel updateCompanyViewModel) =>
             responseHandler.HandleResponse(await _companyClientService.UpdateCompany(updateCompanyViewModel, ModelState), "List", "List", this);
-        
+
 
         //[HttpPost]
         //[ValidateAntiForgeryToken]
