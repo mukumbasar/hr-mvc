@@ -1,7 +1,9 @@
 ﻿using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Company;
 using HrApp.MVC.ClientServices;
+using HrApp.MVC.Models.Advance;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol.Plugins;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
@@ -10,6 +12,7 @@ namespace HrApp.MVC.Areas.Admin.Controllers
     {
         private readonly CompanyClientService _companyClientService;
         private readonly ResponseHandler responseHandler;
+        
         public INotyfService _notifyService { get; }
 
         public CompanyController(INotyfService notifyService, CompanyClientService companyClientService, ResponseHandler responseHandler)
@@ -36,6 +39,12 @@ namespace HrApp.MVC.Areas.Admin.Controllers
             return Json(companies);
         }
 
+        public async Task<IActionResult> GetCompany(int id)
+        {
+            ViewBag.CompanyTypes = await _companyClientService.GetCompanyTypes();
+            return responseHandler.HandleResponse(await _companyClientService.GetCompany(id), "_CompanyPartialView", "Index", this);
+        }
+
         [HttpGet]
         public async Task<IActionResult> Add()
         {
@@ -55,5 +64,36 @@ namespace HrApp.MVC.Areas.Admin.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(UpdateCompanyViewModel updateCompanyViewModel) => 
+            responseHandler.HandleResponse(await _companyClientService.UpdateCompany(updateCompanyViewModel, ModelState), "List", "List", this);
+        
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public IActionResult Edit(UpdateCompanyViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        // Map your EditCompanyViewModel to your domain model
+        //        var company = new Company
+        //        {
+        //            Id = model.CompanyId,
+        //            CompanyTypeId = model.CompanyTypeId,
+        //            // Map other properties accordingly
+        //        };
+
+        //        // Update the company in your service or repository
+        //        _companyService.UpdateCompany(company);
+
+        //        // Redirect to the company details page or any other appropriate page
+        //        return RedirectToAction("Details", new { id = model.CompanyId });
+        //    }
+
+        //    // If ModelState is not valid, re-render the edit view with validation errors
+        //    return View(model);
+        //}
+
     }
 }
