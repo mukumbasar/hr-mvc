@@ -74,9 +74,10 @@
                             {
                                 <td></td>
                                 <td>
-                                    <a class="file btn btn-light">Show File</a>
-                                    <a class="details btn btn-primary">Update</a>
-                                    <a asp-action="Delete" asp-route-id="@expense.Id" class="btn btn-danger">Delete</a>
+                                    <a class="details" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a> |
+                                    <a asp-action="Delete" asp-route-id="@expense.Id" class="details">
+                                        <i class="fa-regular fa-trash-can"></i> Delete</a> |
+                                    <a class="details" style="cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i> Update</a>
                                 </td>
                             }
                             else

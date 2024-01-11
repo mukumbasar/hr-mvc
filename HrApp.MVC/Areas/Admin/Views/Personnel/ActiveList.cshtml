@@ -29,9 +29,7 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
-            <th>Second Name</th>
             <th>Surname</th>
-            <th>Second Surname</th>
             <th>Birth Year</th>
             <th>Birth Place</th>
             <th>Turkish Identification Number</th>
@@ -56,10 +54,8 @@
                 {
                     <tr>
                         <td>@personnel.Id</td>
-                        <td>@personnel.Name</td>
-                        <td>@personnel.SecondName</td>
-                        <td>@personnel.Surname</td>
-                        <td>@personnel.SecondSurname</td>
+                        <td>@personnel.Name @personnel.SecondName</td>
+                        <td>@personnel.Surname @personnel.SecondSurname</td>
                         <td>@personnel.BirthYear.ToString("dd/MM/yyyy")</td>
                         <td>@personnel.BirthPlace</td>
                         <td>@personnel.TurkishIdentificationNumber</td>
