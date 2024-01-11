@@ -1,0 +1,55 @@
+﻿@using HrApp.MVC.Models.Advance
+
+@model List<ReadAdvanceViewModel>
+
+
+
+
+<table class="table table-bordered table-striped data-table" id="Advances">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Advance Type</th>
+            <th>Amount</th>
+            <th>Currency</th>
+            <th>Request Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            if (Model != null)
+            {
+                @foreach (var advance in Model)
+                {
+                    <tr>
+                        <td>@advance.Id</td>
+                        <td>@advance.AdvanceTypeName</td>
+                        <td>@advance.Amount</td>
+                        <td>@advance.Currency</td>
+                        <td>@advance.RequestDate.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            <a asp-action="Approve" class="details btn btn-primary" asp-route-id="@advance.Id"
+                               asp-route-data="advance" asp-route-isApproved="true">Approve</a>
+                            <a asp-action="Approve" asp-route-id="@advance.Id" asp-route-data="advance"
+                               class="btn btn-danger" asp-route-isApproved="false">Deny</a>
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
+
+
+<script>
+    $(document).ready(function () {
+        // Initialize DataTables for each table with a unique class
+        $('#Advances').DataTable({
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "colvis"],
+        });
+    });
+</script>
