@@ -30,7 +30,7 @@
                     <div class="form-group">
                         <label asp-for="File" class="control-label">File</label>
                         <input asp-for="File" type="file" class="form-control-file"
-                            accept=".jpg , .jpeg , .png, .pdf" />
+                               accept=".jpg , .jpeg , .png, .pdf" />
                         <span asp-validation-for="File" class="text-danger"></span>
                     </div>
                     <input class="btn btn-primary" type="submit" value="Add">
@@ -45,54 +45,56 @@
     </div>
 </div>
 
-<table class="grid table text-dark mb-0" id="Expenses">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Expense Type</th>
-            <th>Amount</th>
-            <th>Currency</th>
-            <th>Approval Status</th>
-            <th>Approval Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (ViewBag.Expenses != null)
-            {
-                @foreach (var expense in ViewBag.Expenses)
+<div class="container">
+    <table class="grid table text-dark mb-0" id="Expenses">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Expense Type</th>
+                <th>Amount</th>
+                <th>Currency</th>
+                <th>Approval Status</th>
+                <th>Approval Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (ViewBag.Expenses != null)
                 {
-                    <tr>
-                        <td>@expense.Id</td>
-                        <td>@expense.ExpenseTypeName</td>
-                        <td>@expense.Amount</td>
-                        <td>@expense.Currency</td>
-                        <td>@expense.ApprovalStatus</td>
-                        @{
-                            if (expense.ApprovalStatus == "Waiting...")
-                            {
-                                <td></td>
-                                <td>
-                                    <a class="file" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a> |
-                                    <a asp-action="Delete" asp-route-id="@expense.Id" class="details">
-                                        <i class="fa-regular fa-trash-can"></i> Delete</a> |
-                                    <a class="details" style="cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i> Update</a>
-                                </td>
+                    @foreach (var expense in ViewBag.Expenses)
+                    {
+                        <tr>
+                            <td>@expense.Id</td>
+                            <td>@expense.ExpenseTypeName</td>
+                            <td>@expense.Amount</td>
+                            <td>@expense.Currency</td>
+                            <td>@expense.ApprovalStatus</td>
+                            @{
+                                if (expense.ApprovalStatus == "Waiting...")
+                                {
+                                    <td></td>
+                                    <td>
+                                        <a class="file" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a> |
+                                        <a asp-action="Delete" asp-route-id="@expense.Id" class="details">
+                                            <i class="fa-regular fa-trash-can"></i> Delete
+                                        </a> |
+                                        <a class="details" style="cursor:pointer;"><i class="fa-regular fa-pen-to-square"></i> Update</a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>@expense.ApprovalDate.ToString("dd/MM/yyyy")</td>
+                                    <td></td>
+                                }
                             }
-                            else
-                            {
-                                <td>@expense.ApprovalDate.ToString("dd/MM/yyyy")</td>
-                                <td></td>
-                            }
-                        }
-                    </tr>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
-
+        </tbody>
+    </table>
+</div>
 <div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
