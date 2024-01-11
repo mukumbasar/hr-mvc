@@ -27,30 +27,35 @@ namespace MyApp.Namespace
         }
         public async Task<ActionResult> Index()
         {
-            
+
             return View();
         }
 
         public async Task<ActionResult> GetLeaves()
         {
             var temp = leaveClientService.GetLeaves(User.FindFirstValue("company")).Result.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
-            return PartialView("_LeaveApprovalPartialView", temp);
+            return View(temp);
         }
 
         public async Task<ActionResult> GetAdvances()
         {
             var temp = advanceClientService.GetAdvances(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
-            return PartialView("_AdvanceApprovalPartialView", temp);
+            return View(temp);
         }
 
         public async Task<ActionResult> GetExpenses()
         {
             var temp = expenseClientService.GetExpenses(User.FindFirstValue("company")).Result.Data.Where(x => x.ApprovalStatus.ToLower().Contains("waiting")).ToList();
-            return PartialView("_ExpenseApprovalPartialView", temp);
+            return View(temp);
         }
         public async Task<ActionResult> Approve(string id, string data, bool isApproved)
         {
-            return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "Index", "Index", this);
+            if (data == "leave")
+                return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetLeaves", "GetLeaves", this);
+            else if (data == "advance")
+                return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetExpense", "GetExpense", this);
+            else
+                return (ActionResult)responseHandler.HandleResponse(await approvalClientService.Approve(id, data, isApproved), "GetExpenses", "GetExpenses", this);
         }
 
     }

@@ -1,13 +1,14 @@
-﻿using AspNetCoreHero.ToastNotification.Abstractions;
+﻿using System.Security.Claims;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using HrApp.MVC.Areas.Admin.Models.Company;
 using HrApp.MVC.ClientServices;
-using HrApp.MVC.Models.Advance;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
 
 namespace HrApp.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize]
     public class CompanyController : Controller
     {
         private readonly CompanyClientService _companyClientService;
@@ -36,6 +37,8 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         public async Task<IActionResult> GetCompanies()
         {
             var companies = await _companyClientService.GetCompanies();
+            if (User.FindFirstValue("role") == "Admin")
+                companies.Data = companies.Data.Where(x => x.Id == int.Parse(User.FindFirstValue("company"))).ToList();
             return Json(companies);
         }
 

@@ -171,8 +171,8 @@
                     url: "/Expense/ReadFile",
                     data: { "id": id },
                     success: function (response) {
-                        $("#partialmodal").find(".modal-body").html(response);
-                        $("#partialmodal").modal('show');
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
                     },
                     failure: function (response) {
                         alert(response.responsetext);

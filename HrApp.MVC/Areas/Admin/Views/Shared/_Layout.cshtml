@@ -164,10 +164,24 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Approval" asp-action="Index" class="nav-link @(currentController == "Advance"
-                        && currentAction == "Index" ? "active" : "")">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetExpenses" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetExpenses" ? "active" : "")">
                                             <i class="nav-icon fas fa-check"></i>
-                                            <p>Approval</p>
+                                            <p>Expense Approval</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetAdvances" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetAdvances" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Advance Approval</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetLeaves" class="nav-link @(currentController == "Approval"
+                        && currentAction == "GetLeaves" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Leave Approval</p>
                                         </a>
                                     </li>
                                 }
