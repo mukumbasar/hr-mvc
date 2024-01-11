@@ -13,16 +13,21 @@ namespace HrApp.MVC.ClientServices
         private readonly HttpClient _httpClient;
         private readonly ValidationService validationService;
         private readonly AddCompanyViewModelValidator addvalidator;
+        private readonly UpdateCompanyViewModelValidator updatevalidator;
 
-        public CompanyClientService(IHttpClientFactory httpClientFactory, ValidationService validationService, AddCompanyViewModelValidator addvalidator)
+        public CompanyClientService(IHttpClientFactory httpClientFactory, ValidationService validationService, AddCompanyViewModelValidator addvalidator, UpdateCompanyViewModelValidator updatevalidator)
         {
             _httpClient = httpClientFactory.CreateClient("api");
             this.validationService = validationService;
             this.addvalidator = addvalidator;
+            this.updatevalidator = updatevalidator;
         }
 
         public async Task<JsonResponse<List<ListCompanyViewModel>>> GetCompanies() =>
             await validationService.ProcessResponse<JsonResponse<List<ListCompanyViewModel>>>(await _httpClient.GetAsync("Company"));
+
+        public async Task<JsonResponse<UpdateCompanyViewModel>> GetCompany(int id) =>
+            await validationService.ProcessResponse<JsonResponse<UpdateCompanyViewModel>>(await _httpClient.GetAsync($"Company/{id}"));
 
         public async Task<List<SelectListItem>> GetCompanyTypes() =>
             validationService.ProcessResponse<JsonResponse<List<CompanyTypeViewModel>>>(await _httpClient.GetAsync("Company/Types")).Result.Data.Select(x => new SelectListItem(x.Name, x.Id.ToString())).ToList();
@@ -40,6 +45,18 @@ namespace HrApp.MVC.ClientServices
             return await _httpClient.PostAsJsonAsync("Company", addCompanyViewModel);
         });
 
+        public async Task<JsonResponse<string>> UpdateCompany(UpdateCompanyViewModel updateCompanyViewModel, ModelStateDictionary modelState) =>
+            await validationService.ExecuteValidatedRequestAsync<UpdateCompanyViewModel, string>(
+                updateCompanyViewModel,
+                updatevalidator,
+                modelState,
+        async () =>
+        {
+            updateCompanyViewModel.ImageData = await
+    ImageConversions.ConvertToByteArrayAsync
+    (updateCompanyViewModel.File);
+            return await _httpClient.PutAsJsonAsync("Company", updateCompanyViewModel);
+        });
 
 
     }

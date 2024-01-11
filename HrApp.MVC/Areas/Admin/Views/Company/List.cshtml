@@ -111,14 +111,29 @@
                             @item.TaxOffice
                         </td>
                         <td>
-                            <a asp-action="Edit">Edit</a> |
-                            <a asp-action="Details">Details</a> |
-                            <a asp-action="Delete">Delete</a>
+                            <a class="details btn btn-primary" data-id="@item.Id">Update</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
+    </div>
+</div>
+
+<div class="modal fade" id="partialModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Company</h5>
+                <button type="button" class="fa fa-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
     </div>
 </div>
 
@@ -138,6 +153,12 @@
     <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="~/AdminLTE-3.1.0/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
+    
+
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
     <script>
         $(document).ready(function () {
             $('#companies').DataTable({
@@ -146,7 +167,25 @@
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "colvis"],
             }).buttons().container().appendTo('#companies_wrapper .col-md-6:eq(0)');
+
+            $("#companies").on("click", ".details", function () {
+                var id = $(this).data("id");
+                console.log(id);
+                $.ajax({
+                    type: "GET",
+                    url: "GetCompany/" + id,
+                    success: function (response) {
+                        $("#partialModal").find(".modal-body").html(response);
+                        $("#partialModal").modal('show');
+                    },
+                    failure: function (response) {
+                        alert(response.responseText);
+                    },
+                    error: function (response) {
+                        alert(response.responseText);
+                    }
+                });
+            });
         });
     </script>
-
 }
