@@ -2,46 +2,50 @@
 
 @model List<ReadLeaveViewModel>
 
-<table class="table table-bordered table-striped data-table" id="Leaves">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Leave Type</th>
-            <th>Start Date</th>
-            <th>Day Count</th>
-            <th>End Date</th>
-            <th>Request Date</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            if (Model != null)
-            {
-                @foreach (var leave in Model)
+<div class="container">
+    <table class="table table-bordered table-striped data-table" id="Leaves">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Leave Type</th>
+                <th>Start Date</th>
+                <th>Day Count</th>
+                <th>End Date</th>
+                <th>Request Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                if (Model != null)
                 {
-                    <tr>
-                        <td>@leave.Id</td>
-                        <td>@leave.LeaveTypeName</td>
-                        <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
-                        <td>@leave.NumDays</td>
-                        <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
-                        <td>@leave.RequestDate.ToString("dd/MM/yyyy")</td>
-                        <td>
-                            <a asp-action="Approve" asp-route-id="@leave.Id" class="details" asp-route-data="leave"
-                                asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
-                            |
-                            <a asp-action="Approve" class="details" asp-route-id="@leave.Id" asp-route-data="leave"
-                                asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+                    @foreach (var leave in Model)
+                    {
+                        <tr>
+                            <td>@leave.Id</td>
+                            <td>@leave.LeaveTypeName</td>
+                            <td>@leave.StartDate.ToString("dd/MM/yyyy")</td>
+                            <td>@leave.NumDays</td>
+                            <td>@leave.EndDate.ToString("dd/MM/yyyy")</td>
+                            <td>@leave.RequestDate.ToString("dd/MM/yyyy")</td>
+                            <td>
+                                <a asp-action="Approve" asp-route-id="@leave.Id" class="details" asp-route-data="leave"
+                                   asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
+                                |
+                                <a asp-action="Approve" class="details" asp-route-id="@leave.Id" asp-route-data="leave"
+                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
 
 
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    }
                 }
             }
-        }
-    </tbody>
-</table>
+        </tbody>
+    </table>
+</div>
+
+
 
 
 @section Scripts {
