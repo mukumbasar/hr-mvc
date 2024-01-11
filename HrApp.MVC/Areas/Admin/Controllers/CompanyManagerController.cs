@@ -21,13 +21,10 @@ namespace HrApp.MVC.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var temp = await personelClientService.GetAppUserAsync();
-            ViewBag.Personnels = temp.Data.Where(x => x.IsActive).ToList();
+            var temp = await personelClientService.GetAllAdmin();
+            ViewBag.CompanyManagers = temp.Data.Where(x => x.IsActive).ToList();
             return View();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Add() => View();
         [HttpPost]
         public async Task<IActionResult> Add(AppUserAddViewModel userViewModel) =>
              responseHandler.HandleResponse(await personelClientService.AddAppUserAddViewModelAsync(userViewModel, ModelState, User.IsInRole("WebsiteManager")), "Index", "Add", this);
