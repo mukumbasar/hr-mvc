@@ -12,7 +12,7 @@
         <h1>List Companies</h1>
 
         <p>
-            <a asp-action="Add">Create New</a>
+            <a asp-action="Add" class="btn btn-primary">Create New Company</a>
         </p>
         <table class="table table-bordered table-striped dataTable dtr-inline" id="companies">
             <thead>
@@ -69,7 +69,7 @@
                     <tr>
                         <td>
                             <img src="@await ImageConversions.ConvertToIFormFileAsync(item.ImageData)" class="img-fluid"
-                                alt="User Image" style="max-width: 100%; height: auto;">
+                                 alt="User Image" style="height: 100px;width: auto; ">
                         </td>
                         <td>
                             @item.Name
