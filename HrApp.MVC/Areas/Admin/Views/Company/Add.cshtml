@@ -30,7 +30,8 @@
                         </div>
                         <div>
                             <label for="mersisno">Mersis No:</label>
-                            <input id="mersisno" class="form-control" asp-for="MersisNo" />
+                            <input id="mersisno" class="form-control" type="tel" asp-for="MersisNo" data-maxlength="16"
+                                   oninput="this.value=this.value.slice(0,this.dataset.maxlength)" />
                             <span asp-validation-for="MersisNo" class="text-danger"></span>
                         </div>
                         <div>
@@ -42,23 +43,26 @@
                             <label for="taxno">Tax No:</label>
                             <input id="taxno" class="form-control" asp-for="TaxNo" />
                             <span asp-validation-for="TaxNo" class="text-danger"></span>
+                        </div>
+                        <div>
                             <label for="taxof">Tax Office:</label>
                             <input id="taxof" class="form-control" asp-for="TaxOffice" />
                             <span asp-validation-for="TaxOffice" class="text-danger"></span>
                         </div>
                         <div>
                             <label for="phone">Phone Number:</label>
-                            <input id="phone" class="form-control" asp-for="PhoneNumber" />
+                            <input id="phone" class="form-control" type="tel" asp-for="PhoneNumber" data-maxlength="11"
+                                   oninput="this.value=this.value.slice(0,this.dataset.maxlength)" />
                             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                         </div>
                         <div>
                             <label for="address">Address:</label>
-                            <input id="address" class="form-control" asp-for="Address" />
+                            <textarea id="address" asp-for="Address" rows="4" maxlength="200" class="form-control"></textarea>
                             <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div>
                             <label for="email">Email Address:</label>
-                            <input id="email" class="form-control" asp-for="EmailAddress" />
+                            <input id="email" class="form-control" type="email" asp-for="EmailAddress" />
                             <span asp-validation-for="EmailAddress" class="text-danger"></span>
                         </div>
                         @* <div>
