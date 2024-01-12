@@ -159,9 +159,16 @@
                                     </li>
                                     <li class="nav-item">
                                         <a asp-area="Admin" asp-controller="Personnel" asp-action="Add"
-                                            class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
+                                           class="nav-link @(currentController == "Personnel" && currentAction == "Add" ? "active" : "")">
                                             <i class="nav-icon fas fa-user-plus"></i>
                                             <p>Add Personnel</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetAdvances" class="nav-link @(currentController == "Approval"
+                                                                                                                                 && currentAction == "GetAdvances" ? "active" : "")">
+                                            <i class="nav-icon fas fa-check"></i>
+                                            <p>Advance Approval</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -171,13 +178,7 @@
                                             <p>Expense Approval</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a asp-area="Admin" asp-controller="Approval" asp-action="GetAdvances" class="nav-link @(currentController == "Approval"
-                        && currentAction == "GetAdvances" ? "active" : "")">
-                                            <i class="nav-icon fas fa-check"></i>
-                                            <p>Advance Approval</p>
-                                        </a>
-                                    </li>
+
                                     <li class="nav-item">
                                         <a asp-area="Admin" asp-controller="Approval" asp-action="GetLeaves" class="nav-link @(currentController == "Approval"
                         && currentAction == "GetLeaves" ? "active" : "")">
