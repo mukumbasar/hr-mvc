@@ -38,7 +38,9 @@
                                     asp-route-isApproved="false"><i class="fa-regular fa-circle-xmark"></i> Deny</a>
                                 |
                                 <a asp-action="Approve" class="details" asp-route-id="@expense.Id" asp-route-data="expense"
-                                    asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a>
+                                   asp-route-isApproved="true"><i class="fa-regular fa-circle-check"></i> Approve</a> | <a class="file" style="cursor:pointer;"><i class="fa-regular fa-file"></i> Show File</a>
+
+
 
                             </td>
                         </tr>
@@ -75,6 +77,12 @@
                 "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "colvis"],
             }).buttons().container().appendTo('#Expenses_wrapper .col-md-6:eq(0)');
+        });
+        $(function () {
+            $("#Expenses .file").click(function () {
+                var id = $(this).closest("tr").find("td").eq(0).html();
+                window.open('/Expense/GetReport/' + id, '_blank');
+            });
         });
     </script>
 }
