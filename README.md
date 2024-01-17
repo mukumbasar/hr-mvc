@@ -1,20 +1,6 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
-
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+![Screenshot 2024-01-12 144748](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/cee1d919-cabe-4260-994f-d4279636e3fa)
+![Screenshot 2024-01-12 115613](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/873fe867-8b79-4281-9c3b-7a134ffefb97)
+![Screenshot 2024-01-12 115816](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/2c0f1c31-1c28-4639-8703-b858849ff20d)
+![Screenshot 2024-01-12 115843](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/cc34b013-a358-496a-ac62-e53ca2da4f39)
+![Screenshot 2024-01-12 120105](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/9f38b8e9-f836-4049-91fd-523da2dac8e7)
+![Screenshot 2024-01-12 120345](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/7ceba0f9-4cfc-40dd-bc7c-9f4952a41691)
