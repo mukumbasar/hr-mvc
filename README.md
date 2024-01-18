@@ -1,4 +1,4 @@
-# HR Website
+# HR Website - MVC
 
 The presentation end - which implements services, validators, various helpers, options, a response handler, a touch notification library and other numerous extensions - of the HR project in hand: https://github.com/mukumbasar/hr-website-api
 
