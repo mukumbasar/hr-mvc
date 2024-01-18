@@ -1,4 +1,6 @@
-The presentation end - which implements services, validators, various helpers, options, a response handler, a touch notification library and other numerous extensions - of the HR project in hand: https://github.com/mukumbasar/hr-app-api
+# HR Website
+
+The presentation end - which implements services, validators, various helpers, options, a response handler, a touch notification library and other numerous extensions - of the HR project in hand: https://github.com/mukumbasar/hr-website-api
 
 ![Screenshot 2024-01-12 144748](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/cee1d919-cabe-4260-994f-d4279636e3fa)
 ![Screenshot 2024-01-12 115613](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/873fe867-8b79-4281-9c3b-7a134ffefb97)
