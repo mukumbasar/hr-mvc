@@ -1,6 +1,6 @@
 # HR Website - MVC
 
-The presentation end - which implements a personalized template, services, validators, various helpers, options, a response handler, a toast notification library and other numerous extensions - of the back-end of the project: https://github.com/mukumbasar/hr-website-api
+The presentation end - which implements a personalized template, services, validators, various helpers, options, a response handler, a toast notification library and other numerous extensions - of the back-end of the project: https://github.com/mukumbasar/hr-api
 
 ![Screenshot 2024-01-12 144748](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/cee1d919-cabe-4260-994f-d4279636e3fa)
 ![Screenshot 2024-01-12 115613](https://github.com/mukumbasar/hr-app-mvc/assets/93601245/873fe867-8b79-4281-9c3b-7a134ffefb97)
